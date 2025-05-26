@@ -1,6 +1,7 @@
 package app.src.main.java.db_ass.data;
 
 import java.util.List;
+import java.util.Objects;
 
 public final class Persona {
 
@@ -45,6 +46,11 @@ public final class Persona {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.cf, this.nome, this.cognome, this.email, this.password, this.utente, this.allenatore, this.arbitro);
     }
 
     @Override

@@ -6,11 +6,11 @@ import java.util.Objects;
 public final class Campo {
 
     public final int numeroCampo;
-    public final String tipo;
+    public final Sport tipo;
 
-    public Campo(int numeroCampo, String tipo) {
+    public Campo(int numeroCampo, Sport tipo) {
         this.numeroCampo = numeroCampo;
-        this.tipo = tipo == null ? "" : tipo;
+        this.tipo = tipo;
     }
 
     @Override

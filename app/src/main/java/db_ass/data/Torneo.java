@@ -79,13 +79,7 @@ public final class Torneo {
                 Printer.field("Premio", this.premio),
                 Printer.field("Massimo Partecipanti", this.massimoPartecipanti),
                 Printer.field("Quota Iscrizione", this.quotaIscrizione),
-                Printer.field("Tipo", (this.tipo.equals(TipoSquadra.CALCETTO))
-                                            ? "Calcetto"
-                                            : (this.tipo.equals(TipoSquadra.TENNIS_DOPPIO))
-                                            ? "Tennis Doppio"
-                                            : (this.tipo.equals(TipoSquadra.TENNIS_SINGOLO))
-                                            ? "Tennis Singolo"
-                                            : "Padel"),
+                Printer.field("Tipo", this.tipo),
                 Printer.field("Vincitore", this.vincitore)
             )
         );

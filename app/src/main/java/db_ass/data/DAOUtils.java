@@ -16,21 +16,21 @@ public final class DAOUtils {
         } catch (Exception e) {
             throw new DAOException(e);
         }
+    }
 
         public static PreparedStatement prepare(Connection connection, String query, Object... values) throws SQLException {
             PreparedStatement statement = null;
             try {
                 statement = connection.prepareStatement(query);
-                for (int i = 0; i < values.lenght; i++) {
+                for (int i = 0; i < values.length; i++) {
                     statement.setObject(i + 1, values[i]);
                 }
                 return statement;
             } catch (Exception e) {
-                if (statement != NULL) {
+                if (statement != null) {
                     statement.close();
                 }
                 throw e;
             }
         }
     }
-}

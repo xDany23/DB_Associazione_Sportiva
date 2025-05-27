@@ -1,8 +1,19 @@
 package app.src.main.java.db_ass.data;
 
 public enum TipoSquadra {
-    CALCETTO,
-    TENNIS_SINGOLO,
-    TENNIS_DOPPIO,
-    PADEL;
+    CALCETTO("Calcetto"),
+    TENNIS_SINGOLO("Tennis singolo"),
+    TENNIS_DOPPIO("Tennis doppio"),
+    PADEL("Padel");
+
+    private final String tipo;
+
+    TipoSquadra(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return this.tipo;
+    }
 }

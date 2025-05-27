@@ -1,0 +1,17 @@
+package app.src.main.java.db_ass.data;
+
+public enum Sport {
+    CALCETTO("Calcetto"),
+    TENNIS("Tennis"),
+    PADEL("Padel");
+
+    private final String sport;
+
+    Sport(String sport) {
+        this.sport = sport;
+    }
+
+    public String sport() {
+        return this.sport;
+    }
+}

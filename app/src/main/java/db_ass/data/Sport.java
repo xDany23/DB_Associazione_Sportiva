@@ -11,7 +11,8 @@ public enum Sport {
         this.sport = sport;
     }
 
-    public String sport() {
+    @Override
+    public String toString() {
         return this.sport;
     }
 }

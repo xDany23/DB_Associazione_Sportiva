@@ -140,8 +140,21 @@ public final class Queries {
 			VALUES (?,?,?,?,?,?,?,?);		
 			""";
 
-	public  static final String IS_TOURNAMENT_ENTERABLE = 
+	public static final String IS_TOURNAMENT_ENTERABLE = 
 			"""
-					
+			SELECT *
+			FROM torneo t 
+			WHERE t.CodiceTorneo = ?
+			AND t.DataSvolgimento > now()
+			AND t.Tipo = ?
+			AND t.MassimoPartecipanti > (select count(*)
+										from iscrizione i
+										where i.CodiceTorneo = t.CodiceTorneo);		
+			""";
+
+	public static final String ENTER_TOURNAMENT = 
+			"""
+			INSERT INTO iscrizione(CodiceTorneo, CodiceSquadra)
+			VALUES (?,?);		
 			""";
 }

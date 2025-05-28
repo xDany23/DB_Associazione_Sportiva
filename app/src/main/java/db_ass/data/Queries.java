@@ -164,7 +164,7 @@ public final class Queries {
 
 	public static final String CREATE_TOURNAMENT = 
 			"""
-			INSERT INTO torneo(DataSvolgimento, Nome, Premio, MassimoPartecipanti, QuotaIscrizione, CodiceTorneo, Tipo)
+			INSERT INTO torneo(DataSvolgimento, Nome, Premio, MassimoPartecipanti, QuotaIscrizione, CodiceTorneo, Tipo, Vincitore)
 			VALUES (?,?,?,?,?,?,?);
 			""";
 

@@ -2,6 +2,7 @@ package db_ass.data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -118,6 +119,43 @@ public final class Torneo {
                 throw new DAOException(e);
             }
             return rowsInserted;
+        }
+
+        public static int createTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota, int codiceTorneo, TipoSquadra tipo, Squadra vincitore, Connection connection) {
+            int rowsInserted;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_TOURNAMENT, dataSvolgimento, nome, premio, maxp, quota, codiceTorneo, tipo, vincitore);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
+
+        public static List<Persona> findAllPartecipants(int codiceTorneo, Connection connection) {
+            List<Persona> preview = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_ALL_PARTECIPANTS, codiceTorneo);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var cf = resultSet.getString("CF");
+                    var nome = resultSet.getString("Nome");
+                    var cognome = resultSet.getString("Cognome");
+                    var email = resultSet.getString("E_mail");
+                    var pass = resultSet.getString("Password");
+                    var utente = resultSet.getBoolean("Utente");
+                    var allenatore = resultSet.getBoolean("Allenatore");
+                    var arbitro = resultSet.getBoolean("Arbitro");
+                    var lezioniTenute = resultSet.getInt("LezioniTenute");
+                    var persona = new Persona(cf, nome, cognome, email, pass, utente, allenatore, arbitro, lezioniTenute);
+                    preview.add(persona); 
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
         }
     }
     

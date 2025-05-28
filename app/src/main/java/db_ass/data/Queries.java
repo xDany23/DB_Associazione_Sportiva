@@ -44,7 +44,7 @@ public final class Queries {
 
 	public static final String FIND_JOINABLE_LESSON = 
 			"""
-			SELECT l.Giorno, l.NumeroCampo, l.OrarioInizio
+			SELECT l.*
 			FROM fascia_oraria f join lezione_privata l on (f.NumeroCampo = l.NumeroCampo and f.Giorno = l.Giorno and f.OrarioInizio = l.OrarioInizio)
 			WHERE l.DataSvolgimento = ?
 			AND f.OrarioInizio = ?

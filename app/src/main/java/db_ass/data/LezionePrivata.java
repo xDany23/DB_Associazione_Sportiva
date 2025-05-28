@@ -120,4 +120,8 @@ public class LezionePrivata {
             Printer.field("Partecipante 3", this.partecipante3)
         ));
     }
+
+    public static final class DAO {
+        
+    }
 }

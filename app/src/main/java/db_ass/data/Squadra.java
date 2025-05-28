@@ -177,4 +177,32 @@ public final class Squadra {
         }
         return rowsInserted;
     }
+
+    public static Squadra findTeam(int codiceSquadra, Connection connection) {
+        Squadra squadra;
+        try (
+            var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TEAM, codiceSquadra);
+            var resultSet = preparedStatement.executeQuery();
+        ) {
+            resultSet.next();
+            var nome = resultSet.getString("Nome");
+            var p1 = Persona.DAO.findPerson(resultSet.getString("Partecipante1"), connection);
+            var tipo = TipoSquadra.valueOf(resultSet.getString("Tipo").toUpperCase());
+            if (tipo.equals(TipoSquadra.TENNIS_SINGOLO)) {
+                squadra = new Squadra(codiceSquadra, nome, tipo, p1);
+            } else if (tipo.equals(TipoSquadra.TENNIS_DOPPIO) || tipo.equals(TipoSquadra.PADEL)) {
+                var p2 = Persona.DAO.findPerson(resultSet.getString("Partecipante2"), connection);
+                squadra = new Squadra(codiceSquadra, nome, tipo, p1, p2);
+            } else {
+                var p2 = Persona.DAO.findPerson(resultSet.getString("Partecipante2"), connection);
+                var p3 = Persona.DAO.findPerson(resultSet.getString("Partecipante3"), connection);
+                var p4 = Persona.DAO.findPerson(resultSet.getString("Partecipante4"), connection);
+                var p5 = Persona.DAO.findPerson(resultSet.getString("Partecipante5"), connection);
+                squadra = new Squadra(codiceSquadra, nome, tipo, p1, p2, p3, p4, p5);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return squadra;
+    }
 }

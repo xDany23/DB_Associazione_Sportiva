@@ -92,7 +92,7 @@ public class Corso {
                 resultSet.next();
                 var dataInizio = resultSet.getString("DataInizio");
                 var dataFine = resultSet.getString("DataFine");
-                Sport sport = Sport.valueOf(resultSet.getString("SportPraticato"));
+                Sport sport = Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase());
                 var prezzo = resultSet.getDouble("Prezzo");
                 Persona allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
                 corso = new Corso(dataInizio, dataFine, sport, prezzo, codiceCorso, allenatore);

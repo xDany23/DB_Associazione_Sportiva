@@ -1,5 +1,7 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +12,7 @@ public final class Torneo {
     public final String nome;
     public final String premio;
     public final int massimoPartecipanti;
-    public final float quotaIscrizione;
+    public final double quotaIscrizione;
     public final TipoSquadra tipo;
     public final Squadra vincitore;
 
@@ -19,7 +21,7 @@ public final class Torneo {
                   String nome, 
                   String premio, 
                   int massimoPartecipanti, 
-                  float quotaIscrizione, 
+                  double quotaIscrizione, 
                   TipoSquadra tipo, 
                   Squadra vincitore) {
         this.codiceTorneo = codiceTorneo;
@@ -86,7 +88,37 @@ public final class Torneo {
     }
 
     public static final class DAO {
-        //da fare
+        public static Torneo isTournementEnterable(int codiceTorneo, TipoSquadra tipo, Connection connection) {
+            Torneo torneo;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.IS_TOURNAMENT_ENTERABLE, codiceTorneo, tipo);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                resultSet.next();
+                var dataSvolgimento = resultSet.getString("DataSvolgimento");
+                var nome = resultSet.getString("Nome");
+                var premio = resultSet.getString("Premio");
+                var maxp = resultSet.getInt("MassimoPartecipanti");
+                var quota = resultSet.getDouble("QuotaIscrizione");
+                var vincitore = Squadra.findTeam(resultSet.getInt("Vincitore"), connection);
+                torneo = new Torneo(codiceTorneo, dataSvolgimento, nome, premio, maxp, quota, tipo, vincitore);
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return torneo;
+        }
+
+        public static int enterTournament(int codiceTorneo, int codiceSquadra, Connection connection) {
+            int rowsInserted;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ENTER_TOURNAMENT, codiceTorneo, codiceSquadra);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
     }
     
 }

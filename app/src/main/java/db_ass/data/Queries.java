@@ -137,6 +137,13 @@ public final class Queries {
 			VALUES (?,?,?,?,?,?,?,?);		
 			""";
 
+	public static final String FIND_TEAM = 
+			"""
+			SELECT *
+			FROM squadra
+			WHERE CodiceSquadra = ?;		
+			""";
+
 	public static final String IS_TOURNAMENT_ENTERABLE = 
 			"""
 			SELECT *

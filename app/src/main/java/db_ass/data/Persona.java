@@ -122,6 +122,7 @@ public final class Persona {
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_USER, cf);
                 var resultSet = preparedStatement.executeQuery();
             ) {
+                resultSet.next();
                 var Cf = resultSet.getString("CF");
                 var nome = resultSet.getString("Nome");
                 var cognome = resultSet.getString("Cognome");

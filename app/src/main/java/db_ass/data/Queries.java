@@ -1,6 +1,13 @@
 package db_ass.data;
 
 public final class Queries {
+
+	public static final String FIND_USER = 
+			"""
+			SELECT *
+			FROM persona
+			WHERE CF = ?;
+			""";
     
     public static final String REGISTER_USER = 
             """
@@ -97,5 +104,19 @@ public final class Queries {
 			UPDATE persona
 			SET LezioniTenute = LezioniTenute + 1
 			WHERE CF = ?;		
+			""";
+
+	public static final String FIND_ACTIVE_COURSE = 
+			"""
+			SELECT *
+			FROM corso
+			WHERE CodiceCorso = ?
+			AND DataFine > now();		
+			""";
+
+	public static final String JOIN_COURSE = 
+			"""
+			INSERT INTO partecipa(CF, CodiceCorso)
+			VALUES (?,?);		
 			""";
 }

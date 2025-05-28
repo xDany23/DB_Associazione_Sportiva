@@ -1,5 +1,7 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -127,6 +129,52 @@ public final class Squadra {
     }
 
     public static final class DAO {
-        //da fare
+        public static int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5, Connection connection) {
+            if (tipo.equals(TipoSquadra.TENNIS_SINGOLO)) {
+                return createNewSingleTennisTeam(nome, codiceSquadra, tipo, p1, connection);
+            } else if (tipo.equals(TipoSquadra.TENNIS_DOPPIO) || tipo.equals(TipoSquadra.PADEL)) {
+                return createNewDoubleTennisTeam(nome, codiceSquadra, tipo, p1, p2, connection);
+            } else if (tipo.equals(TipoSquadra.CALCETTO)) {
+                return createNewSoccerTeam(nome, codiceSquadra, tipo, p1, p2, p3, p4, p5, connection);
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    private static int createNewSingleTennisTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Connection connection) {
+        int rowsInserted;
+        try (
+            var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_NEW_TEAM, nome, codiceSquadra, tipo, p1);
+        ) {
+            rowsInserted = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return rowsInserted;
+    }
+
+    private static int createNewDoubleTennisTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Connection connection) {
+        int rowsInserted;
+        try (
+            var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_NEW_TEAM, nome, codiceSquadra, tipo, p1, p2);
+        ) {
+            rowsInserted = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return rowsInserted;
+    }
+
+    private static int createNewSoccerTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2,Persona p3, Persona p4, Persona p5, Connection connection) {
+        int rowsInserted;
+        try (
+            var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_NEW_TEAM, nome, codiceSquadra, tipo, p1, p2, p3, p4, p5);
+        ) {
+            rowsInserted = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return rowsInserted;
     }
 }

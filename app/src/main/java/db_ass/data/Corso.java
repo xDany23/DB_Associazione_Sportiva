@@ -2,6 +2,7 @@ package db_ass.data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Corso {
@@ -112,6 +113,28 @@ public class Corso {
                 throw new DAOException(e);
             }
             return rowsInserted;
+        }
+
+        public static List<Corso> findMostActiveCourses(Connection connection) {
+            List<Corso> preview = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_MOST_ACTIVE_COURSES);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var dataInizio = resultSet.getString("DataInizio");
+                    var dataFine = resultSet.getString("DataFine");
+                    var sport = Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase());
+                    var prezzo = resultSet.getDouble("Prezzo");
+                    var codiceCorso = resultSet.getInt("CodiceCorso");
+                    var allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
+                    var corso = new Corso(dataInizio, dataFine, sport, prezzo, codiceCorso, allenatore);
+                    preview.add(corso);
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
         }
     }
 }

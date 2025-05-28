@@ -108,9 +108,6 @@ public final class Queries {
 			"""
 			INSERT INTO lezione_privata(NumeroCampo, Giorno, OrarioInizio, DataSvolgimento, SportPraticato, Prezzo, Allenatore, Partecipante1)
 			VALUES (?,?,?,?,?,?,?,?);
-			UPDATE persona
-			SET LezioniTenute = LezioniTenute + 1
-			WHERE CF = ?;		
 			""";
 
 	public static final String UPDATE_TRAINER_LESSONS = 

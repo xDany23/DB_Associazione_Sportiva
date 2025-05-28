@@ -2,6 +2,7 @@ package db_ass.data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,6 +64,28 @@ public final class Campo {
                 throw new DAOException(e);
             }
             return campo;
+        }
+
+        public static List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo, Connection connection) {
+            List<FasciaOraria> preview = new ArrayList<>();
+            var campo = Campo.DAO.findField(numeroCampo, connection);
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_ALL_OCCUPIED_TIMES_OF_FIELD, numeroCampo);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var giorno = Giorno.valueOf(resultSet.getString("Giorno").toUpperCase());
+                    var orarioInizio = resultSet.getString("OrarioInizio");
+                    var orarioFine = resultSet.getString("OrarioFine");
+                    var tipo = TipoFascia.valueOf(resultSet.getString("Tipo").toUpperCase());
+                    var prezzo = resultSet.getDouble("Prezzo");
+                    var fascia = new FasciaOraria(campo, giorno, orarioInizio, orarioFine, tipo, prezzo);
+                    preview.add(fascia);
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
         }
     }
     

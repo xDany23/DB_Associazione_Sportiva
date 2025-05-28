@@ -55,6 +55,7 @@ public final class Campo {
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_USER, num);
                 var resultSet = preparedStatement.executeQuery();
             ) {
+                resultSet.next();
                 var numCampo = resultSet.getInt("NumeroCampo");
                 Sport sport = Sport.valueOf(resultSet.getString("Tipo").toUpperCase());
                 campo = new Campo(numCampo, sport);

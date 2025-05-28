@@ -2,6 +2,13 @@ package db_ass.data;
 
 public final class Queries {
 
+	public static final String FIND_FIELD = 
+			"""
+			SELECT *
+			FROM campo
+			WHERE NumeroCampo = ?;		
+			""";
+
 	public static final String FIND_USER = 
 			"""
 			SELECT *
@@ -106,6 +113,13 @@ public final class Queries {
 			WHERE CF = ?;		
 			""";
 
+	public static final String UPDATE_TRAINER_LESSONS = 
+			"""
+			UPDATE persona
+			SET LezioniTenute = LezioniTenute + 1
+			WHERE CF = ?;		
+			""";
+
 	public static final String FIND_ACTIVE_COURSE = 
 			"""
 			SELECT *
@@ -118,5 +132,16 @@ public final class Queries {
 			"""
 			INSERT INTO partecipa(CF, CodiceCorso)
 			VALUES (?,?);		
+			""";
+
+	public static final String CREATE_NEW_TEAM = 
+			"""
+			INSERT INTO squadra(Nome, CodiceSquadra, Tipo, Componenti1, Componenti2, Componenti3, Componenti4, Componenti5)
+			VALUES (?,?,?,?,?,?,?,?);		
+			""";
+
+	public  static final String IS_TOURNAMENT_ENTERABLE = 
+			"""
+					
 			""";
 }

@@ -106,6 +106,13 @@ public final class Queries {
 			WHERE CF = ?;		
 			""";
 
+	public static final String UPDATE_TRAINER_LESSONS = 
+			"""
+			UPDATE persona
+			SET LezioniTenute = LezioniTenute + 1
+			WHERE CF = ?;		
+			""";
+
 	public static final String FIND_ACTIVE_COURSE = 
 			"""
 			SELECT *

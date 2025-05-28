@@ -1,5 +1,7 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Corso {
@@ -78,5 +80,38 @@ public class Corso {
             Printer.field("Codice Corso", this.codiceCorso),
             Printer.field("Allenatore", this.allenatore)
         ));
+    }
+
+    public static final class DAO {
+        public static Corso findActiveCourses(int codiceCorso, Connection connection) {
+            Corso corso;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_ACTIVE_COURSE, codiceCorso);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                resultSet.next();
+                var dataInizio = resultSet.getString("DataInizio");
+                var dataFine = resultSet.getString("DataFine");
+                Sport sport = Sport.valueOf(resultSet.getString("SportPraticato"));
+                var prezzo = resultSet.getDouble("Prezzo");
+                Persona allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
+                corso = new Corso(dataInizio, dataFine, sport, prezzo, codiceCorso, allenatore);
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return corso;
+        }
+
+        public static int joinCourse(Persona persona, int codiceCorso, Connection connection) {
+            int rowsInserted;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_COURSE, persona.cf, codiceCorso);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
     }
 }

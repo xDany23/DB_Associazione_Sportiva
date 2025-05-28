@@ -1,4 +1,4 @@
-package app.src.main.java.db_ass.model;
+package db_ass.model;
 
 public class DBModel {
     

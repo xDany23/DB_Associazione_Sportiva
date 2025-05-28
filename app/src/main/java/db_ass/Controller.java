@@ -1,4 +1,4 @@
-package app.src.main.java.db_ass;
+package db_ass;
 
 public class Controller {
     

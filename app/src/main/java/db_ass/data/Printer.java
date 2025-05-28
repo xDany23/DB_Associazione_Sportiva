@@ -1,4 +1,4 @@
-package app.src.main.java.db_ass.data;
+package db_ass.data;
 
 import java.util.List;
 import java.util.stream.Collectors;

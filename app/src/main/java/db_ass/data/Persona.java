@@ -1,4 +1,4 @@
-package app.src.main.java.db_ass.data;
+package db_ass.data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -73,7 +73,7 @@ public final class Persona {
     }
 
     public static final class DAO {
-        public int addUser(Persona p, Connection connection) {
+        public static int addUser(Persona p, Connection connection) {
             int rowsInserted;
             try {
                 var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true);

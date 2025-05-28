@@ -1,4 +1,4 @@
-package app.src.main.java.db_ass.data;
+package db_ass.data;
 
 public enum TipoSquadra {
     CALCETTO("Calcetto"),

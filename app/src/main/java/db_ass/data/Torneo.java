@@ -157,6 +157,42 @@ public final class Torneo {
             }
             return preview;
         }
+
+        public static Torneo findTournament(int codiceTorneo, Connection connection) {
+            Torneo torneo;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TOURNAMENT, codiceTorneo);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                resultSet.next();
+                var data = resultSet.getString("DataSvolgimento");
+                var nome = resultSet.getString("Nome");
+                var premio = resultSet.getString("Premio");
+                var maxp = resultSet.getInt("MassimoPartecipanti");
+                var quota = resultSet.getDouble("QuotaIscrizione");
+                var tipo = TipoSquadra.valueOf(resultSet.getString("Tipo").toUpperCase());
+                var vincitore = Squadra.findTeam(resultSet.getInt("Vincitore"), connection);
+                torneo = new Torneo(codiceTorneo, data, nome, premio, maxp, quota, tipo, vincitore);
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return torneo;
+        }
+
+        public static List<Partita> visualizeAllTournamentMatches(int codiceTorneo, Connection connection) {
+            List<Partita> preview = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.VISUALIZE_ALL_TOURNAMENT_MATCHES, codiceTorneo);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var codicePartita = resultSet.getInt("CodicePartita");
+                    var arbitro = 
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
     }
     
 }

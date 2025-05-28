@@ -208,6 +208,13 @@ public final class Queries {
 			order by LezioniTenute desc limit 15;		
 			""";
 
+	public static final String FIND_TOURNAMENT = 
+			"""
+			SELECT *
+			FROM torneo
+			WHERE CodiceTorneo = ?;		
+			""";
+
 	public static final String VISUALIZE_ALL_TOURNAMENT_MATCHES = 
 			"""
 			select p.CodicePartita, g.CodiceSquadra, s.Nome, g.punteggio

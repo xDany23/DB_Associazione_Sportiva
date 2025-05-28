@@ -93,7 +93,7 @@ public final class Queries {
 	
 	public static final String FIND_SPACE_FOR_NEW_LESSON = 
 			"""
-			select c.NumeroCampo
+			select c.*
 			from campo c
 			where Tipo = ?
 			and NumeroCampo not in (select f.NumeroCampo

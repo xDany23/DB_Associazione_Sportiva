@@ -138,6 +138,18 @@ public final class Persona {
             }
             return persona;
         }
+
+        public static int updateTrainerLesson(Persona persona, Connection connection) {
+            int rowsInserted;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.UPDATE_TRAINER_LESSONS, persona);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
     }
 
     

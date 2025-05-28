@@ -213,6 +213,7 @@ public class LezionePrivata {
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
+            Persona.DAO.updateTrainerLesson(persona, connection);
             return rowsInserted;
         }
 

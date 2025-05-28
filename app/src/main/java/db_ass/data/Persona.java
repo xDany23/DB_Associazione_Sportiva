@@ -15,8 +15,9 @@ public final class Persona {
     public final boolean utente;
     public final boolean allenatore;
     public final boolean arbitro;
+    public final int LezioniTenute;
 
-    public Persona(String cf, String nome, String cognome, String email, String password, boolean utente, boolean allenatore, boolean arbitro) {
+    public Persona(String cf, String nome, String cognome, String email, String password, boolean utente, boolean allenatore, boolean arbitro, int LezioniTenute) {
         this.cf = cf;
         this.nome = nome;
         this.cognome = cognome;
@@ -25,6 +26,7 @@ public final class Persona {
         this.utente = utente;
         this.allenatore = allenatore;
         this.arbitro = arbitro;
+        this.LezioniTenute = LezioniTenute;
     }
 
     @Override
@@ -43,7 +45,8 @@ public final class Persona {
                 p.password.equals(this.password) &&
                 p.utente == this.utente &&
                 p.allenatore == this.allenatore &&
-                p.arbitro == this.arbitro
+                p.arbitro == this.arbitro &&
+                p.LezioniTenute == this.LezioniTenute
             );
         } else {
             return false;
@@ -52,7 +55,7 @@ public final class Persona {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.cf, this.nome, this.cognome, this.email, this.password, this.utente, this.allenatore, this.arbitro);
+        return Objects.hash(this.cf, this.nome, this.cognome, this.email, this.password, this.utente, this.allenatore, this.arbitro, this.LezioniTenute);
     }
 
     @Override
@@ -67,13 +70,40 @@ public final class Persona {
                 Printer.field("Password", this.password),
                 Printer.field("Utente", this.utente),
                 Printer.field("Allenatore", this.allenatore),
-                Printer.field("Arbitro", this.arbitro)
+                Printer.field("Arbitro", this.arbitro),
+                (this.allenatore == true) ? Printer.field("Lezioni Tenute", this.LezioniTenute) : Printer.field("", "")
             )
         );
     }
 
     public static final class DAO {
         public static int addUser(Persona p, Connection connection) {
+            int rowsInserted;
+            try {
+                var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true);
+                rowsInserted = preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return 0;
+            }
+            return rowsInserted;
+        }
+
+        public static int newTrainer(Persona p, Connection connection) {
+            int rowsInserted;
+            try {
+                var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true, p.LezioniTenute);
+                rowsInserted = preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return 0;
+            }
+            return rowsInserted;
+        }
+
+        public static int newReferee(Persona p, Connection connection) {
             int rowsInserted;
             try {
                 var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true);

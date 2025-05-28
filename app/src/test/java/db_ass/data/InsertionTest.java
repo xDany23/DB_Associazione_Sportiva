@@ -40,7 +40,7 @@ public class InsertionTest {
         try (var statement = connection.createStatement()) {
             int counter = 0;
             var before = statement.executeQuery("Select CF from persona");
-            Persona.DAO.addUser(new Persona("CCCCCCCCCCCCCCCC", "awpfi", "plinky", "qualcosa", "ciao", true, false, false), connection);
+            Persona.DAO.addUser(new Persona("CCCCCCCCCCCCCCCC", "awpfi", "plinky", "qualcosa", "ciao", true, false, false, 0), connection);
             var after = statement.executeQuery("Select CF from persona");
             while (after.next()) {
                 counter = after.getString(1).equals("CCCCCCCCCCCCCCCC") ? counter + 1 : counter;

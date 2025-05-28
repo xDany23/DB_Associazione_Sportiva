@@ -76,14 +76,15 @@ public final class Prenotazione {
         }
 
         public static int bookField(Prenotazione p, Connection connection) {
-            int rowsInserted;
-            try {
+            int rowsInserted = 0;
+            try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.BOOK_FIELD, p.fasciaOraria.numeroCampo, 
                                                                                          p.fasciaOraria.giorno,
                                                                                          p.fasciaOraria.orarioInizio,
                                                                                          p.dataPrenotazioneEffettuata,
                                                                                          p.dataPartita,
-                                                                                         p.prenotante);
+                                                                                         p.prenotante);   
+            ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 throw new DAOException(e);

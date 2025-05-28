@@ -78,11 +78,11 @@ public final class Persona {
 
     public static final class DAO {
         public static int addUser(Persona p, Connection connection) {
-            int rowsInserted;
-            try {
+            int rowsInserted = 0;
+            try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true);
+            ) {
                 rowsInserted = preparedStatement.executeUpdate();
-
             } catch (SQLException e) {
                 e.printStackTrace();
                 return 0;
@@ -91,11 +91,11 @@ public final class Persona {
         }
 
         public static int newTrainer(Persona p, Connection connection) {
-            int rowsInserted;
-            try {
+            int rowsInserted = 0;
+            try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true, p.LezioniTenute);
+            ) {
                 rowsInserted = preparedStatement.executeUpdate();
-
             } catch (SQLException e) {
                 e.printStackTrace();
                 return 0;
@@ -104,11 +104,11 @@ public final class Persona {
         }
 
         public static int newReferee(Persona p, Connection connection) {
-            int rowsInserted;
-            try {
+            int rowsInserted = 0;
+            try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true);
+            ) {
                 rowsInserted = preparedStatement.executeUpdate();
-
             } catch (SQLException e) {
                 e.printStackTrace();
                 return 0;

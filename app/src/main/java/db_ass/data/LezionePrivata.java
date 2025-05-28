@@ -162,9 +162,10 @@ public class LezionePrivata {
         }
 
         private static int joinLessonAsSecondPartecipant(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport, Connection connection) {
-            int rowsInserted;
-            try {
+            int rowsInserted = 0;
+            try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_LESSON_AS_SECOND_PARTECIPANT, persona, campo, giorno, orarioInizio, data, sport);
+            ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 throw new DAOException(e);
@@ -173,9 +174,10 @@ public class LezionePrivata {
         }
 
         private static int joinLessonAsThirdPartecipant(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport, Connection connection) {
-            int rowsInserted;
-            try {
+            int rowsInserted = 0;
+            try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_LESSON_AS_SECOND_PARTECIPANT, persona, campo, giorno, orarioInizio, data, sport);
+            ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 throw new DAOException(e);
@@ -202,10 +204,11 @@ public class LezionePrivata {
         }
 
         public static int createNewLesson(Campo numCampo, Giorno giorno, String orarioInizio, String dataSvolgimento, Sport sport, double prezzo, Persona allenatore, Persona persona, Connection connection) {
-            int rowsInserted;
+            int rowsInserted = 0;
 
-            try {
+            try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_NEW_LESSON, numCampo, giorno, orarioInizio, dataSvolgimento, sport, prezzo, allenatore.cf, persona.cf);
+            ) { 
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 throw new DAOException(e);

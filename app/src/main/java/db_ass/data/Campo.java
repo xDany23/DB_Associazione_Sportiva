@@ -1,5 +1,7 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,7 +49,20 @@ public final class Campo {
     }
 
     public static final class DAO {
-        //da fare
+        public static Campo findField(int num, Connection connection) {
+            Campo campo;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_USER, num);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                var numCampo = resultSet.getInt("NumeroCampo");
+                Sport sport = Sport.valueOf(resultSet.getString("Tipo").toUpperCase());
+                campo = new Campo(numCampo, sport);
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return campo;
+        }
     }
     
 }

@@ -1,5 +1,8 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LezionePrivata {
@@ -122,6 +125,82 @@ public class LezionePrivata {
     }
 
     public static final class DAO {
-        
+        public static List<LezionePrivata> findJoinableLesson(String data, String orario, Sport sport, Connection connection) {
+            var preview = new ArrayList<LezionePrivata>();
+
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_JOINABLE_LESSON, data, orario, sport);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+               while (resultSet.next()) {
+                Campo campo = Campo.DAO.findField(resultSet.getInt("l.NumeroCampo"), connection);
+                Giorno giorno = Giorno.valueOf(resultSet.getString("l.Giorno").toUpperCase());
+                var orarioInizio = resultSet.getString("l.OrarioInizio");
+                var dataSvolgimento = resultSet.getString("l.DataSvolgimento");
+                Sport sportPraticato = Sport.valueOf(resultSet.getString("l.SportPraticato").toUpperCase());
+                var prezzo = resultSet.getDouble("l.Prezzo");
+                var allenatore = Persona.DAO.findPerson(resultSet.getString("l.Allenatore"), connection);
+                var partecipante1 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante1"), connection);
+                var partecipante2 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante2"), connection);
+                var partecipante3 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante3"), connection);
+                var lezionePrivata = new LezionePrivata(campo, giorno, orarioInizio, dataSvolgimento, sportPraticato, prezzo, allenatore, partecipante1, partecipante2, partecipante3);
+                preview.add(lezionePrivata);
+               } 
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
+        }
+
+        public static int joinLesson(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport, Connection connection) {
+            if (joinLessonAsSecondPartecipant(persona, campo, giorno, orarioInizio, data, sport, connection) == 0) {
+                if (joinLessonAsThirdPartecipant(persona, campo, giorno, orarioInizio, data, sport, connection) == 0) {
+                    return 0;
+                }
+            }
+            return 1;
+        }
+
+        private static int joinLessonAsSecondPartecipant(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport, Connection connection) {
+            int rowsInserted;
+            try {
+                var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_LESSON_AS_SECOND_PARTECIPANT, persona, campo, giorno, orarioInizio, data, sport);
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
+
+        private static int joinLessonAsThirdPartecipant(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport, Connection connection) {
+            int rowsInserted;
+            try {
+                var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_LESSON_AS_SECOND_PARTECIPANT, persona, campo, giorno, orarioInizio, data, sport);
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
+
+        public static List<Campo> findSpaceForNewLesson(Sport sport, String orarioInizio, Giorno giorno, String data, Connection connection) {
+            var preview = new ArrayList<Campo>();
+
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_SPACE_FOR_NEW_LESSON, sport, orarioInizio, giorno, data);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var numCampo = resultSet.getInt("NumeroCampo");
+                    Campo campo = new Campo(numCampo, sport);
+                    preview.add(campo);
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
+        }
+
+
     }
 }

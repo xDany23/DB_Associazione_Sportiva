@@ -201,6 +201,28 @@ public class LezionePrivata {
             return preview;
         }
 
+        public static int createNewLesson(Campo numCampo, Giorno giorno, String orarioInizio, String dataSvolgimento, Sport sport, double prezzo, Persona allenatore, Persona persona, Connection connection) {
+            int rowsInserted;
+
+            try {
+                var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_NEW_LESSON, numCampo, giorno, orarioInizio, dataSvolgimento, sport, prezzo, allenatore.cf, persona.cf);
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
+
 
     }
+    /*public final Campo numeroCampo;
+    public final Giorno giorno;
+    public final String orarioInizio;
+    public final String dataSvolgimento;
+    public final Sport sportPraticato;
+    public final double prezzo;
+    public final Persona allenatore;
+    public final Persona partecipante1;
+    public final Persona partecipante2;
+    public final Persona partecipante3;*/
 }

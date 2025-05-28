@@ -98,4 +98,18 @@ public final class Queries {
 			SET LezioniTenute = LezioniTenute + 1
 			WHERE CF = ?;		
 			""";
+
+	public static final String FIND_ACTIVE_COURSE = 
+			"""
+			SELECT *
+			FROM corso
+			WHERE CodiceCorso = ?
+			AND DataFine > now();		
+			""";
+
+	public static final String JOIN_COURSE = 
+			"""
+			INSERT INTO partecipa(CF, CodiceCorso)
+			VALUES (?,?);		
+			""";
 }

@@ -1,5 +1,8 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +58,37 @@ public final class Prenotazione {
     }
 
     public static final class DAO {
-        //da fare
+        public static List<Integer> findFieldToBook(FasciaOraria f, String data, Connection connection) {
+            var preview = new ArrayList<Integer>();
+
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FIELD_TO_BOOK, f.tipo, f.orarioInizio, data);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while(resultSet.next()) {
+                    var numCampo = resultSet.getInt("NumeroCampo");
+                    preview.add(numCampo);
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
+        }
+
+        public static int bookField(Prenotazione p, Connection connection) {
+            int rowsInserted;
+            try {
+                var preparedStatement = DAOUtils.prepare(connection, Queries.BOOK_FIELD, p.fasciaOraria.numeroCampo, 
+                                                                                         p.fasciaOraria.giorno,
+                                                                                         p.fasciaOraria.orarioInizio,
+                                                                                         p.dataPrenotazioneEffettuata,
+                                                                                         p.dataPartita,
+                                                                                         p.prenotante);
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
     }
 }

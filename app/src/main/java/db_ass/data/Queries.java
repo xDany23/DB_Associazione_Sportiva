@@ -1,6 +1,13 @@
 package db_ass.data;
 
 public final class Queries {
+
+	public static final String FIND_USER = 
+			"""
+			SELECT *
+			FROM persona
+			WHERE CF = ?;
+			""";
     
     public static final String REGISTER_USER = 
             """

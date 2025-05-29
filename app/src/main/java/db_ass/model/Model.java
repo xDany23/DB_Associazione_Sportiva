@@ -1,5 +1,6 @@
 package db_ass.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 import db_ass.data.Campo;
@@ -56,5 +57,9 @@ public interface Model {
     List<Persona> findMostRequestedTrainer();
 
     List<RisultatiTorneo> visualizeAllTournamentMatches(int codiceTorneo);
+
+    static Model fromConnection(Connection connection) {
+        return new DBModel(connection);
+    }
 
 }

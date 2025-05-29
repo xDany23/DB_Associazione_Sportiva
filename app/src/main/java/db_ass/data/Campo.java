@@ -53,7 +53,7 @@ public final class Campo {
         public static Campo findField(int num, Connection connection) {
             Campo campo;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_USER, num);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FIELD, num);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 resultSet.next();

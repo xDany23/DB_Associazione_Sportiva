@@ -18,8 +18,10 @@ public final class Printer {
         public String toString() {
             if (this.value instanceof String) {
                 return this.name + "='" + this.value + "'";
-            } else {
+            } else if (this.value != null) {
                 return this.name + "=" + this.value.toString();
+            } else {
+                return this.name + "='null'";
             }
         }
     }

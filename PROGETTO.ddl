@@ -377,7 +377,7 @@ insert into persona(Nome,Cognome,E_mail,Password,CF,Utente,Allenatore,Arbitro,Le
 values ("Alessandro","Ravaioli","qualcosa@gmail.com","pipipupu","AAAAAAAAAAAAAAAA",TRUE,NULL,FALSE,NULL),
 	   ("Daniele","Tramonti","qualcosa@gmail.com","pipipupu","DDDDDDDDDDDDDDDD",true,null,false,null),
        ("Edoardo","Frignoli","qualcosa@gmail.com","pipipupu","EEEEEEEEEEEEEEEE",true,null,false,null),
-       ("Romeo","ofwianf","qualcosa@gmail.com","pipipupu","RRRRRRRRRRRRRRRR",false,true,true,0);
+       ("Romeo","ofwianf","qualcosa@gmail.com","pipipupu","RRRRRRRRRRRRRRRR",false,true,true,1);
 
 -- Inserimento nella tabella fascia_oraria --
 
@@ -488,7 +488,7 @@ values (1,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
        
 -- Inserimento nella tabella lezione_privata --
 insert into lezione_privata(NumeroCampo,Giorno,OrarioInizio,DataSvolgimento,SportPraticato,Prezzo,Allenatore,Partecipante1,Partecipante2,Partecipante3)
-values (1,"Lunedi","12:00:00","2025-02-03","Calcetto",30.95,"RRRRRRRRRRRRRRRR","AAAAAAAAAAAAAAAA",null,"EEEEEEEEEEEEEEEE");
+values (1,"Lunedi","16:30:00","2025-02-03","Calcetto",30.95,"RRRRRRRRRRRRRRRR","AAAAAAAAAAAAAAAA",null,"EEEEEEEEEEEEEEEE");
 
 -- Inserimento nella tabella corso --
 insert	into corso(DataInizio,DataFine,SportPraticato,Prezzo,CodiceCorso,Allenatore)

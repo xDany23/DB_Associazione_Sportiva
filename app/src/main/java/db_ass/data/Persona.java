@@ -119,6 +119,9 @@ public final class Persona {
 
         public static Persona findPerson(String cf, Connection connection) {
             Persona persona;
+            if (cf == null) {
+                return null;
+            }
             try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_USER, cf);
                 var resultSet = preparedStatement.executeQuery();
@@ -143,7 +146,7 @@ public final class Persona {
         public static int updateTrainerLesson(Persona persona, Connection connection) {
             int rowsInserted;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.UPDATE_TRAINER_LESSONS, persona);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.UPDATE_TRAINER_LESSONS, persona.cf);
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {

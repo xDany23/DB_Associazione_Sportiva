@@ -129,7 +129,7 @@ public class LezionePrivata {
             var preview = new ArrayList<LezionePrivata>();
 
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_JOINABLE_LESSON, data, orario, sport);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_JOINABLE_LESSON, data, orario, sport.toString());
                 var resultSet = preparedStatement.executeQuery();
             ) {
                while (resultSet.next()) {
@@ -164,7 +164,7 @@ public class LezionePrivata {
         private static int joinLessonAsSecondPartecipant(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport, Connection connection) {
             int rowsInserted = 0;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_LESSON_AS_SECOND_PARTECIPANT, persona, campo, giorno, orarioInizio, data, sport);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_LESSON_AS_SECOND_PARTECIPANT, persona.cf, campo.numeroCampo, giorno.toString(), orarioInizio, data, sport.toString());
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -176,7 +176,7 @@ public class LezionePrivata {
         private static int joinLessonAsThirdPartecipant(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport, Connection connection) {
             int rowsInserted = 0;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_LESSON_AS_SECOND_PARTECIPANT, persona, campo, giorno, orarioInizio, data, sport);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_LESSON_AS_SECOND_PARTECIPANT, persona.cf, campo.numeroCampo, giorno.toString(), orarioInizio, data, sport.toString());
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -189,7 +189,7 @@ public class LezionePrivata {
             var preview = new ArrayList<Campo>();
 
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_SPACE_FOR_NEW_LESSON, sport, orarioInizio, giorno, data);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_SPACE_FOR_NEW_LESSON, sport.toString(), orarioInizio, giorno.toString(), data, data);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while (resultSet.next()) {
@@ -207,13 +207,13 @@ public class LezionePrivata {
             int rowsInserted = 0;
 
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_NEW_LESSON, numCampo, giorno, orarioInizio, dataSvolgimento, sport, prezzo, allenatore.cf, persona.cf);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_NEW_LESSON, numCampo.numeroCampo, giorno.toString(), orarioInizio, dataSvolgimento, sport.toString(), prezzo, allenatore.cf, persona.cf);
             ) { 
                 rowsInserted = preparedStatement.executeUpdate();
+                System.out.println(Persona.DAO.updateTrainerLesson(persona, connection));
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
-            Persona.DAO.updateTrainerLesson(persona, connection);
             return rowsInserted;
         }
 

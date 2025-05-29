@@ -3,7 +3,7 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Sat May 24 12:27:59 2025 
+-- * Generation datetime: Sat May 24 12:27:59 2025 
 -- * LUN file: C:\Users\user\OneDrive\Desktop\uni\basi di dati\PROGETTO.lun 
 -- * Schema: Associazione Sportiva con analisi ridondanze eseguita versione logica/SQL 
 -- ********************************************* 
@@ -25,8 +25,8 @@ create table CAMPO (
      constraint ID_CAMPO_ID primary key (NumeroCampo));
 
 create table CORSO (
-     DataInizio DATETIME not null,
-     DataFine DATETIME not null,
+     DataInizio DATE not null,
+     DataFine DATE not null,
      SportPraticato enum ("Calcetto","Tennis","Padel") not null,
      Prezzo decimal(10,4) not null,
      CodiceCorso integer not null auto_increment,
@@ -57,7 +57,7 @@ create table LEZIONE_CORSO (
      NumeroCampo integer not null,
      Giorno enum ("Lunedi","Martedi","Mercoledi","Giovedi","Venerdi","Sabato","Domenica") not null,
      OrarioInizio time not null,
-     DataSvolgimento datetime not null,
+     DataSvolgimento date not null,
      SportPraticato enum ("Calcetto","Tennis","Padel") not null,
      CodiceCorso integer not null,
      constraint ID_LEZIONE_CORSO_ID primary key (NumeroCampo, Giorno, OrarioInizio, DataSvolgimento, SportPraticato));
@@ -66,7 +66,7 @@ create table LEZIONE_PRIVATA (
      NumeroCampo integer not null,
      Giorno enum ("Lunedi","Martedi","Mercoledi","Giovedi","Venerdi","Sabato","Domenica") not null,
      OrarioInizio time not null,
-     DataSvolgimento datetime not null,
+     DataSvolgimento date not null,
      SportPraticato enum ("Calcetto","Tennis","Padel") not null,
      Prezzo decimal(10,4) not null,
      Allenatore char(16) not null,
@@ -103,8 +103,8 @@ create table PRENOTAZIONE (
      NumeroCampo integer not null,
      Giorno enum ("Lunedi","Martedi","Mercoledi","Giovedi","Venerdi","Sabato","Domenica") not null,
      OrarioInizio time not null,
-     DataPrenotazioneEffettuata datetime not null,
-     DataPartita datetime not null,
+     DataPrenotazioneEffettuata date not null,
+     DataPartita date not null,
      Prenotante char(16) not null,
      constraint ID_PRENOTAZIONE_ID primary key (NumeroCampo, Giorno, OrarioInizio, DataPartita));
 
@@ -120,7 +120,7 @@ create table SQUADRA (
      constraint ID_SQUADRA_ID primary key (CodiceSquadra));
 
 create table TORNEO (
-     DataSvolgimento datetime not null,
+     DataSvolgimento date not null,
      Nome char(50) not null,
      Premio decimal(10,4) not null,
      MassimoPartecipanti integer not null,

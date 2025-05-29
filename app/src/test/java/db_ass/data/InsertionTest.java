@@ -19,10 +19,10 @@ public class InsertionTest {
     public static void setup() throws SQLException {
         connection = DAOUtils.localMySQLConnection("associazionesportiva", "root", "");
         connection.setAutoCommit(false);
-        //savepoint = connection.setSavepoint();
+        savepoint = connection.setSavepoint();
     }
 
-    /* @AfterClass
+    @AfterClass
     public static void cleanup() throws SQLException {
         if (connection != null) {
             if (savepoint != null) {
@@ -30,7 +30,7 @@ public class InsertionTest {
             }
             connection.close();
         }
-    } */ 
+    } 
 
     @Test
     public void insertUser() throws SQLException{
@@ -47,6 +47,5 @@ public class InsertionTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        connection.close();
     }
 }

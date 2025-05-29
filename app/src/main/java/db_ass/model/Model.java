@@ -24,7 +24,7 @@ public interface Model {
 
     int newReferee(Persona persona);
 
-    List<Integer> findFieldToBook(FasciaOraria fascia, String data);
+    List<Integer> findFieldToBook(FasciaOraria fascia, String data, Sport sport);
 
     int bookField(Prenotazione p);
 

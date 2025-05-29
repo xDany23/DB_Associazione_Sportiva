@@ -58,11 +58,11 @@ public final class Prenotazione {
     }
 
     public static final class DAO {
-        public static List<Integer> findFieldToBook(FasciaOraria f, String data, Connection connection) {
+        public static List<Integer> findFieldToBook(FasciaOraria f, String data, Sport sport, Connection connection) {
             var preview = new ArrayList<Integer>();
 
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FIELD_TO_BOOK, f.tipo, f.orarioInizio, data);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FIELD_TO_BOOK, sport.toString(), sport.toString(), f.orarioInizio, data);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while(resultSet.next()) {
@@ -78,12 +78,12 @@ public final class Prenotazione {
         public static int bookField(Prenotazione p, Connection connection) {
             int rowsInserted = 0;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.BOOK_FIELD, p.fasciaOraria.numeroCampo, 
-                                                                                         p.fasciaOraria.giorno,
+                var preparedStatement = DAOUtils.prepare(connection, Queries.BOOK_FIELD, p.fasciaOraria.numeroCampo.numeroCampo, 
+                                                                                         p.fasciaOraria.giorno.toString(),
                                                                                          p.fasciaOraria.orarioInizio,
                                                                                          p.dataPrenotazioneEffettuata,
                                                                                          p.dataPartita,
-                                                                                         p.prenotante);   
+                                                                                         p.prenotante.cf);   
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {

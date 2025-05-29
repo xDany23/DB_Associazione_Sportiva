@@ -143,6 +143,7 @@ public final class Persona {
             return persona;
         }
 
+        //NON FUNZIONA
         public static int updateTrainerLesson(Persona persona, Connection connection) {
             int rowsInserted;
             try (

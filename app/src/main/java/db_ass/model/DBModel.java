@@ -110,8 +110,8 @@ public class DBModel implements Model{
     }
 
     @Override
-    public List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo) {
-        return Campo.DAO.findAllOccupiedTimesOfField(numeroCampo, connection);
+    public List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo, String date) {
+        return Campo.DAO.findAllOccupiedTimesOfField(numeroCampo, date, connection);
     }
 
     @Override

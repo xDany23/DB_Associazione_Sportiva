@@ -50,7 +50,7 @@ public interface Model {
 
     List<Persona> findAllPartecipants(int codiceTorneo);
 
-    List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo);
+    List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo, String date);
 
     List<Corso> findMostActiveCourses();
 

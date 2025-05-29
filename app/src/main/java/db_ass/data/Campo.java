@@ -66,11 +66,11 @@ public final class Campo {
             return campo;
         }
 
-        public static List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo, Connection connection) {
+        public static List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo, String date, Connection connection) {
             List<FasciaOraria> preview = new ArrayList<>();
             var campo = Campo.DAO.findField(numeroCampo, connection);
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_ALL_OCCUPIED_TIMES_OF_FIELD, numeroCampo);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_ALL_OCCUPIED_TIMES_OF_FIELD, date, date, date, numeroCampo);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while (resultSet.next()) {

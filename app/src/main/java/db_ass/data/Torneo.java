@@ -179,19 +179,24 @@ public final class Torneo {
             return torneo;
         }
 
-        public static List<Partita> visualizeAllTournamentMatches(int codiceTorneo, Connection connection) {
-            List<Partita> preview = new ArrayList<>();
+        public static List<RisultatiTorneo> visualizeAllTournamentMatches(int codiceTorneo, Connection connection) {
+            List<RisultatiTorneo> preview = new ArrayList<>();
             try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.VISUALIZE_ALL_TOURNAMENT_MATCHES, codiceTorneo);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while (resultSet.next()) {
-                    var codicePartita = resultSet.getInt("CodicePartita");
-                    var arbitro = 
+                    var codicePartita = resultSet.getInt("p.CodicePartita");
+                    var codiceSquadra = resultSet.getInt("g.CodiceSquadra");
+                    var nome = resultSet.getString("s.Nome");
+                    var punteggio = resultSet.getInt("g.punteggio");
+                    var ris = new RisultatiTorneo(codicePartita, codiceSquadra, punteggio, nome);
+                    preview.add(ris);
                 }
-            } catch (Exception e) {
-                // TODO: handle exception
+            } catch (SQLException e) {
+                throw new DAOException(e);
             }
+            return preview;
         }
     }
     

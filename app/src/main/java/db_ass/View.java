@@ -2,14 +2,17 @@ package db_ass;
 
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -18,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 public final class View {
 
@@ -34,9 +38,45 @@ public final class View {
         var padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         ((JComponent) frame.getContentPane()).setBorder(padding);
         frame.setMinimumSize(new Dimension(300, 100));
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
-        frame.pack();
-        frame.setResizable(true);
+        //frame.setPreferredSize(new Dimension(1000, 500));
+        frame.setLocationRelativeTo(null);  //centra la finestra nello schermo
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        //pannello principale
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
+        //titolo
+        JLabel titleLabel = new JLabel("Associazione Sportiva", SwingConstants.CENTER);
+        titleLabel.setFont(titleLabel.getFont().deriveFont(36.0f));
+        titleLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        mainPanel.add(Box.createVerticalStrut(200));
+
+        //creo un pannello orizzontale per affiancare i bottoni
+        JPanel buttonPanel = new JPanel(new GridLayout(1,2,20,0)); //crea un pannello con 1 riga, 2 colonne
+        buttonPanel.setMaximumSize(new Dimension(1000, 50));
+        buttonPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+
+        //bottone Login
+        JButton loginButton = new JButton("Login");
+
+        //bottone Register
+        JButton registerButton = new JButton("Register");
+
+        //aggiungo i bottoni al buttonPanel
+        buttonPanel.add(loginButton);
+        //buttonPanel.add(Box.createHorizontalStrut(20)); //crea spazio orizzontale tra i due bottoni
+        buttonPanel.add(registerButton);
+
+        //aggiungo il pannello buttonPanel al pannello principale
+        mainPanel.add(Box.createVerticalStrut(50)); //crea spazio verticale dal titolo
+        mainPanel.add(buttonPanel);
+
+        //frame.pack();     //ridimensiona la finestra in base a cosa possiede all'interno
+        frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+        frame.setResizable(false);
         frame.setVisible(true);
         frame.addWindowListener(
             new WindowAdapter() {

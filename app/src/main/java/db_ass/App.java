@@ -8,8 +8,8 @@ import db_ass.model.Model;
 public final class App {
 
     public static void main(String[] args) throws SQLException {
-        var connection = DAOUtils.localMySQLConnection("associazionesportiva", "root", "");
-        var model = Model.fromConnection(connection);
+        //var connection = DAOUtils.localMySQLConnection("associazionesportiva", "root", "");
+        //var model = Model.fromConnection(connection);
         var view = new View();/* () -> {
             
             try {

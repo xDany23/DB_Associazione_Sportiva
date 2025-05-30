@@ -36,4 +36,10 @@ public class TestPersona {
         Persona real = new Persona("AAAAAAAAAAAAAAAA","Alessandro","Ravaioli","qualcosa@gmail.com","pipipupu",true,false,false,0);
         assertEquals(real, Persona.DAO.findPerson("AAAAAAAAAAAAAAAA", connection));
     }
+
+    @Test
+    public void tryUpdateTrainerLesson() {
+        assertEquals(1, Persona.DAO.updateTrainerLesson(Persona.DAO.findPerson("RRRRRRRRRRRRRRRR", connection), connection));
+        assertEquals(2, Persona.DAO.findPerson("RRRRRRRRRRRRRRRR", connection).LezioniTenute);
+    }
 }

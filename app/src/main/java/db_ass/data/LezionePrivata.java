@@ -210,7 +210,7 @@ public class LezionePrivata {
                 var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_NEW_LESSON, numCampo.numeroCampo, giorno.toString(), orarioInizio, dataSvolgimento, sport.toString(), prezzo, allenatore.cf, persona.cf);
             ) { 
                 rowsInserted = preparedStatement.executeUpdate();
-                System.out.println(Persona.DAO.updateTrainerLesson(persona, connection));
+                Persona.DAO.updateTrainerLesson(persona, connection);
             } catch (SQLException e) {
                 throw new DAOException(e);
             }

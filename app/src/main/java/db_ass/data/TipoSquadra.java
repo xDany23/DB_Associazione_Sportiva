@@ -2,8 +2,8 @@ package db_ass.data;
 
 public enum TipoSquadra {
     CALCETTO("Calcetto"),
-    TENNIS_SINGOLO("Tennis singolo"),
-    TENNIS_DOPPIO("Tennis doppio"),
+    TENNIS_SINGOLO("Tennis_singolo"),
+    TENNIS_DOPPIO("Tennis_doppio"),
     PADEL("Padel");
 
     private final String tipo;

@@ -111,7 +111,7 @@ create table PRENOTAZIONE (
 create table SQUADRA (
      Nome varchar(20) not null,
      CodiceSquadra integer not null auto_increment,
-     Tipo enum ("Calcetto","Tennis singolo","Tennis doppio","Padel") not null,
+     Tipo enum ("Calcetto","Tennis_singolo","Tennis_doppio","Padel") not null,
      Componenti1 char(16) not null,
      Componenti2 char(16),
      Componenti3 char(16),
@@ -126,7 +126,7 @@ create table TORNEO (
      MassimoPartecipanti integer not null,
      QuotaIscrizione decimal(10,4) not null,
      CodiceTorneo integer not null auto_increment,
-     Tipo enum ("Calcetto","Tennis singolo","Tennis doppio","Padel") not null,
+     Tipo enum ("Calcetto","Tennis_singolo","Tennis_doppio","Padel") not null,
      SquadraVincitrice integer,
      constraint ID_TORNEO_ID primary key (CodiceTorneo));
 
@@ -502,13 +502,13 @@ values (5,"Lunedi","12:00:00","2025-02-03","Calcetto",1);
 
 -- Inserimento nella tabella torneo --
 insert into torneo(DataSvolgimento,Nome,Premio,MassimoPartecipanti,QuotaIscrizione,CodiceTorneo,Tipo,SquadraVincitrice)
-values ("2025-05-05","Giganti",5,2,1.0,1,"Tennis singolo",null);
+values ("2025-05-05","Giganti",5,2,1.0,1,"Tennis_singolo",null);
 
 -- Inserimento nella tabella squadra --
 insert into squadra(Nome,CodiceSquadra,Tipo,Componenti1,Componenti2,Componenti3,Componenti4,Componenti5) 
-values ("I belli",1,"Tennis singolo","AAAAAAAAAAAAAAAA",null,null,null,null),
-	   ("I brutti",2,"Tennis singolo", "DDDDDDDDDDDDDDDD",null,null,null,null),
-       ("I mezzi",3,"Tennis singolo", "EEEEEEEEEEEEEEEE",null,null,null,null);
+values ("I belli",1,"Tennis_singolo","AAAAAAAAAAAAAAAA",null,null,null,null),
+	   ("I brutti",2,"Tennis_singolo", "DDDDDDDDDDDDDDDD",null,null,null,null),
+       ("I mezzi",3,"Tennis_singolo", "EEEEEEEEEEEEEEEE",null,null,null,null);
        
 -- Inserimento nella tabella iscrizione --
 insert into iscrizione(CodiceTorneo,CodiceSquadra)

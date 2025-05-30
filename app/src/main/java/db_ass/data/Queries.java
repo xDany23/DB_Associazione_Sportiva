@@ -2,6 +2,15 @@ package db_ass.data;
 
 public final class Queries {
 
+	public static final String FIND_TIME = 
+			"""
+			SELECT *
+			FROM fascia_oraria
+			WHERE NumeroCampo = ?
+			AND Giorno = ?
+			AND OrarioInizio = ?		
+			""";
+
 	public static final String FIND_FIELD = 
 			"""
 			SELECT *

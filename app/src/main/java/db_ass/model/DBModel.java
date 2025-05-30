@@ -43,7 +43,7 @@ public class DBModel implements Model{
 
     @Override
     public List<Integer> findFieldToBook(FasciaOraria fascia, String data, Sport sport) {
-        return Prenotazione.DAO.findFieldToBook(fascia, data, sport, connection);
+        return Prenotazione.DAO.findFieldToBook(fascia.orarioInizio, data, sport, connection);
     }
 
     @Override

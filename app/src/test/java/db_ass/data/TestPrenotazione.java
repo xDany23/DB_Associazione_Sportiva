@@ -37,10 +37,8 @@ public class TestPrenotazione {
     @Test
     public void tryFindingAndBookingField() {
         List<Integer> real = List.of(7);
-        assertEquals(real, Prenotazione.DAO.findFieldToBook(new FasciaOraria(Campo.DAO.findField(1, connection), Giorno.LUNEDI, "09:00:00", "10:30:00", TipoFascia.PRENOTABILE, 0.0),
-                "2025-02-03", Sport.PADEL, connection));
-        Prenotazione.DAO.bookField(new Prenotazione("2025-02-03","2020-12-01" , Persona.DAO.findPerson("AAAAAAAAAAAAAAAA", connection), new FasciaOraria(Campo.DAO.findField(1, connection), Giorno.LUNEDI, "09:00:00", "10:30:00", TipoFascia.PRENOTABILE, 0.0)), connection);
-        assertNotEquals(real, Prenotazione.DAO.findFieldToBook(new FasciaOraria(Campo.DAO.findField(1, connection), Giorno.LUNEDI, "09:00:00", "10:30:00", TipoFascia.PRENOTABILE, 0.0),
-                "2025-02-03", Sport.PADEL, connection));
+        assertEquals(real, Prenotazione.DAO.findFieldToBook("09:00:00","2025-02-03", Sport.PADEL, connection));
+        Prenotazione.DAO.bookField(new Prenotazione("2025-02-03","2020-12-01" , Persona.DAO.findPerson("AAAAAAAAAAAAAAAA", connection), FasciaOraria.DAO.findPeriod(Campo.DAO.findField(7, connection), Giorno.LUNEDI, "09:00:00", connection)), connection);
+        assertNotEquals(real, Prenotazione.DAO.findFieldToBook( "09:00:00","2025-02-03", Sport.PADEL, connection));
     }
 }

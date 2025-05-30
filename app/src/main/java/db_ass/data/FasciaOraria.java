@@ -1,5 +1,7 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class FasciaOraria {
@@ -78,5 +80,28 @@ public class FasciaOraria {
             Printer.field("Tipo", this.tipo),
             Printer.field("Prezzo", this.prezzo)
         ));
+    }
+
+    public static final class DAO {
+        public static FasciaOraria findPeriod(Campo campo, Giorno giorno, String orarioInizio, Connection connection) {
+            FasciaOraria f;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TIME, campo.numeroCampo, giorno.toString(), orarioInizio);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                resultSet.next();
+                f = new FasciaOraria(
+                                    campo,
+                                    giorno,
+                                    orarioInizio,
+                                    resultSet.getString("OrarioFine"),
+                                    TipoFascia.valueOf(resultSet.getString("Tipo").toUpperCase()),
+                                    resultSet.getDouble("Prezzo")
+                                    );
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return f;
+        }
     }
 }

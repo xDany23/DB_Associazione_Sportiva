@@ -53,6 +53,7 @@ public class TestLezionePrivata {
         assertEquals(real, LezionePrivata.DAO.findSpaceForNewLesson(Sport.CALCETTO, "16:30:00", Giorno.LUNEDI, "2025-02-03", connection));
         assertEquals(1, LezionePrivata.DAO.createNewLesson(Campo.DAO.findField(5, connection), Giorno.LUNEDI, "16:30:00", "2025-02-03", Sport.CALCETTO, 10.02,
                         Persona.DAO.findPerson("RRRRRRRRRRRRRRRR", connection), Persona.DAO.findPerson("AAAAAAAAAAAAAAAA", connection), connection));
+        Persona.DAO.updateTrainerLesson(Persona.DAO.findPerson("RRRRRRRRRRRRRRRR", connection), connection);
         assertEquals(2, Persona.DAO.findPerson("RRRRRRRRRRRRRRRR", connection).LezioniTenute);
     }
 }

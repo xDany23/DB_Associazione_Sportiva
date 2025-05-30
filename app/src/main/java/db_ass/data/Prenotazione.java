@@ -58,11 +58,11 @@ public final class Prenotazione {
     }
 
     public static final class DAO {
-        public static List<Integer> findFieldToBook(FasciaOraria f, String data, Sport sport, Connection connection) {
+        public static List<Integer> findFieldToBook(String orarioInizio, String data, Sport sport, Connection connection) {
             var preview = new ArrayList<Integer>();
 
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FIELD_TO_BOOK, sport.toString(), sport.toString(), f.orarioInizio, data);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FIELD_TO_BOOK, sport.toString(), sport.toString(), orarioInizio, data);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while(resultSet.next()) {

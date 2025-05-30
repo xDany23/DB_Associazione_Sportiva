@@ -2,6 +2,20 @@ package db_ass.data;
 
 public final class Queries {
 
+	public static final String FIND_MATCH = 
+			"""
+			SELECT * 
+			FROM partita
+			WHERE CodicePartita = ?;		
+			""";
+
+	public static final String FIND_TEAMS_PLAYED = 
+			"""
+			SELECT *
+			FROM gioca
+			WHERE CodicePartita = ?;		
+			""";
+
 	public static final String FIND_TIME = 
 			"""
 			SELECT *
@@ -157,8 +171,7 @@ public final class Queries {
 			"""
 			SELECT *
 			FROM torneo t 
-			WHERE t.CodiceTorneo = ?
-			AND t.DataSvolgimento > now()
+			WHERE t.DataSvolgimento > now()
 			AND t.Tipo = ?
 			AND t.MassimoPartecipanti > (select count(*)
 										from iscrizione i
@@ -173,13 +186,13 @@ public final class Queries {
 
 	public static final String CREATE_TOURNAMENT = 
 			"""
-			INSERT INTO torneo(DataSvolgimento, Nome, Premio, MassimoPartecipanti, QuotaIscrizione, CodiceTorneo, Tipo, Vincitore)
-			VALUES (?,?,?,?,?,?,?);
+			INSERT INTO torneo(DataSvolgimento, Nome, Premio, MassimoPartecipanti, QuotaIscrizione, CodiceTorneo, Tipo, SquadraVincitrice)
+			VALUES (?,?,?,?,?,?,?,?);
 			""";
 
 	public static final String FIND_ALL_PARTECIPANTS = 
 			"""
-			SELECT p.Nome, p.Cognome
+			SELECT p.*
 			FROM persona p, squadra s, iscrizione i, torneo t
 			WHERE t.CodiceTorneo = ?
 			AND t.CodiceTorneo = i.CodiceTorneo
@@ -230,6 +243,7 @@ public final class Queries {
 			from partita p, gioca g, squadra s
 			where p.CodiceTorneo = ?
 			and p.CodicePartita = g.CodicePartita
-			and g.CodiceSquadra = s.CodiceSquadra;
+			and g.CodiceSquadra = s.CodiceSquadra
+			ORDER BY p.CodicePartita;
 			""";
 }

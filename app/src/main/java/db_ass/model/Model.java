@@ -42,7 +42,7 @@ public interface Model {
 
     int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5);
 
-    Torneo isTournamentEnterable(int codiceTorneo, TipoSquadra tipo);
+    List<Torneo> isTournamentEnterable(TipoSquadra tipo);
 
     int enterTournament(int codiceTorneo, int codiceSquadra);
 

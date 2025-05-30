@@ -89,8 +89,8 @@ public class DBModel implements Model{
     }
 
     @Override
-    public Torneo isTournamentEnterable(int codiceTorneo, TipoSquadra tipo) {
-        return Torneo.DAO.isTournementEnterable(codiceTorneo, tipo, connection);
+    public List<Torneo> isTournamentEnterable( TipoSquadra tipo) {
+        return Torneo.DAO.isTournementEnterable(tipo, connection);
     }
 
     @Override

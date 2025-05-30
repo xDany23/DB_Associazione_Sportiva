@@ -3,6 +3,7 @@ package db_ass.data;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,40 +36,65 @@ public final class Torneo {
         this.vincitore = vincitore;
     }
 
+    
+
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        } else if (other == null) {
+        if (obj == null)
             return false;
-        } else if (other instanceof Torneo) {
-            var t = (Torneo)other;
-            return (
-                t.codiceTorneo == this.codiceTorneo &&
-                t.dataSvolgimento.equals(this.dataSvolgimento) &&
-                t.nome.equals(this.nome) &&
-                t.premio.equals(this.premio) &&
-                t.massimoPartecipanti == this.massimoPartecipanti &&
-                t.quotaIscrizione == this.quotaIscrizione &&
-                t.tipo.equals(this.tipo) &&
-                t.vincitore.equals(this.vincitore)
-            );
-        } else {
+        if (getClass() != obj.getClass())
             return false;
-        }
+        Torneo other = (Torneo) obj;
+        if (codiceTorneo != other.codiceTorneo)
+            return false;
+        if (dataSvolgimento == null) {
+            if (other.dataSvolgimento != null)
+                return false;
+        } else if (!dataSvolgimento.equals(other.dataSvolgimento))
+            return false;
+        if (nome == null) {
+            if (other.nome != null)
+                return false;
+        } else if (!nome.equals(other.nome))
+            return false;
+        if (premio == null) {
+            if (other.premio != null)
+                return false;
+        } else if (!premio.equals(other.premio))
+            return false;
+        if (massimoPartecipanti != other.massimoPartecipanti)
+            return false;
+        if (Double.doubleToLongBits(quotaIscrizione) != Double.doubleToLongBits(other.quotaIscrizione))
+            return false;
+        if (tipo != other.tipo)
+            return false;
+        if (vincitore == null) {
+            if (other.vincitore != null)
+                return false;
+        } else if (!vincitore.equals(other.vincitore))
+            return false;
+        return true;
     }
+
+
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.codiceTorneo,
-                            this.dataSvolgimento,
-                            this.nome,
-                            this.premio,
-                            this.massimoPartecipanti,
-                            this.quotaIscrizione,
-                            this.tipo,
-                            this.vincitore
-        );           
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + codiceTorneo;
+        result = prime * result + ((dataSvolgimento == null) ? 0 : dataSvolgimento.hashCode());
+        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+        result = prime * result + ((premio == null) ? 0 : premio.hashCode());
+        result = prime * result + massimoPartecipanti;
+        long temp;
+        temp = Double.doubleToLongBits(quotaIscrizione);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+        result = prime * result + ((vincitore == null) ? 0 : vincitore.hashCode());
+        return result;
     }
 
     @Override
@@ -89,20 +115,24 @@ public final class Torneo {
     }
 
     public static final class DAO {
-        public static Torneo isTournementEnterable(int codiceTorneo, TipoSquadra tipo, Connection connection) {
-            Torneo torneo;
+        public static List<Torneo> isTournementEnterable(TipoSquadra tipo, Connection connection) {
+            List<Torneo> torneo = new LinkedList<>();
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.IS_TOURNAMENT_ENTERABLE, codiceTorneo, tipo);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.IS_TOURNAMENT_ENTERABLE, tipo.toString());
                 var resultSet = preparedStatement.executeQuery();
             ) {
-                resultSet.next();
-                var dataSvolgimento = resultSet.getString("DataSvolgimento");
-                var nome = resultSet.getString("Nome");
-                var premio = resultSet.getString("Premio");
-                var maxp = resultSet.getInt("MassimoPartecipanti");
-                var quota = resultSet.getDouble("QuotaIscrizione");
-                var vincitore = Squadra.findTeam(resultSet.getInt("Vincitore"), connection);
-                torneo = new Torneo(codiceTorneo, dataSvolgimento, nome, premio, maxp, quota, tipo, vincitore);
+                System.out.println("Entro tipo = " + tipo.toString());
+                if (resultSet.next()) {
+                    var codiceTorneo = resultSet.getInt("CodiceTorneo");
+                    var dataSvolgimento = resultSet.getString("DataSvolgimento");
+                    var nome = resultSet.getString("Nome");
+                    var premio = resultSet.getString("Premio");
+                    var maxp = resultSet.getInt("MassimoPartecipanti");
+                    var quota = resultSet.getDouble("QuotaIscrizione");
+                    var vincitore = Squadra.DAO.findTeam(resultSet.getInt("SquadraVincitrice"), connection);
+                    torneo.add(new Torneo(codiceTorneo, dataSvolgimento, nome, premio, maxp, quota, tipo, vincitore));
+                    System.out.println(torneo);
+                }
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
@@ -124,7 +154,7 @@ public final class Torneo {
         public static int createTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota, int codiceTorneo, TipoSquadra tipo, Squadra vincitore, Connection connection) {
             int rowsInserted;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_TOURNAMENT, dataSvolgimento, nome, premio, maxp, quota, codiceTorneo, tipo, vincitore);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_TOURNAMENT, dataSvolgimento, nome, premio, maxp, quota, codiceTorneo, tipo.toString(), vincitore);
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -171,7 +201,7 @@ public final class Torneo {
                 var maxp = resultSet.getInt("MassimoPartecipanti");
                 var quota = resultSet.getDouble("QuotaIscrizione");
                 var tipo = TipoSquadra.valueOf(resultSet.getString("Tipo").toUpperCase());
-                var vincitore = Squadra.findTeam(resultSet.getInt("Vincitore"), connection);
+                var vincitore = Squadra.DAO.findTeam(resultSet.getInt("SquadraVincitrice"), connection);
                 torneo = new Torneo(codiceTorneo, data, nome, premio, maxp, quota, tipo, vincitore);
             } catch (SQLException e) {
                 throw new DAOException(e);

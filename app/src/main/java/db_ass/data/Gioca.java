@@ -1,5 +1,8 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,6 +54,23 @@ public final class Gioca {
     }
 
     public static final class DAO {
-        //da fare
+        public static List<Gioca> findAllTeamsThatPlayed(int codicePartita, Connection connection) {
+            List<Gioca> teams = new LinkedList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TEAMS_PLAYED, codicePartita);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    teams.add(new Gioca(
+                                        Squadra.DAO.findTeam(resultSet.getInt("CodiceSquadra"), connection),
+                                        Partita.DAO.findMatch(resultSet.getInt("CodiceTorneo"), connection),
+                                        resultSet.getInt("punteggio"))
+                                        );
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return teams;
+        }
     }
 }

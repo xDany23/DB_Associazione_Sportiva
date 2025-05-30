@@ -122,7 +122,7 @@ create table SQUADRA (
 create table TORNEO (
      DataSvolgimento date not null,
      Nome char(50) not null,
-     Premio decimal(10,4) not null,
+     Premio varchar(50) not null,
      MassimoPartecipanti integer not null,
      QuotaIscrizione decimal(10,4) not null,
      CodiceTorneo integer not null auto_increment,
@@ -502,7 +502,7 @@ values (5,"Lunedi","12:00:00","2025-02-03","Calcetto",1);
 
 -- Inserimento nella tabella torneo --
 insert into torneo(DataSvolgimento,Nome,Premio,MassimoPartecipanti,QuotaIscrizione,CodiceTorneo,Tipo,SquadraVincitrice)
-values ("2025-05-05","Giganti",5,2,1.0,1,"Tennis_singolo",null);
+values ("2025-10-05","Giganti","un elefante",2,1.0,1,"Tennis_singolo",null);
 
 -- Inserimento nella tabella squadra --
 insert into squadra(Nome,CodiceSquadra,Tipo,Componenti1,Componenti2,Componenti3,Componenti4,Componenti5) 

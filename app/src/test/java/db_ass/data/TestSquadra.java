@@ -57,9 +57,9 @@ public class TestSquadra {
         assertEquals(1, Squadra.DAO.createNewTeam("nawfoi", 7, TipoSquadra.PADEL, persone.get(3), persone.get(4), null, null, null, connection));
         assertEquals(1, Squadra.DAO.createNewTeam("ahaha", 8, TipoSquadra.CALCETTO, persone.get(0), persone.get(1),persone.get(2), persone.get(3), persone.get(4), connection));
 
-        assertEquals(squadre.get(0), Squadra.findTeam(5, connection));
-        assertEquals(squadre.get(1), Squadra.findTeam(6, connection));
-        assertEquals(squadre.get(2), Squadra.findTeam(7, connection));
-        assertEquals(squadre.get(3), Squadra.findTeam(8, connection));
+        assertEquals(squadre.get(0), Squadra.DAO.findTeam(5, connection));
+        assertEquals(squadre.get(1), Squadra.DAO.findTeam(6, connection));
+        assertEquals(squadre.get(2), Squadra.DAO.findTeam(7, connection));
+        assertEquals(squadre.get(3), Squadra.DAO.findTeam(8, connection));
     }
 }

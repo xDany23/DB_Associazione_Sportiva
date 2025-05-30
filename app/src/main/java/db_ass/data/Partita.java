@@ -1,5 +1,7 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,7 +57,25 @@ public final class Partita {
     }
 
     public static final class DAO {
-        //da fare
+        public static Partita findMatch(int codicePartita, Connection connection) {
+            Partita partita = null;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_MATCH, codicePartita);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                if (resultSet.next()) {
+                    partita = new Partita(
+                        codicePartita,
+                        Persona.DAO.findPerson(resultSet.getString("Arbitro"), connection),
+                        Torneo.DAO.findTournament(resultSet.getInt("CodiceTorneo"), connection),
+                        Squadra.DAO.findTeam(resultSet.getInt("SquadraVincitrice"), connection)
+                        );
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return partita;
+        }
     }
     
 }

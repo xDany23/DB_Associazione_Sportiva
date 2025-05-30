@@ -26,12 +26,10 @@ import db_ass.data.Persona;
 
 public class Registration {
 
-    private Optional<Controller> controller;
     private Menu menu;
     private JFrame mainFrame;
 
-    public Registration(Menu menu, JFrame mainFrame, Controller controller) {
-        this.controller = Optional.of(controller);
+    public Registration(Menu menu, JFrame mainFrame) {
         this.menu = menu;
         this.mainFrame = mainFrame;
     }
@@ -113,7 +111,7 @@ public class Registration {
             String email = emailField.getText();
             char[] passwordChars = passField.getPassword();
             String pass = new String(passwordChars);
-            controller.get().addUser(new Persona(cf, nome, cognome, email, pass, true, false, false, 0));
+            menu.getController().addUser(new Persona(cf, nome, cognome, email, pass, true, false, false, 0));
         });
         
         //bottone per tornare indietro

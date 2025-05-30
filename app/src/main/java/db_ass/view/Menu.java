@@ -34,7 +34,7 @@ public final class Menu {
     private Optional<Controller> controller;
     private JFrame mainFrame = this.setUp();
     private Login login = new Login(this, mainFrame);
-    private Registration registration = new Registration(this, mainFrame, this.getController());
+    private Registration registration = new Registration(this, mainFrame);
 
     public Menu(/* Runnable onClose */) {
         this.controller = Optional.empty();
@@ -133,7 +133,7 @@ public final class Menu {
         this.controller = Optional.of(controller);
     }
 
-    private Controller getController() {
+    public Controller getController() {
         if (this.controller.isPresent()) {
             return this.controller.get();
         } else {

@@ -26,13 +26,13 @@ import javax.swing.border.Border;
 import db_ass.Controller;
 import db_ass.view.Login;
 
-public final class Main {
+public final class Menu {
 
     private Optional<Controller> controller;
     private JFrame mainFrame = this.setUp();
     private Login login = new Login(this, mainFrame);
 
-    public Main(/* Runnable onClose */) {
+    public Menu(/* Runnable onClose */) {
         this.controller = Optional.empty();
         this.setUp();
     }
@@ -154,7 +154,7 @@ public final class Main {
         return mainFrame;
     }
 
-    public void loginFrame(Main main) {
+    public void loginFrame(Menu main) {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         mainFrame = login.setUp();

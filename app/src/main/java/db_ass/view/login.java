@@ -29,10 +29,10 @@ import db_ass.Controller;
 public class Login {
     
     private Optional<Controller> controller;
-    private Main main;
+    private Menu main;
     private JFrame mainFrame;
 
-    public Login(Main main, JFrame mainFrame/* Runnable onClose */) {
+    public Login(Menu main, JFrame mainFrame/* Runnable onClose */) {
         this.controller = Optional.empty();
         this.main = main;
         this.mainFrame = mainFrame;

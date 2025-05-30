@@ -3,14 +3,14 @@ package db_ass;
 import java.util.Objects;
 
 import db_ass.model.Model;
-import db_ass.view.Main;
+import db_ass.view.Menu;
 
 public final class Controller {
     
     private final Model model;
-    private final Main view;
+    private final Menu view;
 
-    public Controller(Model model, Main view) {
+    public Controller(Model model, Menu view) {
         Objects.requireNonNull(model, "Controller created with null model");
         Objects.requireNonNull(view, "Controller created with null view");
         this.view = view;

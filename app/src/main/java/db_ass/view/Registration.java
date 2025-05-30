@@ -112,6 +112,11 @@ public class Registration {
             char[] passwordChars = passField.getPassword();
             String pass = new String(passwordChars);
             menu.getController().addUser(new Persona(cf, nome, cognome, email, pass, true, false, false, 0));
+            nomeField.setText("");
+            cognomeField.setText("");
+            cfField.setText("");
+            emailField.setText("");
+            passField.setText("");
         });
         
         //bottone per tornare indietro

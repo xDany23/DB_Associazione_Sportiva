@@ -132,7 +132,7 @@ public class Registration {
     public void back() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = menu.restoreMenu();
+        mainFrame = menu.setUp();
     }
     
 }

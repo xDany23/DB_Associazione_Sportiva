@@ -132,6 +132,6 @@ public class Login {
     public void back() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = main.restoreMenu();
+        mainFrame = main.setUp();
     }
 }

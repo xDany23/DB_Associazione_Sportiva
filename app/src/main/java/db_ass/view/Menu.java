@@ -3,6 +3,7 @@ package db_ass.view;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -31,6 +32,7 @@ public final class Menu {
     private Optional<Controller> controller;
     private JFrame mainFrame = this.setUp();
     private Login login = new Login(this, mainFrame);
+    private Registration registration = new Registration(this, mainFrame);
 
     public Menu(/* Runnable onClose */) {
         this.controller = Optional.empty();
@@ -65,11 +67,14 @@ public final class Menu {
         //bottone Login
         JButton loginButton = new JButton("Login");
         loginButton.addActionListener(e -> {
-            loginFrame(this);
+            loginFrame();
         });
 
         //bottone Register
         JButton registerButton = new JButton("Register");
+        registerButton.addActionListener(e -> {
+            registrationFrame();
+        });
 
         //bottone Login Administrator
         JButton loginAdministratorButton = new JButton("Login Administrator");
@@ -83,6 +88,13 @@ public final class Menu {
         //aggiungo il pannello buttonPanel al pannello principale
         mainPanel.add(Box.createVerticalStrut(50)); //crea spazio verticale dal titolo
         mainPanel.add(buttonPanel);
+
+        JButton exitButton = new JButton("Exit");
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exitButton.setPreferredSize(new Dimension(300, 20));
+        exitButton.addActionListener(e -> {System.exit(0);});
+        mainPanel.add(Box.createVerticalStrut(200));
+        mainPanel.add(exitButton);
 
         //frame.pack();     //ridimensiona la finestra in base a cosa possiede all'interno
         frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -99,7 +111,7 @@ public final class Menu {
         return frame;
     }
 
-    public JFrame restoreMain() {
+    public JFrame restoreMenu() {
         //pannello principale
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -120,11 +132,14 @@ public final class Menu {
         //bottone Login
         JButton loginButton = new JButton("Login");
         loginButton.addActionListener(e -> {
-            loginFrame(this);
+            loginFrame();
         });
 
         //bottone Register
         JButton registerButton = new JButton("Register");
+        registerButton.addActionListener(e -> {
+            registrationFrame();
+        });
 
         //bottone Login Administrator
         JButton loginAdministratorButton = new JButton("Login Administrator");
@@ -138,6 +153,13 @@ public final class Menu {
         //aggiungo il pannello buttonPanel al pannello principale
         mainPanel.add(Box.createVerticalStrut(50)); //crea spazio verticale dal titolo
         mainPanel.add(buttonPanel);
+        
+        JButton exitButton = new JButton("Exit");
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exitButton.setPreferredSize(new Dimension(300, 20));
+        exitButton.addActionListener(e -> {System.exit(0);});
+        mainPanel.add(Box.createVerticalStrut(200));
+        mainPanel.add(exitButton);
 
         //frame.pack();     //ridimensiona la finestra in base a cosa possiede all'interno
         mainFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -154,10 +176,16 @@ public final class Menu {
         return mainFrame;
     }
 
-    public void loginFrame(Menu main) {
+    public void loginFrame() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         mainFrame = login.setUp();
+    }
+
+    public void registrationFrame() {
+        var cp = mainFrame.getContentPane();
+        cp.removeAll();
+        mainFrame = registration.setUp();
     }
 
 }

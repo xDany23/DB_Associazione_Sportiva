@@ -4,14 +4,14 @@ import java.sql.SQLException;
 
 import db_ass.data.DAOUtils;
 import db_ass.model.Model;
-import db_ass.view.main;
+import db_ass.view.Main;
 
 public final class App {
 
     public static void main(String[] args) throws SQLException {
         //var connection = DAOUtils.localMySQLConnection("associazionesportiva", "root", "");
         //var model = Model.fromConnection(connection);
-        var view = new main();/* () -> {
+        var view = new Main();/* () -> {
             
             try {
                 connection.close();

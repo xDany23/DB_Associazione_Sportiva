@@ -24,15 +24,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import db_ass.Controller;
+import db_ass.view.Login;
 
-public final class main {
+public final class Main {
 
     private Optional<Controller> controller;
-    private final JFrame mainFrame;
+    private JFrame mainFrame = this.setUp();
+    private Login login = new Login(this, mainFrame);
 
-    public main(/* Runnable onClose */) {
+    public Main(/* Runnable onClose */) {
         this.controller = Optional.empty();
-        this.mainFrame = this.setUp(/* onClose */);
+        this.setUp();
     }
 
     private JFrame setUp(/* Runnable onClose */) {
@@ -62,6 +64,9 @@ public final class main {
 
         //bottone Login
         JButton loginButton = new JButton("Login");
+        loginButton.addActionListener(e -> {
+            loginFrame(this);
+        });
 
         //bottone Register
         JButton registerButton = new JButton("Register");
@@ -94,17 +99,65 @@ public final class main {
         return frame;
     }
 
-    public void loadingProduct() {
-        freshPane(cp -> cp.add(new JLabel("Loading product...", SwingConstants.CENTER)));
+    public JFrame restoreMain() {
+        //pannello principale
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
+        //titolo
+        JLabel titleLabel = new JLabel("Associazione Sportiva", SwingConstants.CENTER);
+        titleLabel.setFont(titleLabel.getFont().deriveFont(36.0f));
+        titleLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        mainPanel.add(Box.createVerticalStrut(200));
+
+        //creo un pannello orizzontale per affiancare i bottoni
+        JPanel buttonPanel = new JPanel(new GridLayout(1,3,20,0)); //crea un pannello con 1 riga, 2 colonne
+        buttonPanel.setMaximumSize(new Dimension(1000, 50));
+        buttonPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+
+        //bottone Login
+        JButton loginButton = new JButton("Login");
+        loginButton.addActionListener(e -> {
+            loginFrame(this);
+        });
+
+        //bottone Register
+        JButton registerButton = new JButton("Register");
+
+        //bottone Login Administrator
+        JButton loginAdministratorButton = new JButton("Login Administrator");
+
+        //aggiungo i bottoni al buttonPanel
+        buttonPanel.add(loginButton);
+        //buttonPanel.add(Box.createHorizontalStrut(20)); //crea spazio orizzontale tra i due bottoni
+        buttonPanel.add(registerButton);
+        buttonPanel.add(loginAdministratorButton);
+
+        //aggiungo il pannello buttonPanel al pannello principale
+        mainPanel.add(Box.createVerticalStrut(50)); //crea spazio verticale dal titolo
+        mainPanel.add(buttonPanel);
+
+        //frame.pack();     //ridimensiona la finestra in base a cosa possiede all'interno
+        mainFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+        mainFrame.setResizable(false);
+        mainFrame.setVisible(true);
+        mainFrame.addWindowListener(
+            new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    //onClose.run();
+                    System.exit(0);
+                }
+            }
+        );
+        return mainFrame;
     }
 
-    private void freshPane(Consumer<Container> consumer) {
-        var cp = this.mainFrame.getContentPane();
+    public void loginFrame(Main main) {
+        var cp = mainFrame.getContentPane();
         cp.removeAll();
-        consumer.accept(cp);
-        cp.validate();
-        cp.repaint();
-        this.mainFrame.pack();
+        mainFrame = login.setUp();
     }
 
 }

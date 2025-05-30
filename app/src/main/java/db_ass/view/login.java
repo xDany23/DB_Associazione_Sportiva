@@ -1,6 +1,7 @@
 package db_ass.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -18,69 +19,90 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import db_ass.Controller;
 
-public class login {
+public class Login {
     
     private Optional<Controller> controller;
-    private final JFrame mainFrame;
+    private Main main;
+    private JFrame mainFrame;
 
-    public login(/* Runnable onClose */) {
+    public Login(Main main, JFrame mainFrame/* Runnable onClose */) {
         this.controller = Optional.empty();
-        this.mainFrame = this.setUp(/* onClose */);
+        this.main = main;
+        this.mainFrame = mainFrame;
     }
 
-    private JFrame setUp(/* Runnable onClose */) {
-        var frame = new JFrame("PROGETTO");
-        var padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        ((JComponent) frame.getContentPane()).setBorder(padding);
-        //frame.setPreferredSize(new Dimension(1000, 500));
-        frame.setLocationRelativeTo(null);  //centra la finestra nello schermo
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+    public JFrame setUp(/* Runnable onClose */) {
         //pannello principale
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+        //pannello per back
+        JPanel backPanel = new JPanel();
+        backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.Y_AXIS));
+
+        JPanel informationPanel = new JPanel(new GridLayout(2, 2, 0, 0));
+        informationPanel.setMaximumSize(new Dimension(500, 50));
+        informationPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+
         //titolo
-        JLabel titleLabel = new JLabel("Associazione Sportiva", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Login", SwingConstants.CENTER);
         titleLabel.setFont(titleLabel.getFont().deriveFont(36.0f));
         titleLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
         mainPanel.add(titleLabel, BorderLayout.NORTH);
         mainPanel.add(Box.createVerticalStrut(200));
 
-        //creo un pannello orizzontale per affiancare i bottoni
-        JPanel buttonPanel = new JPanel(new GridLayout(1,3,20,0)); //crea un pannello con 1 riga, 2 colonne
-        buttonPanel.setMaximumSize(new Dimension(1000, 50));
-        buttonPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        //campo CF
+        JLabel cfLabel = new JLabel("CF:");
+        JTextField cfField = new JTextField(16);
+        cfField.setMinimumSize(new Dimension(150, 15));
+        cfLabel.setAlignmentX(JLabel.RIGHT);
+        cfField.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+        informationPanel.add(cfLabel);
+        informationPanel.add(cfField);
 
-        //bottone Login
-        JButton loginButton = new JButton("Login");
+        //mainPanel.add(Box.createVerticalStrut(15));
 
-        //bottone Register
-        JButton registerButton = new JButton("Register");
+        //campo password
+        JLabel passLabel = new JLabel("Password:");
+        JPasswordField passField = new JPasswordField(20);
+        passField.setMaximumSize(new Dimension(300, 30));
+        informationPanel.add(passLabel);
+        informationPanel.add(passField);
 
-        //bottone Login Administrator
-        JButton loginAdministratorButton = new JButton("Login Administrator");
+        mainPanel.add(Box.createVerticalStrut(25));
 
-        //aggiungo i bottoni al buttonPanel
-        buttonPanel.add(loginButton);
-        //buttonPanel.add(Box.createHorizontalStrut(20)); //crea spazio orizzontale tra i due bottoni
-        buttonPanel.add(registerButton);
-        buttonPanel.add(loginAdministratorButton);
+        mainPanel.add(informationPanel);
 
-        //aggiungo il pannello buttonPanel al pannello principale
-        mainPanel.add(Box.createVerticalStrut(50)); //crea spazio verticale dal titolo
-        mainPanel.add(buttonPanel);
+        mainPanel.add(Box.createVerticalStrut(170));
+
+        //bottone conferma login
+        JButton confirmButton = new JButton("Accedi");
+        confirmButton.setMinimumSize(new Dimension(200, 50));
+        confirmButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        mainPanel.add(confirmButton);
+
+        //bottone per tornare indietro
+        JButton backButton = new JButton("Indietro");
+        backButton.setAlignmentX(JButton.LEFT_ALIGNMENT);
+        backButton.setAlignmentY(JButton.TOP_ALIGNMENT);
+        backPanel.add(backButton);
+        backButton.addActionListener(e -> {this.back();});
+        
 
         //frame.pack();     //ridimensiona la finestra in base a cosa possiede all'interno
-        frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.addWindowListener(
+        mainFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+        mainFrame.getContentPane().add(backPanel, BorderLayout.WEST);
+        mainFrame.setResizable(false);
+        mainFrame.setVisible(true);
+        mainFrame.addWindowListener(
             (WindowListener) new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
                     //onClose.run();
@@ -88,19 +110,25 @@ public class login {
                 }
             }
         );
-        return frame;
+        return mainFrame;
     }
 
-    public void loadingProduct() {
+    /* public void loadingProduct() {
         freshPane(cp -> cp.add(new JLabel("Loading product...", SwingConstants.CENTER)));
-    }
+    } */
 
-    private void freshPane(Consumer<Container> consumer) {
+    /* private void freshPane(Consumer<Container> consumer) {
         var cp = this.mainFrame.getContentPane();
         cp.removeAll();
         consumer.accept(cp);
         cp.validate();
         cp.repaint();
         this.mainFrame.pack();
+    } */
+
+    public void back() {
+        var cp = mainFrame.getContentPane();
+        cp.removeAll();
+        mainFrame = main.restoreMain();
     }
 }

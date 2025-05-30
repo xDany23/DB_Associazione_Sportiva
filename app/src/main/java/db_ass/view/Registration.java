@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.text.AbstractDocument;
 
 import db_ass.Controller;
+import db_ass.data.Persona;
 
 public class Registration {
 
@@ -29,8 +30,8 @@ public class Registration {
     private Menu menu;
     private JFrame mainFrame;
 
-    public Registration(Menu menu, JFrame mainFrame) {
-        this.controller = Optional.empty();
+    public Registration(Menu menu, JFrame mainFrame, Controller controller) {
+        this.controller = Optional.of(controller);
         this.menu = menu;
         this.mainFrame = mainFrame;
     }
@@ -105,6 +106,15 @@ public class Registration {
         confirmButton.setMinimumSize(new Dimension(200, 50));
         confirmButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         mainPanel.add(confirmButton);
+        confirmButton.addActionListener(e -> {
+            String nome = nomeField.getText();
+            String cognome = cognomeField.getText();
+            String cf = cfField.getText();
+            String email = emailField.getText();
+            char[] passwordChars = passField.getPassword();
+            String pass = new String(passwordChars);
+            controller.get().addUser(new Persona(cf, nome, cognome, email, pass, true, false, false, 0));
+        });
         
         //bottone per tornare indietro
         JButton backButton = new JButton("Indietro");

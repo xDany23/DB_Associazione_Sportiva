@@ -1,5 +1,6 @@
 package db_ass.view;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.awt.BorderLayout;
@@ -29,11 +30,11 @@ import db_ass.view.Login;
 
 public final class Menu {
 
-    int count = 0;
+    private int count = 0;
     private Optional<Controller> controller;
     private JFrame mainFrame = this.setUp();
     private Login login = new Login(this, mainFrame);
-    private Registration registration = new Registration(this, mainFrame);
+    private Registration registration = new Registration(this, mainFrame, this.getController());
 
     public Menu(/* Runnable onClose */) {
         this.controller = Optional.empty();
@@ -125,6 +126,26 @@ public final class Menu {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         mainFrame = registration.setUp();
+    }
+
+    public void setController(Controller controller) {
+        Objects.requireNonNull(controller, "Set null controller in view");
+        this.controller = Optional.of(controller);
+    }
+
+    private Controller getController() {
+        if (this.controller.isPresent()) {
+            return this.controller.get();
+        } else {
+            throw new IllegalStateException(
+                """
+                The View's Controller is undefined, did you remember to call
+                `setController` before starting the application?
+                Remeber that `View` needs a reference to the controller in order
+                to notify it of button clicks and other changes.  
+                """
+            );
+        }
     }
 
 }

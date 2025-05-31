@@ -474,6 +474,9 @@ public class UserPage {
             contentCorsi.repaint();
         });
 
+        //aggiungo al pannello corsi
+        corso.add(datiCorso, BorderLayout.WEST);
+
 
         //aggiungo al main
         main.addTab("Squadre", squadre);

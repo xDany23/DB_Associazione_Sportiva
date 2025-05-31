@@ -64,6 +64,18 @@ public final class Controller {
         return this.model.createNewLesson(numCampo, giorno, orarioInizio, dataSvolgimento, sport, prezzo, this.findFreeTrainer(dataSvolgimento, orarioInizio), persona);
     }
 
+    public Corso findActiveCourse(int codiceCorso) {
+        return this.model.findActiveCourse(codiceCorso);
+    }
+
+    public int joinCourse(Persona persona, int codiceCorso) {
+        return this.model.joinCourse(persona, codiceCorso);
+    }
+
+    public List<Corso> findMostActiveCourses() {
+        return this.model.findMostActiveCourses();
+    }
+
     public List<Corso> getAllActiveCourses() {
         return this.model.getAllActiveCourses();
     }

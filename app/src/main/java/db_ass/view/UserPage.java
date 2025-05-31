@@ -166,6 +166,7 @@ public class UserPage {
                 if (lezioni.isEmpty()) {
                     contentIscrizioni.removeAll();
                     contentIscrizioni.add(new JLabel("Non ci sono lezioni disponibili, prova in altre occasioni..."));
+                    contentIscrizioni.repaint();
                 } else {
                     contentIscrizioni.removeAll();
                     for (int i = 0; i < lezioni.size(); i++) {

@@ -396,11 +396,13 @@ public class UserPage {
         JButton joinCorsoButton = new JButton("Iscrizione");
         JButton ricercaCorsiButton = new JButton("Ricerca");
         JButton corsiPiuAttiviButton = new JButton("Corsi piú frequentati");
+        JButton corsiUtenteButton = new JButton("I miei corsi");
         datiCorso.add(codiceCorsoLabel);
         datiCorso.add(codiceCorsoField);
         datiCorso.add(joinCorsoButton);
         datiCorso.add(ricercaCorsiButton);
         datiCorso.add(corsiPiuAttiviButton);
+        datiCorso.add(corsiUtenteButton);
 
         //aggiungo un ActionListener sul bottone per cercare se un corso è attivo
         ricercaCorsiButton.addActionListener(e -> {
@@ -461,12 +463,32 @@ public class UserPage {
                 contentCorsi.add(new JLabel("Non sono presenti corsi in questo momento"));
             } else {
                 contentCorsi.removeAll();
-                contentCorsi.add(new JLabel("I CORSI PIU ATTIVI"), BorderLayout.CENTER);
+                contentCorsi.add(new JLabel("I CORSI PIU ATTIVI"), SwingConstants.CENTER);
                 for (int i = 0; i < output.size(); i++) {
                     contentCorsi.add(new JLabel("Codice corso: " + output.get(i).codiceCorso + ", " +
                                                 "Data di fine: " + output.get(i).dataFine + ", " +
                                                 "Sport praticato: " + output.get(i).sportPraticato + ", " + 
                                                 "Prezzo: " + output.get(i).prezzo + ", " + 
+                                                "Allenatore: " + output.get(i).allenatore.nome + " " + output.get(i).allenatore.cognome));
+                }
+            }
+            contentCorsi.revalidate();
+            contentCorsi.repaint();
+        });
+
+        //aggiungo un ActionListener per visualizzare i corsi dell'utente
+        corsiUtenteButton.addActionListener(e -> {
+            List<Corso> output = this.menu.getController().allCoursesOfUser(persona);
+            if (output.isEmpty()) {
+                contentCorsi.removeAll();
+                contentCorsi.add(new JLabel("Non sei iscritto a nessun corso"));
+            } else {
+                contentCorsi.removeAll();
+                contentCorsi.add(new JLabel("I MIEI CORSI"), SwingConstants.CENTER);
+                for (int i = 0; i < output.size(); i++) {
+                    contentCorsi.add(new JLabel("Codice corso: " + output.get(i).codiceCorso + ", " +
+                                                "Data di fine: " + output.get(i).dataFine + ", " +
+                                                "Sport praticato: " + output.get(i).sportPraticato + ", " +  
                                                 "Allenatore: " + output.get(i).allenatore.nome + " " + output.get(i).allenatore.cognome));
                 }
             }

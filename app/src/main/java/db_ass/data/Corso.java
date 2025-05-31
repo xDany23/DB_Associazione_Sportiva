@@ -159,5 +159,27 @@ public class Corso {
             }
             return preview;
         }
+
+        public static List<Corso> allCoursesOfUser(Persona persona, Connection connection) {
+            List<Corso> preview = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_COURSES_OF_USER, persona);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var dataInizio = resultSet.getString("DataInizio");
+                    var dataFine = resultSet.getString("DataFine");
+                    var sport = Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase());
+                    var prezzo = resultSet.getDouble("Prezzo");
+                    var codiceCorso = resultSet.getInt("CodiceCorso");
+                    var allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
+                    var corso = new Corso(dataInizio, dataFine, sport, prezzo, codiceCorso, allenatore);
+                    preview.add(corso);
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
+        }
     }
 }

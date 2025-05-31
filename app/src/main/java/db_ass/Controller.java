@@ -79,4 +79,8 @@ public final class Controller {
     public List<Corso> getAllActiveCourses() {
         return this.model.getAllActiveCourses();
     }
+
+    public List<Corso> allCoursesOfUser(Persona persona) {
+        return this.model.allCoursesOfUser(persona);
+    }
 }

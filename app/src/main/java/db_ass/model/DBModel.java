@@ -159,5 +159,10 @@ public class DBModel implements Model{
     public List<Corso> getAllActiveCourses() {
         return Corso.DAO.getAllActiveCourses(connection);
     }
+
+    @Override
+    public List<Corso> allCoursesOfUser(Persona persona) {
+        return Corso.DAO.allCoursesOfUser(persona, connection);
+    }
     
 }

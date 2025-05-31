@@ -43,6 +43,14 @@ public final class Controller {
         return this.model.getAllUsers();
     }
 
+    public List<Persona> getAllTrainers() {
+        return this.model.getAllTrainers();
+    }
+
+    public List<Persona> getAllReferees() {
+        return this.model.getAllReferees();
+    }
+
     public List<Campo> findSpaceForNewLesson(Sport sport, String orarioInizio, Giorno giorno, String data) {
         return this.model.findSpaceForNewLesson(sport, orarioInizio, giorno, data);
     }

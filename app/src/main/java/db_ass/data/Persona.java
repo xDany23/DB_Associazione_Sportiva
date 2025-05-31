@@ -223,9 +223,21 @@ public final class Persona {
         }
 
         public static List<Persona> getAllUsers(Connection connection) {
+            return getAllOfAtype(Queries.GET_ALL_USERS, connection);
+        }
+
+        public static List<Persona> getAllTrainers(Connection connection) {
+            return getAllOfAtype(Queries.GET_ALL_TRAINERS, connection);
+        }
+
+        public static List<Persona> getAllReferees(Connection connection) {
+            return getAllOfAtype(Queries.GET_ALL_REFEREES, connection);
+        }
+
+        private static List<Persona> getAllOfAtype(String Query,Connection connection) {
             List<Persona> persone = new LinkedList<>();
             try (
-                var prepStm = DAOUtils.prepare(connection, Queries.GET_ALL_USERS);
+                var prepStm = DAOUtils.prepare(connection, Query);
                 var resultSet = prepStm.executeQuery();
             ) {
                 while (resultSet.next()) {

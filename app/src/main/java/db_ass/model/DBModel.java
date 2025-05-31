@@ -144,5 +144,15 @@ public class DBModel implements Model{
     public List<Persona> getAllUsers() {
         return Persona.DAO.getAllUsers(connection);
     }
+
+    @Override
+    public List<Persona> getAllTrainers() {
+        return Persona.DAO.getAllTrainers(connection);
+    }
+
+    @Override
+    public List<Persona> getAllReferees() {
+        return Persona.DAO.getAllReferees(connection);
+    }
     
 }

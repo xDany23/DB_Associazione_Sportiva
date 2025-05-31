@@ -1,11 +1,7 @@
 package db_ass.view;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -40,16 +36,8 @@ public class AdminPage {
 
     public JFrame setUp() {
         this.panel.addTab("Utenti", userSetUp());
-
-        JPanel trainerPanel = new JPanel();
-        trainerPanel.setLayout(new BoxLayout(trainerPanel, BoxLayout.Y_AXIS));
-
-        this.panel.addTab("Allenatori", trainerPanel);
-
-        JPanel refereePanel = new JPanel();
-        refereePanel.setLayout(new BoxLayout(refereePanel, BoxLayout.Y_AXIS));
-        
-        this.panel.addTab("Arbitri", refereePanel);
+        this.panel.addTab("Allenatori", trainerSetUp());
+        this.panel.addTab("Arbitri", refereeSetUp());
         
         JPanel coursePanel = new JPanel();
         coursePanel.setLayout(new BoxLayout(coursePanel, BoxLayout.Y_AXIS));
@@ -131,9 +119,68 @@ public class AdminPage {
         return userPanel;
     }
 
+    private JPanel trainerSetUp() {
+        JPanel trainerPanel = new JPanel();
+        trainerPanel.setLayout(new BoxLayout(trainerPanel, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("Tutti gli allenatori", SwingConstants.CENTER);
+        List<Persona> persone = menu.getController().getAllTrainers();
+        Object[][] rowData = new Object[persone.size()][4];
+        int i = 0;
+        for(var per: persone) {
+            rowData[i][0] = per.nome;
+            rowData[i][1] = per.cognome;
+            rowData[i][2] = per.cf;
+            rowData[i][3] = per.email;
+            i++;
+        }
+        String[] names = {"nome","cognome","codice Fiscale","e-mail"};
+        JTable table = new JTable(rowData, names);
+        table.setModel(new CustomTableModel(rowData, names));
+        JScrollPane tablePanel = new JScrollPane();
+        tablePanel.setViewportView(table);
+        JComboBox<String> selectableUsers = new JComboBox<>();
+        fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList());
+        JPanel selectionPanel = new JPanel(new GridLayout());
+        selectionPanel.add(selectableUsers);
+        trainerPanel.add(title);
+        trainerPanel.add(tablePanel);
+        trainerPanel.add(selectionPanel);
+        return trainerPanel;
+    }
+
+    private JPanel refereeSetUp() {
+        JPanel refereePanel = new JPanel();
+        refereePanel.setLayout(new BoxLayout(refereePanel, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("Tutti gli allenatori", SwingConstants.CENTER);
+        List<Persona> persone = menu.getController().getAllReferees();
+        Object[][] rowData = new Object[persone.size()][4];
+        int i = 0;
+        for(var per: persone) {
+            rowData[i][0] = per.nome;
+            rowData[i][1] = per.cognome;
+            rowData[i][2] = per.cf;
+            rowData[i][3] = per.email;
+            i++;
+        }
+        String[] names = {"nome","cognome","codice Fiscale","e-mail"};
+        JTable table = new JTable(rowData, names);
+        table.setModel(new CustomTableModel(rowData, names));
+        JScrollPane tablePanel = new JScrollPane();
+        tablePanel.setViewportView(table);
+        JComboBox<String> selectableUsers = new JComboBox<>();
+        fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList());
+        JPanel selectionPanel = new JPanel(new GridLayout());
+        selectionPanel.add(selectableUsers);
+        refereePanel.add(title);
+        refereePanel.add(tablePanel);
+        refereePanel.add(selectionPanel);
+        return refereePanel;
+    }
+
     private <E> void fillComboBox(JComboBox<E> box, List<E> elements) {
         for(var elem: elements) {
             box.addItem(elem);
         }
     }
+
 }

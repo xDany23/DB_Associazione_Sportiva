@@ -64,6 +64,10 @@ public interface Model {
 
     List<Persona> getAllUsers();
 
+    List<Persona> getAllTrainers();
+
+    List<Persona> getAllReferees();
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

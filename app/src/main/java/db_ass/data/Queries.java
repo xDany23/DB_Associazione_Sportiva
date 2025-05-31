@@ -266,4 +266,18 @@ public final class Queries {
 			FROM persona
 			WHERE Utente = TRUE;		
 			""";
+
+	public static final String GET_ALL_TRAINERS = 
+			"""
+			SELECT *
+			FROM persona
+			WHERE Allenatore = TRUE;		
+			""";
+
+	public static final String GET_ALL_REFEREES = 
+			"""
+			SELECT *
+			FROM persona
+			WHERE Arbitro = TRUE;		
+			""";
 }

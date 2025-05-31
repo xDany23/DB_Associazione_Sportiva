@@ -18,6 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import db_ass.data.Corso;
 import db_ass.data.Persona;
 
 public class AdminPage {
@@ -38,11 +39,7 @@ public class AdminPage {
         this.panel.addTab("Utenti", userSetUp());
         this.panel.addTab("Allenatori", trainerSetUp());
         this.panel.addTab("Arbitri", refereeSetUp());
-        
-        JPanel coursePanel = new JPanel();
-        coursePanel.setLayout(new BoxLayout(coursePanel, BoxLayout.Y_AXIS));
-
-        this.panel.addTab("Corsi", coursePanel);
+        this.panel.addTab("Corsi", courseSetUp());
         
         JPanel tournamentPanel = new JPanel();
         tournamentPanel.setLayout(new BoxLayout(tournamentPanel, BoxLayout.Y_AXIS));
@@ -131,7 +128,7 @@ public class AdminPage {
     private JPanel refereeSetUp() {
         JPanel refereePanel = new JPanel();
         refereePanel.setLayout(new BoxLayout(refereePanel, BoxLayout.Y_AXIS));
-        JLabel title = new JLabel("Tutti gli allenatori", SwingConstants.CENTER);
+        JLabel title = new JLabel("Tutti gli arbitri", SwingConstants.CENTER);
         List<Persona> persone = menu.getController().getAllReferees();
         JComboBox<String> selectableUsers = new JComboBox<>();
         fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList());
@@ -145,6 +142,27 @@ public class AdminPage {
                                         persone.stream().map(p -> p.email).toList()));
         refereePanel.add(selectionPanel);
         return refereePanel;
+    }
+
+    private JPanel courseSetUp() {
+        JPanel coursePanel = new JPanel();
+        coursePanel.setLayout(new BoxLayout(coursePanel, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("Tutti i corsi attivi",SwingConstants.CENTER);
+        List<Corso> corsi = menu.getController().getAllActiveCourses();
+        JComboBox<Integer> selectables = new JComboBox<>();
+        fillComboBox(selectables, corsi.stream().map(c -> c.codiceCorso).toList());
+        JPanel selectionPanel = new JPanel(new GridLayout());
+        selectionPanel.add(selectables);
+        coursePanel.add(title);
+        coursePanel.add(createTablePanel(List.of("Codice Corso", "Prezzo", "Allenatore", "Sport Praticato", "DataInizio", "Data Fine"),
+                                         corsi.stream().map(c -> c.codiceCorso).toList(),
+                                         corsi.stream().map(c -> c.prezzo).toList(),
+                                         corsi.stream().map(c -> c.allenatore).toList(),
+                                         corsi.stream().map(c -> c.sportPraticato).toList(),
+                                         corsi.stream().map(c -> c.dataInizio).toList(),
+                                         corsi.stream().map(c -> c.dataFine).toList()));
+        coursePanel.add(selectionPanel);
+        return coursePanel;
     }
 
     private <E> void fillComboBox(JComboBox<E> box, List<E> elements) {

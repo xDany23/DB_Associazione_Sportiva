@@ -68,6 +68,8 @@ public interface Model {
 
     List<Persona> getAllReferees();
 
+    List<Corso> getAllActiveCourses();
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

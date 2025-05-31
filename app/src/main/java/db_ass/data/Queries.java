@@ -280,4 +280,20 @@ public final class Queries {
 			FROM persona
 			WHERE Arbitro = TRUE;		
 			""";
+
+	public static final String FIND_MOST_JOINED_COURSE = 
+			"""
+			select c.*, count(p.CF) as numeroIscritti
+			from corso c, partecipa p
+			where c.CodiceCorso = p.CodiceCorso
+			group by c.CodiceCorso
+			order by numeroIscritti desc limit 15;		
+			""";
+
+	public static final String GET_ALL_ACTIVE_COURSES = 
+			"""
+			SELECT *
+			FROM corso
+			WHERE corso.DataFine > now();		
+			""";
 }

@@ -115,14 +115,14 @@ public class Registration {
             if (nome.isEmpty() || cognome.isEmpty() || cf.isEmpty() || email.isEmpty() || pass.isEmpty()) {
                 JOptionPane.showMessageDialog(
                     null, 
-                    "Fill all the fields for the registration", 
-                    "Missing Fields", 
+                    "Compila tutti i campi prima della registrazione", 
+                    "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
             } else if (cf.length() != 16)  {
                 JOptionPane.showMessageDialog(
                     null, 
-                    "CF not valid", 
-                    "Error", 
+                    "CF non valido", 
+                    "Errore", 
                     JOptionPane.WARNING_MESSAGE);
             } else {
                 menu.getController().addUser(new Persona(cf, nome, cognome, email, pass, true, false, false, 0));

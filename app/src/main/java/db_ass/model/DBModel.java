@@ -128,5 +128,10 @@ public class DBModel implements Model{
     public List<RisultatiTorneo> visualizeAllTournamentMatches(int codiceTorneo) {
         return Torneo.DAO.visualizeAllTournamentMatches(codiceTorneo, connection);
     }
+
+    @Override
+    public Persona findPersona(String cf) {
+        return Persona.DAO.findPerson(cf, connection);
+    }
     
 }

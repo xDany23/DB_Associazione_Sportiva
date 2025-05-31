@@ -58,6 +58,8 @@ public interface Model {
 
     List<RisultatiTorneo> visualizeAllTournamentMatches(int codiceTorneo);
 
+    Persona findPersona(String cf);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

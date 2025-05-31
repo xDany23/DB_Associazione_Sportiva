@@ -21,4 +21,8 @@ public final class Controller {
     public void addUser(Persona persona) {
         this.model.registerUser(persona);
     }
+
+    public Persona findPersona(String cf) {
+        return this.model.findPersona(cf);
+    }
 }

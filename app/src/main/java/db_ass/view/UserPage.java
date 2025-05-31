@@ -56,8 +56,9 @@ public class UserPage {
 
         //pagine del main
         JPanel squadre = new JPanel();
+        squadre.setLayout(new BoxLayout(squadre, BoxLayout.Y_AXIS));
         JLabel squadreTitolo = new JLabel("Le mie squadre", SwingConstants.CENTER);
-        squadreTitolo.setFont(new Font("Arial", Font.BOLD, 20));
+        squadreTitolo.setFont(new Font("Arial", Font.BOLD, 30));
         squadreTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         squadreTitolo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         squadre.add(squadreTitolo);
@@ -71,8 +72,9 @@ public class UserPage {
         squadre.add(scrollSquadre);
         
         JPanel tornei = new JPanel();
+        tornei.setLayout(new BoxLayout(tornei, BoxLayout.Y_AXIS));
         JLabel torneiTitolo = new JLabel("I miei tornei", SwingConstants.CENTER);
-        torneiTitolo.setFont(new Font("Arial", Font.BOLD, 20));
+        torneiTitolo.setFont(new Font("Arial", Font.BOLD, 30));
         torneiTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         torneiTitolo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         tornei.add(squadreTitolo);
@@ -88,7 +90,7 @@ public class UserPage {
         JPanel iscrizione = new JPanel();
         iscrizione.setLayout(new BoxLayout(iscrizione, BoxLayout.Y_AXIS));
         JLabel iscrizioneTitolo = new JLabel("Iscrizioni", SwingConstants.CENTER);
-        iscrizioneTitolo.setFont(new Font("Arial", Font.BOLD, 20));
+        iscrizioneTitolo.setFont(new Font("Arial", Font.BOLD, 30));
         iscrizioneTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         iscrizioneTitolo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         iscrizione.add(iscrizioneTitolo);

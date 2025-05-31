@@ -61,7 +61,6 @@ public class UserPage {
         userPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
         //opzioni per scelte a tendina
-        String[] giorniLezioniPrivate = {"Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi"};
         String[] orari = {"15:00:00", "16:30:00", "18:00:00"};
         String[] sports = {"Calcetto", "Padel", "Tennis singolo", "Tennis doppio"};
 
@@ -117,11 +116,9 @@ public class UserPage {
 
         //dati da compilare sotto
         JPanel datiIscrizione = new JPanel();
-        datiIscrizione.setLayout(new GridLayout(7,2,2,0));
+        datiIscrizione.setLayout(new GridLayout(6,2,2,0));
         JLabel numCampoLabel = new JLabel("Numero campo: ");
         JTextField numCampoField = new JTextField(16);
-        JLabel giornoLabel = new JLabel("Giorno: ");
-        JComboBox<String> giornoBox = new JComboBox<>(giorniLezioniPrivate);
         JLabel orarioInizioLabel = new JLabel("Orario inizio: ");
         JComboBox<String> orarioInizioBox = new JComboBox<>(orari);
         JLabel dataLabel = new JLabel("Data: ");
@@ -132,9 +129,7 @@ public class UserPage {
         JButton buttonRicerca = new JButton("Cerca");
         JButton buttonCercaSpazio = new JButton("Trova spazio");
         datiIscrizione.add(numCampoLabel);
-        datiIscrizione.add(numCampoField);
-        datiIscrizione.add(giornoLabel);
-        datiIscrizione.add(giornoBox);
+        datiIscrizione.add(numCampoField);;
         datiIscrizione.add(orarioInizioLabel);
         datiIscrizione.add(orarioInizioBox);
         datiIscrizione.add(dataLabel);
@@ -160,7 +155,7 @@ public class UserPage {
             if (!numCampoField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(
                     null, 
-                    "Il numero del campo e il giorno non servono per la ricerca", 
+                    "Il numero del campo non serve per la ricerca", 
                     "Dati non necessari", 
                     JOptionPane.WARNING_MESSAGE);
             } else if (orario.isEmpty() || data.isEmpty()) {
@@ -202,28 +197,31 @@ public class UserPage {
                         : Sport.TENNIS;
             LocalDate str = LocalDate.parse(data);
             String giornoProva = str.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
-            if (giornoProva == "LUNEDI") {
-                JOptionPane.showMessageDialog(
-                    null, 
-                    "Lo legge come LUNEDI", 
-                    "BENE", 
-                    JOptionPane.WARNING_MESSAGE);
-            }
-            Giorno giorno = (giornoBox.getSelectedIndex() == 0)
+            Giorno giorno = (giornoProva.equals("lunedì"))
                             ? Giorno.LUNEDI
-                            : (giornoBox.getSelectedIndex() == 1)
+                            : (giornoProva.equals("martedì"))
                             ? Giorno.MARTEDI
-                            : (giornoBox.getSelectedIndex() == 2)
+                            : (giornoProva.equals("mercoledì"))
                             ? Giorno.MERCOLEDI
-                            : (giornoBox.getSelectedIndex() == 3) 
+                            : (giornoProva.equals("giovedì")) 
                             ? Giorno.GIOVEDI
-                            : Giorno.VENERDI;
+                            : (giornoProva.equals("venerdì"))
+                            ? Giorno.VENERDI
+                            : (giornoProva.equals("sabato"))
+                            ? Giorno.SABATO
+                            : Giorno.DOMENICA;
             String numCampo = numCampoField.getText();
             if (data.isEmpty() || numCampo.isEmpty()) {
                 JOptionPane.showMessageDialog(
                     null, 
                     "Dati mancanti per la prenotazione", 
                     "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (giorno.equals(Giorno.SABATO) || giorno.equals(Giorno.DOMENICA)) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Le lezioni private NON si svolgono di sabato o di domenica", 
+                    "Campi invalidi", 
                     JOptionPane.WARNING_MESSAGE);
             } else {
                 if (this.menu.getController().joinLesson(persona, Integer.parseInt(numCampo), giorno, orario, data, sport) == 0) {

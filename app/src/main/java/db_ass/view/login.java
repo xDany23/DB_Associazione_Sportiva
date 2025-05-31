@@ -119,6 +119,7 @@ public class Login {
                 persona = menu.getController().findPersona(cf);
                 if (persona != null) {
                     userPage = new UserPage(menu, mainFrame, persona);
+                    this.goUserPage(persona);
                 } else {
                     JOptionPane.showMessageDialog(
                     null, 

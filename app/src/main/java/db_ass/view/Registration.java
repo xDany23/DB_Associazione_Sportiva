@@ -15,6 +15,7 @@ import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -111,12 +112,26 @@ public class Registration {
             String email = emailField.getText();
             char[] passwordChars = passField.getPassword();
             String pass = new String(passwordChars);
-            menu.getController().addUser(new Persona(cf, nome, cognome, email, pass, true, false, false, 0));
-            nomeField.setText("");
-            cognomeField.setText("");
-            cfField.setText("");
-            emailField.setText("");
-            passField.setText("");
+            if (nome.isEmpty() || cognome.isEmpty() || cf.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Fill all the fields for the registration", 
+                    "Missing Fields", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (cf.length() != 16)  {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "CF not valid", 
+                    "Error", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                menu.getController().addUser(new Persona(cf, nome, cognome, email, pass, true, false, false, 0));
+                nomeField.setText("");
+                cognomeField.setText("");
+                cfField.setText("");
+                emailField.setText("");
+                passField.setText("");
+            }
         });
         
         //bottone per tornare indietro

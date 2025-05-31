@@ -45,7 +45,7 @@ public class Login {
 
     public JFrame setUp(/* Runnable onClose */) {
         //pannello principale
-        JTabbedPane main = new JTabbedPane();
+        JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 
         //pannello per back

@@ -42,4 +42,8 @@ public final class Controller {
     public List<Persona> getAllUsers() {
         return this.model.getAllUsers();
     }
+
+    public List<Campo> findSpaceForNewLesson(Sport sport, String orarioInizio, Giorno giorno, String data) {
+        return this.model.findSpaceForNewLesson(sport, orarioInizio, giorno, data);
+    }
 }

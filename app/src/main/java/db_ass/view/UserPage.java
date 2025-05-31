@@ -129,6 +129,7 @@ public class UserPage {
         JButton buttonIscrizione = new JButton("Iscrivimi");
         JButton buttonRicerca = new JButton("Cerca");
         JButton buttonCercaSpazio = new JButton("Trova spazio");
+        JButton creaLezioneButton = new JButton("Inserisci Lezione");
         datiIscrizione.add(numCampoLabel);
         datiIscrizione.add(numCampoField);;
         datiIscrizione.add(orarioInizioLabel);
@@ -140,6 +141,7 @@ public class UserPage {
         datiIscrizione.add(buttonIscrizione);
         datiIscrizione.add(buttonRicerca);
         datiIscrizione.add(buttonCercaSpazio);
+        datiIscrizione.add(creaLezioneButton);
 
         //aggiungo un ActionListener sul bottone Cerca
         buttonRicerca.addActionListener(e -> {
@@ -289,6 +291,60 @@ public class UserPage {
                         contentIscrizioni.add(new JLabel("Campo: " + campi.get(i).numeroCampo));
                     }
                 }
+            }
+            contentIscrizioni.revalidate();
+            contentIscrizioni.repaint();
+        });
+
+        //aggiungo un ActionListener per il creare una nuova lezione
+        creaLezioneButton.addActionListener(e -> {
+            String orario = orarioInizioBox.getSelectedItem().toString();
+            String data = dataField.getText();
+            Sport sport = (sportBox.getSelectedIndex() == 0)
+                        ? Sport.CALCETTO 
+                        : (sportBox.getSelectedIndex() == 1)
+                        ? Sport.PADEL
+                        : (sportBox.getSelectedIndex() == 2)
+                        ? Sport.TENNIS
+                        : Sport.TENNIS;
+            LocalDate str = LocalDate.parse(data);
+            String giornoProva = str.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
+            Giorno giorno = (giornoProva.equals("lunedì"))
+                            ? Giorno.LUNEDI
+                            : (giornoProva.equals("martedì"))
+                            ? Giorno.MARTEDI
+                            : (giornoProva.equals("mercoledì"))
+                            ? Giorno.MERCOLEDI
+                            : (giornoProva.equals("giovedì")) 
+                            ? Giorno.GIOVEDI
+                            : (giornoProva.equals("venerdì"))
+                            ? Giorno.VENERDI
+                            : (giornoProva.equals("sabato"))
+                            ? Giorno.SABATO
+                            : Giorno.DOMENICA;
+            String numCampo = numCampoField.getText();
+            if (data.isEmpty() || numCampo.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Dati mancanti per la prenotazione", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (giorno.equals(Giorno.SABATO) || giorno.equals(Giorno.DOMENICA)) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Le lezioni private NON si svolgono di sabato o di domenica", 
+                    "Campi invalidi", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (this.menu.getController().findFreeTrainer(data, orario) == null) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Purtoppo non ci sono allenatori disponibili, prova in altre date o altri orari", 
+                    "Allenatore non disponibile", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                contentIscrizioni.removeAll();
+                contentIscrizioni.add(new JLabel("Lezione inserita con successo!"));
+                this.menu.getController().createNewLesson(Integer.parseInt(numCampo), giorno, orario, data, sport, 30.00, persona);
             }
             contentIscrizioni.revalidate();
             contentIscrizioni.repaint();

@@ -34,7 +34,7 @@ public interface Model {
 
     List<Campo> findSpaceForNewLesson(Sport sport, String orarioInizio, Giorno giorno, String data);
 
-    int createNewLesson(Campo numCampo, Giorno giorno, String orarioInizio, String dataSvolgimento, Sport sport, double prezzo, Persona allenatore, Persona persona);
+    int createNewLesson(int numCampo, Giorno giorno, String orarioInizio, String dataSvolgimento, Sport sport, double prezzo, Persona allenatore, Persona persona);
 
     Corso findActiveCourse(int codiceCorso);
 
@@ -59,6 +59,8 @@ public interface Model {
     List<RisultatiTorneo> visualizeAllTournamentMatches(int codiceTorneo);
 
     Persona findPersona(String cf);
+
+    Persona findFreeTrainer(String data, String ora);
 
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);

@@ -42,4 +42,12 @@ public final class Controller {
     public List<Campo> findSpaceForNewLesson(Sport sport, String orarioInizio, Giorno giorno, String data) {
         return this.model.findSpaceForNewLesson(sport, orarioInizio, giorno, data);
     }
+
+    public Persona findFreeTrainer(String data, String ora) {
+        return this.model.findFreeTrainer(data, ora);
+    }
+
+    public int createNewLesson(int numCampo, Giorno giorno, String orarioInizio, String dataSvolgimento, Sport sport, double prezzo, Persona persona) {
+        return this.model.createNewLesson(numCampo, giorno, orarioInizio, dataSvolgimento, sport, prezzo, this.findFreeTrainer(dataSvolgimento, orarioInizio), persona);
+    }
 }

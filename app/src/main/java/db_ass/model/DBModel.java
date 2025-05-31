@@ -67,9 +67,9 @@ public class DBModel implements Model{
     }
 
     @Override
-    public int createNewLesson(Campo numCampo, Giorno giorno, String orarioInizio, String dataSvolgimento, Sport sport,
+    public int createNewLesson(int numCampo, Giorno giorno, String orarioInizio, String dataSvolgimento, Sport sport,
             double prezzo, Persona allenatore, Persona persona) {
-        return LezionePrivata.DAO.createNewLesson(numCampo, giorno, orarioInizio, dataSvolgimento, sport, prezzo, allenatore, persona, connection);            
+        return LezionePrivata.DAO.createNewLesson(Campo.DAO.findField(numCampo, connection), giorno, orarioInizio, dataSvolgimento, sport, prezzo, allenatore, persona, connection);            
     }
 
     @Override
@@ -132,6 +132,11 @@ public class DBModel implements Model{
     @Override
     public Persona findPersona(String cf) {
         return Persona.DAO.findPerson(cf, connection);
+    }
+
+    @Override
+    public Persona findFreeTrainer(String data, String ora) {
+        return Persona.DAO.findFreeTrainer(data, ora, connection);
     }
     
 }

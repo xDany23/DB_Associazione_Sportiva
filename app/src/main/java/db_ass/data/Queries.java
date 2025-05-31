@@ -246,4 +246,17 @@ public final class Queries {
 			and g.CodiceSquadra = s.CodiceSquadra
 			ORDER BY p.CodicePartita;
 			""";
+
+	public static final String FIND_FREE_TRAINER = 
+			"""
+			select p.*
+			from persona p, lezione_privata lp, lezione_corso lc join corso c on(lc.CodiceCorso = c.CodiceCorso)
+			where p.CF = c.Allenatore
+			and p.cf = lp.Allenatore
+			and p.cf not in(select p1.cf
+                from persona p1, lezione_privata lp1, lezione_corso lc1 join corso c1 on(lc1.CodiceCorso = c1.CodiceCorso)
+                where p.CF = c.Allenatore
+                and p.cf = lp.Allenatore
+                and ((lp1.OrarioInizio = ? and lp1.DataSvolgimento = ?) or (lc1.OrarioInizio = ? and lc1.DataSvolgimento = ?))); 
+			""";
 }

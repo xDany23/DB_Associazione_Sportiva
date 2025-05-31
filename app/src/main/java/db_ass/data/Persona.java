@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Collections;
 
 public final class Persona {
 
@@ -187,6 +188,37 @@ public final class Persona {
                 throw new DAOException(e);
             }
             return preview;
+        }
+
+        public static Persona findFreeTrainer(String data, String orario, Connection connection) {
+            List<Persona> preview = new ArrayList<>();
+            Persona output = null;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FREE_TRAINER, data, orario);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var cf = resultSet.getString("CF");
+                    var nome = resultSet.getString("Nome");
+                    var cognome = resultSet.getString("Cognome");
+                    var email = resultSet.getString("E_mail");
+                    var pass = resultSet.getString("Password");
+                    var utente = resultSet.getBoolean("Utente");
+                    var allenatore = resultSet.getBoolean("Allenatore");
+                    var arbitro = resultSet.getBoolean("Arbitro");
+                    var lezioniTenute = resultSet.getInt("LezioniTenute");
+                    var admin = resultSet.getBoolean("Admin");
+                    var persona = new Persona(cf, nome, cognome, email, pass, utente, allenatore, arbitro, lezioniTenute, admin);
+                    preview.add(persona); 
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            Collections.shuffle(preview);
+            if (!preview.isEmpty()) {
+                output = preview.get(0);
+            }
+            return output;
         }
     }
 

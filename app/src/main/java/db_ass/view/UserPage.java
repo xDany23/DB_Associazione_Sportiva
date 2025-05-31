@@ -166,7 +166,6 @@ public class UserPage {
                 if (lezioni.isEmpty()) {
                     contentIscrizioni.removeAll();
                     contentIscrizioni.add(new JLabel("Non ci sono lezioni disponibili, prova in altre occasioni..."));
-                    contentIscrizioni.repaint();
                 } else {
                     contentIscrizioni.removeAll();
                     for (int i = 0; i < lezioni.size(); i++) {
@@ -176,9 +175,9 @@ public class UserPage {
                                                         "Prezzo: " + lezioni.get(i).prezzo + ", " +
                                                         "Allenatore: " + lezioni.get(i).allenatore.nome + " " + lezioni.get(i).allenatore.cognome));
                     }
-                    contentIscrizioni.repaint();
                 }
             }
+            contentIscrizioni.repaint();
         });
 
         //aggiungo il pannello dei dati delle iscrizioni dentro al pannello delle iscrizioni

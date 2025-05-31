@@ -9,8 +9,8 @@ import db_ass.view.Menu;
 public final class App {
 
     public static void main(String[] args) throws SQLException {
-        //var connection = DAOUtils.localMySQLConnection("associazionesportiva", "root", "");
-        //var model = Model.fromConnection(connection);
+        var connection = DAOUtils.localMySQLConnection("associazionesportiva", "root", "");
+        var model = Model.fromConnection(connection);
         var view = new Menu();/* () -> {
             
             try {
@@ -18,8 +18,8 @@ public final class App {
             } catch (Exception ignored) { }
         }); */
 
-        //var controller = new Controller(model, view);
-
+        var controller = new Controller(model, view);
+        view.setController(controller);
     }
     
 }

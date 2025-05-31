@@ -17,8 +17,13 @@ public final class Persona {
     public final boolean allenatore;
     public final boolean arbitro;
     public final int LezioniTenute;
+    public final boolean admin;
 
     public Persona(String cf, String nome, String cognome, String email, String password, boolean utente, boolean allenatore, boolean arbitro, int LezioniTenute) {
+        this(cf, nome, cognome, email, password, utente, allenatore, arbitro, LezioniTenute, false);
+    }
+
+    public Persona(String cf, String nome, String cognome, String email, String password, boolean utente, boolean allenatore, boolean arbitro, int LezioniTenute, boolean admin) {
         this.cf = cf;
         this.nome = nome;
         this.cognome = cognome;
@@ -28,6 +33,7 @@ public final class Persona {
         this.allenatore = allenatore;
         this.arbitro = arbitro;
         this.LezioniTenute = LezioniTenute;
+        this.admin = admin;
     }
 
     @Override
@@ -136,14 +142,14 @@ public final class Persona {
                 var allenatore = resultSet.getBoolean("Allenatore");
                 var arbitro = resultSet.getBoolean("Arbitro");
                 var numTenute = resultSet.getInt("LezioniTenute");
-                persona = new Persona(Cf, nome, cognome, email, password, utente, allenatore, arbitro, numTenute);
+                var admin = resultSet.getBoolean("Admin");
+                persona = new Persona(Cf, nome, cognome, email, password, utente, allenatore, arbitro, numTenute, admin);
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
             return persona;
         }
 
-        //NON FUNZIONA
         public static int updateTrainerLesson(Persona persona, Connection connection) {
             int rowsInserted;
             try (
@@ -172,7 +178,8 @@ public final class Persona {
                     var allenatore = resultSet.getBoolean("Allenatore");
                     var arbitro = resultSet.getBoolean("Arbitro");
                     var lezioniTenute = resultSet.getInt("LezioniTenute");
-                    var persona = new Persona(cf, nome, cognome, email, pass, utente, allenatore, arbitro, lezioniTenute);
+                    var admin = resultSet.getBoolean("Admin");
+                    var persona = new Persona(cf, nome, cognome, email, pass, utente, allenatore, arbitro, lezioniTenute, admin);
                     preview.add(persona);
                 }
             } catch (SQLException e) {

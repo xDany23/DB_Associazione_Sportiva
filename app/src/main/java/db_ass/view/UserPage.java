@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -27,6 +28,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 
 import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
@@ -112,7 +117,7 @@ public class UserPage {
 
         //dati da compilare sotto
         JPanel datiIscrizione = new JPanel();
-        datiIscrizione.setLayout(new GridLayout(6,2,2,0));
+        datiIscrizione.setLayout(new GridLayout(7,2,2,0));
         JLabel numCampoLabel = new JLabel("Numero campo: ");
         JTextField numCampoField = new JTextField(16);
         JLabel giornoLabel = new JLabel("Giorno: ");
@@ -125,6 +130,7 @@ public class UserPage {
         JComboBox<String> sportBox = new JComboBox<>(sports);
         JButton buttonIscrizione = new JButton("Iscrivimi");
         JButton buttonRicerca = new JButton("Cerca");
+        JButton buttonCercaSpazio = new JButton("Trova spazio");
         datiIscrizione.add(numCampoLabel);
         datiIscrizione.add(numCampoField);
         datiIscrizione.add(giornoLabel);
@@ -137,6 +143,7 @@ public class UserPage {
         datiIscrizione.add(sportBox);
         datiIscrizione.add(buttonIscrizione);
         datiIscrizione.add(buttonRicerca);
+        datiIscrizione.add(buttonCercaSpazio);
 
         //aggiungo un ActionListener sul bottone Cerca
         buttonRicerca.addActionListener(e -> {
@@ -193,6 +200,15 @@ public class UserPage {
                         : (sportBox.getSelectedIndex() == 2)
                         ? Sport.TENNIS
                         : Sport.TENNIS;
+            LocalDate str = LocalDate.parse(data);
+            String giornoProva = str.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
+            if (giornoProva == "LUNEDI") {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Lo legge come LUNEDI", 
+                    "BENE", 
+                    JOptionPane.WARNING_MESSAGE);
+            }
             Giorno giorno = (giornoBox.getSelectedIndex() == 0)
                             ? Giorno.LUNEDI
                             : (giornoBox.getSelectedIndex() == 1)
@@ -220,6 +236,11 @@ public class UserPage {
             }
             contentIscrizioni.revalidate();
             contentIscrizioni.repaint();
+        });
+
+        //aggiungo un ActionLister al bottone per cercare spazio per delle lezioni
+        buttonCercaSpazio.addActionListener(e -> {
+
         });
 
         //aggiungo il pannello dei dati delle iscrizioni dentro al pannello delle iscrizioni

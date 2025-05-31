@@ -1,6 +1,9 @@
 package db_ass.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,7 +23,6 @@ public class UserPage {
         this.menu = menu;
         this.mainFrame = mainFrame;
         this.persona = persona;
-        this.setUp();
     }
 
     public JFrame setUp() {
@@ -40,7 +42,16 @@ public class UserPage {
         //aggiungo tutto al mainFrame
         mainFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
         mainFrame.getContentPane().add(backPanel, BorderLayout.WEST);
-
+        mainFrame.setResizable(false);
+        mainFrame.setVisible(true);
+        mainFrame.addWindowListener(
+            (WindowListener) new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    //onClose.run();
+                    System.exit(0);
+                }
+            }
+        );
 
         return mainFrame;
     }

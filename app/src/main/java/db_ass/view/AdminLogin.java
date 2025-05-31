@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -27,16 +28,18 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
 
 import db_ass.Controller;
+import db_ass.data.Persona;
 
 public class AdminLogin {
     
     private Optional<Controller> controller;
-    private Menu main;
+    private Menu menu;
     private JFrame mainFrame;
+    private Persona persona;
 
     public AdminLogin(Menu main, JFrame mainFrame/* Runnable onClose */) {
         this.controller = Optional.empty();
-        this.main = main;
+        this.menu = main;
         this.mainFrame = mainFrame;
     }
 
@@ -92,7 +95,41 @@ public class AdminLogin {
         confirmButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         mainPanel.add(confirmButton);
         confirmButton.addActionListener(e -> {
-            //controller.get().
+            String cf = cfField.getText();
+            char[] passChars = passField.getPassword();
+            String pass = new String(passChars);
+            if (cf.isEmpty() && pass.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Compila tutti i campi prima dell'accesso", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (cf.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Campo CF mancante", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (pass.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Campo Password mancante", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                persona = menu.getController().findPersona(cf);
+                if (persona != null) {
+                    
+                } else {
+                    JOptionPane.showMessageDialog(
+                    null, 
+                    "La persona inserita non esiste", 
+                    "Persona mancante", 
+                    JOptionPane.WARNING_MESSAGE);
+                    cfField.setText("");
+                    passField.setText("");
+                }
+            }
         });
 
         //bottone per tornare indietro
@@ -135,6 +172,6 @@ public class AdminLogin {
     public void back() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = main.setUp();
+        mainFrame = menu.setUp();
     }
 }

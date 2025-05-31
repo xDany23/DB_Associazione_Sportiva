@@ -28,6 +28,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
+import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
 import db_ass.data.Sport;
@@ -175,6 +176,45 @@ public class UserPage {
                                                         "Prezzo: " + lezioni.get(i).prezzo + ", " +
                                                         "Allenatore: " + lezioni.get(i).allenatore.nome + " " + lezioni.get(i).allenatore.cognome));
                     }
+                }
+            }
+            contentIscrizioni.repaint();
+        });
+
+        //aggiungo un ActionListener sul bottone dell'iscrizione
+        buttonIscrizione.addActionListener(e -> {
+            String orario = orarioInizioBox.getSelectedItem().toString();
+            String data = dataField.getText();
+            Sport sport = (sportBox.getSelectedIndex() == 0)
+                        ? Sport.CALCETTO 
+                        : (sportBox.getSelectedIndex() == 1)
+                        ? Sport.PADEL
+                        : (sportBox.getSelectedIndex() == 2)
+                        ? Sport.TENNIS
+                        : Sport.TENNIS;
+            Giorno giorno = (giornoBox.getSelectedIndex() == 0)
+                            ? Giorno.LUNEDI
+                            : (giornoBox.getSelectedIndex() == 1)
+                            ? Giorno.MARTEDI
+                            : (giornoBox.getSelectedIndex() == 2)
+                            ? Giorno.MERCOLEDI
+                            : (giornoBox.getSelectedIndex() == 3) 
+                            ? Giorno.GIOVEDI
+                            : Giorno.VENERDI;
+            String numCampo = numCampoField.getText();
+            if (data.isEmpty() || numCampo.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Dati mancanti per la prenotazione", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (this.menu.getController().joinLesson(persona, Integer.parseInt(numCampo), giorno, orario, data, sport) == 0) {
+                    contentIscrizioni.removeAll();
+                    contentIscrizioni.add(new JLabel("Purtroppo la lezione selezionata non esiste o è già piena"));
+                } else {
+                    contentIscrizioni.removeAll();
+                    contentIscrizioni.add(new JLabel("Sei stato iscritto alla lezione con successo!"));
                 }
             }
             contentIscrizioni.repaint();

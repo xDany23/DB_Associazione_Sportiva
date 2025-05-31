@@ -57,8 +57,8 @@ public class DBModel implements Model{
     }
 
     @Override
-    public int joinLesson(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport) {
-        return LezionePrivata.DAO.joinLesson(persona, campo, giorno, orarioInizio, data, sport, connection);
+    public int joinLesson(Persona persona, int campo, Giorno giorno, String orarioInizio, String data, Sport sport) {
+        return LezionePrivata.DAO.joinLesson(persona, Campo.DAO.findField(campo, connection), giorno, orarioInizio, data, sport, connection);
     }
 
     @Override

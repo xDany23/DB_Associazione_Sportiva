@@ -3,6 +3,8 @@ package db_ass;
 import java.util.List;
 import java.util.Objects;
 
+import db_ass.data.Campo;
+import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
 import db_ass.data.Sport;
@@ -31,5 +33,9 @@ public final class Controller {
 
     public List<LezionePrivata> findjoinableLesson(String data, String orario, Sport sport) {
         return this.model.findJoinableLesson(data, orario, sport);
+    }
+
+    public int joinLesson(Persona persona, int campo, Giorno giorno, String orarioInizio, String data, Sport sport) {
+        return this.model.joinLesson(persona, campo, giorno, orarioInizio, data, sport);
     }
 }

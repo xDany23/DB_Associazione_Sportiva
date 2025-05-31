@@ -30,7 +30,7 @@ public interface Model {
 
     List<LezionePrivata> findJoinableLesson(String data, String orario, Sport sport);
 
-    int joinLesson(Persona persona, Campo campo, Giorno giorno, String orarioInizio, String data, Sport sport);
+    int joinLesson(Persona persona, int campo, Giorno giorno, String orarioInizio, String data, Sport sport);
 
     List<Campo> findSpaceForNewLesson(Sport sport, String orarioInizio, Giorno giorno, String data);
 

@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -44,8 +45,8 @@ public class Login {
 
     public JFrame setUp(/* Runnable onClose */) {
         //pannello principale
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        JTabbedPane main = new JTabbedPane();
+        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 
         //pannello per back
         JPanel backPanel = new JPanel();
@@ -60,8 +61,8 @@ public class Login {
         titleLabel.setFont(titleLabel.getFont().deriveFont(36.0f));
         titleLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
-        mainPanel.add(Box.createVerticalStrut(200));
+        main.add(titleLabel, BorderLayout.NORTH);
+        main.add(Box.createVerticalStrut(200));
 
         //campo CF
         JLabel cfLabel = new JLabel("CF:");
@@ -82,17 +83,17 @@ public class Login {
         informationPanel.add(passLabel);
         informationPanel.add(passField);
 
-        mainPanel.add(Box.createVerticalStrut(25));
+        main.add(Box.createVerticalStrut(25));
 
-        mainPanel.add(informationPanel);
+        main.add(informationPanel);
 
-        mainPanel.add(Box.createVerticalStrut(170));
+        main.add(Box.createVerticalStrut(170));
 
         //bottone conferma login
         JButton confirmButton = new JButton("Accedi");
         confirmButton.setMinimumSize(new Dimension(200, 50));
         confirmButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        mainPanel.add(confirmButton);
+        main.add(confirmButton);
         confirmButton.addActionListener(e -> {
             String cf = cfField.getText();
             char[] passChars = passField.getPassword();
@@ -118,16 +119,15 @@ public class Login {
             } else {
                 persona = menu.getController().findPersona(cf);
                 if (persona != null) {
-                    if (persona.password.equals(pass)) {
+                    if (persona.password.equals(pass) && persona.utente == true) {
                         userPage = new UserPage(menu, mainFrame, persona);
                         this.goUserPage(persona);
                     } else {
                         JOptionPane.showMessageDialog(
-                        null, 
+                        null,
                         "La password e il CF non corrispondono", 
-                        "Dati non corretti", 
+                        "Dati non corretti",
                         JOptionPane.WARNING_MESSAGE);
-                        cfField.setText("");
                         passField.setText("");
                     }
                 } else {
@@ -151,7 +151,7 @@ public class Login {
         
 
         //frame.pack();     //ridimensiona la finestra in base a cosa possiede all'interno
-        mainFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+        mainFrame.getContentPane().add(main, BorderLayout.CENTER);
         mainFrame.getContentPane().add(backPanel, BorderLayout.WEST);
         mainFrame.setResizable(false);
         mainFrame.setVisible(true);

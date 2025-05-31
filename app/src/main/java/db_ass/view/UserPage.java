@@ -7,13 +7,18 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 
 import db_ass.data.Persona;
 
@@ -30,8 +35,7 @@ public class UserPage {
     }
 
     public JFrame setUp() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        JTabbedPane main = new JTabbedPane();
 
         JPanel backPanel = new JPanel();
         backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.Y_AXIS));
@@ -40,19 +44,43 @@ public class UserPage {
         userPanel.setMaximumSize(new Dimension(500, 30));
         userPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
+        //pagine del main
+        JPanel squadre = new JPanel();
+        squadre.add(new JLabel("Le mie squadre: "));
+        squadre.add(Box.createVerticalStrut(10));
+        
+        JPanel tornei = new JPanel();
+        tornei.add(new JLabel("I miei tornei: "));
+        tornei.add(Box.createVerticalStrut(10));
+
+        JPanel iscrizione = new JPanel();
+        iscrizione.add(new JLabel("Iscrizioni"));
+        iscrizione.add(Box.createVerticalStrut(10));
+
+        JPanel prenotazione = new JPanel();
+        prenotazione.add(new JLabel("Prenotazioni"));
+        prenotazione.add(Box.createVerticalStrut(10));
+
+        //aggiungo al main
+        main.addTab("Squadre", squadre);
+        main.addTab("Tornei", tornei);
+        main.addTab("Iscrizioni", iscrizione);
+        main.addTab("Prenotazioni", prenotazione);
+        
+
         //campi dello userPanel
+        JLabel title = new JLabel("Informazioni personali", SwingConstants.CENTER);
         JLabel nomeLabel = new JLabel("Nome: " + persona.nome);
         JLabel cognomeLabel = new JLabel("Cognome: " + persona.cognome);
         JLabel emailLabel = new JLabel("Email: "+ persona.email);
-        JLabel cfLabel = new JLabel("CF: " + persona.cf);
         nomeLabel.setAlignmentX(JLabel.RIGHT);
         cognomeLabel.setAlignmentX(JLabel.RIGHT);
         emailLabel.setAlignmentX(JLabel.RIGHT);
-        cfLabel.setAlignmentX(JLabel.RIGHT);
+        userPanel.add(title);
+        userPanel.add(Box.createVerticalStrut(20));
         userPanel.add(nomeLabel);
         userPanel.add(cognomeLabel);
         userPanel.add(emailLabel);
-        userPanel.add(cfLabel);
 
 
 
@@ -67,7 +95,7 @@ public class UserPage {
 
 
         //aggiungo tutto al mainFrame
-        mainFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+        mainFrame.getContentPane().add(main, BorderLayout.CENTER);
         mainFrame.getContentPane().add(backPanel, BorderLayout.WEST);
         mainFrame.getContentPane().add(userPanel, BorderLayout.EAST);
         mainFrame.setResizable(false);

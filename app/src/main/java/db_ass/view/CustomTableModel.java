@@ -5,9 +5,9 @@ import javax.swing.table.AbstractTableModel;
 public class CustomTableModel extends AbstractTableModel{
 
     private final Object[][] rowData;
-    private final String[] columnNames;
+    private final Object[] columnNames;
 
-    public CustomTableModel( Object[][] rowData, String[] columnNames) {
+    public CustomTableModel( Object[][] rowData, Object[] columnNames) {
         this.rowData = rowData;
         this.columnNames = columnNames;
     }
@@ -34,6 +34,6 @@ public class CustomTableModel extends AbstractTableModel{
 
     @Override
     public String getColumnName(int column) {
-        return this.columnNames[column];
+        return this.columnNames[column].toString();
     }
 }

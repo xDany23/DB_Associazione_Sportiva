@@ -95,26 +95,16 @@ public class AdminPage {
         userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
         JLabel title = new JLabel("Tutti gli utenti", SwingConstants.CENTER);
         List<Persona> persone = menu.getController().getAllUsers();
-        Object[][] rowData = new Object[persone.size()][4];
-        int i = 0;
-        for(var per: persone) {
-            rowData[i][0] = per.nome;
-            rowData[i][1] = per.cognome;
-            rowData[i][2] = per.cf;
-            rowData[i][3] = per.email;
-            i++;
-        }
-        String[] names = {"nome","cognome","codice Fiscale","e-mail"};
-        JTable table = new JTable(rowData, names);
-        table.setModel(new CustomTableModel(rowData, names));
-        JScrollPane tablePanel = new JScrollPane();
-        tablePanel.setViewportView(table);
         JComboBox<String> selectableUsers = new JComboBox<>();
         fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList());
         JPanel selectionPanel = new JPanel(new GridLayout());
         selectionPanel.add(selectableUsers);
         userPanel.add(title);
-        userPanel.add(tablePanel);
+        userPanel.add(createTablePanel(List.of("nome","cognome","codice Fiscale","e-mail"),
+                                        persone.stream().map(p -> p.nome).toList(),
+                                        persone.stream().map(p -> p.cognome).toList(),
+                                        persone.stream().map(p -> p.cf).toList(),
+                                        persone.stream().map(p -> p.email).toList()));
         userPanel.add(selectionPanel);
         return userPanel;
     }
@@ -124,26 +114,16 @@ public class AdminPage {
         trainerPanel.setLayout(new BoxLayout(trainerPanel, BoxLayout.Y_AXIS));
         JLabel title = new JLabel("Tutti gli allenatori", SwingConstants.CENTER);
         List<Persona> persone = menu.getController().getAllTrainers();
-        Object[][] rowData = new Object[persone.size()][4];
-        int i = 0;
-        for(var per: persone) {
-            rowData[i][0] = per.nome;
-            rowData[i][1] = per.cognome;
-            rowData[i][2] = per.cf;
-            rowData[i][3] = per.email;
-            i++;
-        }
-        String[] names = {"nome","cognome","codice Fiscale","e-mail"};
-        JTable table = new JTable(rowData, names);
-        table.setModel(new CustomTableModel(rowData, names));
-        JScrollPane tablePanel = new JScrollPane();
-        tablePanel.setViewportView(table);
         JComboBox<String> selectableUsers = new JComboBox<>();
         fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList());
         JPanel selectionPanel = new JPanel(new GridLayout());
         selectionPanel.add(selectableUsers);
         trainerPanel.add(title);
-        trainerPanel.add(tablePanel);
+        trainerPanel.add(createTablePanel(List.of("nome","cognome","codice Fiscale","e-mail"),
+                                        persone.stream().map(p -> p.nome).toList(),
+                                        persone.stream().map(p -> p.cognome).toList(),
+                                        persone.stream().map(p -> p.cf).toList(),
+                                        persone.stream().map(p -> p.email).toList()));
         trainerPanel.add(selectionPanel);
         return trainerPanel;
     }
@@ -153,26 +133,16 @@ public class AdminPage {
         refereePanel.setLayout(new BoxLayout(refereePanel, BoxLayout.Y_AXIS));
         JLabel title = new JLabel("Tutti gli allenatori", SwingConstants.CENTER);
         List<Persona> persone = menu.getController().getAllReferees();
-        Object[][] rowData = new Object[persone.size()][4];
-        int i = 0;
-        for(var per: persone) {
-            rowData[i][0] = per.nome;
-            rowData[i][1] = per.cognome;
-            rowData[i][2] = per.cf;
-            rowData[i][3] = per.email;
-            i++;
-        }
-        String[] names = {"nome","cognome","codice Fiscale","e-mail"};
-        JTable table = new JTable(rowData, names);
-        table.setModel(new CustomTableModel(rowData, names));
-        JScrollPane tablePanel = new JScrollPane();
-        tablePanel.setViewportView(table);
         JComboBox<String> selectableUsers = new JComboBox<>();
         fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList());
         JPanel selectionPanel = new JPanel(new GridLayout());
         selectionPanel.add(selectableUsers);
         refereePanel.add(title);
-        refereePanel.add(tablePanel);
+        refereePanel.add(createTablePanel(List.of("nome","cognome","codice Fiscale","e-mail"),
+                                        persone.stream().map(p -> p.nome).toList(),
+                                        persone.stream().map(p -> p.cognome).toList(),
+                                        persone.stream().map(p -> p.cf).toList(),
+                                        persone.stream().map(p -> p.email).toList()));
         refereePanel.add(selectionPanel);
         return refereePanel;
     }
@@ -183,4 +153,21 @@ public class AdminPage {
         }
     }
 
+    private JScrollPane createTablePanel(List<String> columnNames, List<?>... elements) {
+        Object[][] rowsData = new Object[elements[0].size()][elements.length];
+        int j = 0;
+        for(var element: elements) {
+            int i = 0;
+            for (var elem : element) {
+                rowsData[i][j] = elem;
+                i++;
+            }
+            j++;
+        }
+        JTable table = new JTable(rowsData, columnNames.toArray());
+        table.setModel(new CustomTableModel(rowsData, columnNames.toArray()));
+        JScrollPane tablePanel = new JScrollPane();
+        tablePanel.setViewportView(table);
+        return tablePanel;
+    }
 }

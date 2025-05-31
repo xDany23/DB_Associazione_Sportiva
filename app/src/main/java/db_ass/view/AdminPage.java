@@ -165,6 +165,10 @@ public class AdminPage {
         return coursePanel;
     }
 
+    private JPanel tournamentSetUp() {
+        return new JPanel();
+    }
+
     private <E> void fillComboBox(JComboBox<E> box, List<E> elements) {
         for(var elem: elements) {
             box.addItem(elem);

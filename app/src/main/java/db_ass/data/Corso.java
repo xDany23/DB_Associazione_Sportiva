@@ -90,13 +90,14 @@ public class Corso {
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_ACTIVE_COURSE, codiceCorso);
                 var resultSet = preparedStatement.executeQuery();
             ) {
-                resultSet.next();
-                var dataInizio = resultSet.getString("DataInizio");
-                var dataFine = resultSet.getString("DataFine");
-                Sport sport = Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase());
-                var prezzo = resultSet.getDouble("Prezzo");
-                Persona allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
-                corso = new Corso(dataInizio, dataFine, sport, prezzo, codiceCorso, allenatore);
+                if(resultSet.next()) {
+                    var dataInizio = resultSet.getString("DataInizio");
+                    var dataFine = resultSet.getString("DataFine");
+                    Sport sport = Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase());
+                    var prezzo = resultSet.getDouble("Prezzo");
+                    Persona allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
+                    corso = new Corso(dataInizio, dataFine, sport, prezzo, codiceCorso, allenatore);
+                }
             } catch (SQLException e) {
                 throw new DAOException(e);
             }

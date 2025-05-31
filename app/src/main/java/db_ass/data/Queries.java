@@ -296,4 +296,12 @@ public final class Queries {
 			FROM corso
 			WHERE corso.DataFine > now();		
 			""";
+
+	public static final String ALL_COURSES_OF_USER = 
+		"""
+		SELECT c.*
+		FROM partecipa p, corso c 
+		WHERE p.CodiceCorso = c.CodiceCorso 
+		AND p.cf = ?;  
+		""";
 }

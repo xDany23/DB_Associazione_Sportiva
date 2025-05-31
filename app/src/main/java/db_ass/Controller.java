@@ -39,6 +39,10 @@ public final class Controller {
         return this.model.joinLesson(persona, campo, giorno, orarioInizio, data, sport);
     }
 
+    public List<Persona> getAllUsers() {
+        return this.model.getAllUsers();
+    }
+
     public List<Campo> findSpaceForNewLesson(Sport sport, String orarioInizio, Giorno giorno, String data) {
         return this.model.findSpaceForNewLesson(sport, orarioInizio, giorno, data);
     }

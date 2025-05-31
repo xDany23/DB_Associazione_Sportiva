@@ -139,4 +139,10 @@ public class DBModel implements Model{
         return Persona.DAO.findFreeTrainer(data, ora, connection);
     }
     
+
+    @Override
+    public List<Persona> getAllUsers() {
+        return Persona.DAO.getAllUsers(connection);
+    }
+    
 }

@@ -3,6 +3,7 @@ package db_ass.data;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Collections;
@@ -219,6 +220,31 @@ public final class Persona {
                 output = preview.get(0);
             }
             return output;
+        }
+
+        public static List<Persona> getAllUsers(Connection connection) {
+            List<Persona> persone = new LinkedList<>();
+            try (
+                var prepStm = DAOUtils.prepare(connection, Queries.GET_ALL_USERS);
+                var resultSet = prepStm.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var cf = resultSet.getString("CF");
+                    var nome = resultSet.getString("Nome");
+                    var cognome = resultSet.getString("Cognome");
+                    var email = resultSet.getString("E_mail");
+                    var pass = resultSet.getString("Password");
+                    var utente = resultSet.getBoolean("Utente");
+                    var allenatore = resultSet.getBoolean("Allenatore");
+                    var arbitro = resultSet.getBoolean("Arbitro");
+                    var lezioniTenute = resultSet.getInt("LezioniTenute");
+                    var admin = resultSet.getBoolean("Admin");
+                    persone.add(new Persona(cf, nome, cognome, email, pass, utente, allenatore, arbitro, lezioniTenute, admin));
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return persone;
         }
     }
 

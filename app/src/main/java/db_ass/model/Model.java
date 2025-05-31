@@ -62,6 +62,8 @@ public interface Model {
 
     Persona findFreeTrainer(String data, String ora);
 
+    List<Persona> getAllUsers();
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

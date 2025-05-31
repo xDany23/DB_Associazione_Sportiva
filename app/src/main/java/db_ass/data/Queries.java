@@ -259,4 +259,11 @@ public final class Queries {
                 and p.cf = lp.Allenatore
                 and ((lp1.OrarioInizio = ? and lp1.DataSvolgimento = ?) or (lc1.OrarioInizio = ? and lc1.DataSvolgimento = ?))); 
 			""";
+
+	public static final String GET_ALL_USERS = 
+			"""
+			SELECT *
+			FROM persona
+			WHERE Utente = TRUE;		
+			""";
 }

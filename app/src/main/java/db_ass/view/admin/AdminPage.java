@@ -1,7 +1,9 @@
-package db_ass.view;
+package db_ass.view.admin;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -20,6 +22,9 @@ import javax.swing.SwingConstants;
 
 import db_ass.data.Corso;
 import db_ass.data.Persona;
+import db_ass.view.CustomTableModel;
+import db_ass.view.Menu;
+import db_ass.view.OptionArea;
 
 public class AdminPage {
     
@@ -36,15 +41,17 @@ public class AdminPage {
     }
 
     public JFrame setUp() {
-        this.panel.addTab("Utenti", userSetUp());
-        this.panel.addTab("Allenatori", trainerSetUp());
-        this.panel.addTab("Arbitri", refereeSetUp());
+        PersonPanel user = new PersonPanel(this.menu);
+        PersonPanel trainer = new PersonPanel(this.menu);
+        PersonPanel referee = new PersonPanel(this.menu);
+        user.setUp(this.menu.getController().getAllUsers());
+        trainer.setUp(this.menu.getController().getAllTrainers());
+        referee.setUp(this.menu.getController().getAllReferees());
+        this.panel.addTab("Utenti", user);
+        this.panel.addTab("Allenatori", trainer);
+        this.panel.addTab("Arbitri", referee);
         this.panel.addTab("Corsi", courseSetUp());
-        
-        JPanel tournamentPanel = new JPanel();
-        tournamentPanel.setLayout(new BoxLayout(tournamentPanel, BoxLayout.Y_AXIS));
-
-        this.panel.addTab("Tornei", tournamentPanel);
+        this.panel.addTab("Tornei", tournamentSetUp());
 
         JPanel fieldPanel = new JPanel();
         fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.Y_AXIS));
@@ -92,10 +99,12 @@ public class AdminPage {
         userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
         JLabel title = new JLabel("Tutti gli utenti", SwingConstants.CENTER);
         List<Persona> persone = menu.getController().getAllUsers();
-        JComboBox<String> selectableUsers = new JComboBox<>();
-        fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList());
+        /* JComboBox<String> selectableUsers = new JComboBox<>();
+        fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList()); */
+        OptionArea area = new OptionArea("Codice Fiscale", "codice fiscale");
+        
         JPanel selectionPanel = new JPanel(new GridLayout());
-        selectionPanel.add(selectableUsers);
+        selectionPanel.add(area);
         userPanel.add(title);
         userPanel.add(createTablePanel(List.of("nome","cognome","codice Fiscale","e-mail"),
                                         persone.stream().map(p -> p.nome).toList(),
@@ -166,7 +175,10 @@ public class AdminPage {
     }
 
     private JPanel tournamentSetUp() {
-        return new JPanel();
+        JPanel tournamentPanel = new JPanel();
+        tournamentPanel.setLayout(new BoxLayout(tournamentPanel, BoxLayout.Y_AXIS));
+        OptionArea area = new OptionArea("", null);
+        return tournamentPanel;
     }
 
     private <E> void fillComboBox(JComboBox<E> box, List<E> elements) {
@@ -190,6 +202,14 @@ public class AdminPage {
         table.setModel(new CustomTableModel(rowsData, columnNames.toArray()));
         JScrollPane tablePanel = new JScrollPane();
         tablePanel.setViewportView(table);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JTable t = (JTable)e.getSource();
+                int row = t.rowAtPoint(e.getPoint());
+            }
+        });
         return tablePanel;
     }
+
 }

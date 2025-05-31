@@ -27,6 +27,7 @@ import javax.swing.border.Border;
 
 import db_ass.Controller;
 import db_ass.view.Login;
+import db_ass.view.admin.AdminLogin;
 
 public final class Menu {
 

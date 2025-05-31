@@ -105,13 +105,14 @@ public class Corso {
         }
 
         public static int joinCourse(Persona persona, int codiceCorso, Connection connection) {
-            int rowsInserted;
+            int rowsInserted = 0;
             try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.JOIN_COURSE, persona.cf, codiceCorso);
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new DAOException(e);
+                return 0;
+                //throw new DAOException(e);
             }
             return rowsInserted;
         }
@@ -163,7 +164,7 @@ public class Corso {
         public static List<Corso> allCoursesOfUser(Persona persona, Connection connection) {
             List<Corso> preview = new ArrayList<>();
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_COURSES_OF_USER, persona);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_COURSES_OF_USER, persona.cf);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while (resultSet.next()) {

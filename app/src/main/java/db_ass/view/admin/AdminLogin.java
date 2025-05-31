@@ -1,4 +1,4 @@
-package db_ass.view;
+package db_ass.view.admin;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.text.AbstractDocument;
 
 import db_ass.data.Persona;
+import db_ass.view.LimitDocumentFilter;
+import db_ass.view.Menu;
 
 public class AdminLogin {
 

@@ -175,6 +175,7 @@ public class UserPage {
                                                         "Prezzo: " + lezioni.get(i).prezzo + ", " +
                                                         "Allenatore: " + lezioni.get(i).allenatore.nome + " " + lezioni.get(i).allenatore.cognome));
                     }
+                    contentIscrizioni.repaint();
                 }
             }
         });

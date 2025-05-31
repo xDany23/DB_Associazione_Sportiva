@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import db_ass.data.Campo;
+import db_ass.data.Corso;
 import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
@@ -61,5 +62,17 @@ public final class Controller {
 
     public int createNewLesson(int numCampo, Giorno giorno, String orarioInizio, String dataSvolgimento, Sport sport, double prezzo, Persona persona) {
         return this.model.createNewLesson(numCampo, giorno, orarioInizio, dataSvolgimento, sport, prezzo, this.findFreeTrainer(dataSvolgimento, orarioInizio), persona);
+    }
+
+    public Corso findActiveCourse(int codiceCorso) {
+        return this.model.findActiveCourse(codiceCorso);
+    }
+
+    public int joinCourse(Persona persona, int codiceCorso) {
+        return this.model.joinCourse(persona, codiceCorso);
+    }
+
+    public List<Corso> findMostActiveCourses() {
+        return this.model.findMostActiveCourses();
     }
 }

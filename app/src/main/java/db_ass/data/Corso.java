@@ -85,7 +85,7 @@ public class Corso {
 
     public static final class DAO {
         public static Corso findActiveCourses(int codiceCorso, Connection connection) {
-            Corso corso;
+            Corso corso = null;
             try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_ACTIVE_COURSE, codiceCorso);
                 var resultSet = preparedStatement.executeQuery();

@@ -61,7 +61,6 @@ public class UserPage {
         squadreTitolo.setFont(new Font("Arial", Font.BOLD, 30));
         squadreTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         squadreTitolo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        squadre.add(squadreTitolo);
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         for (int i = 0; i < 30; i++) {
@@ -77,7 +76,6 @@ public class UserPage {
         torneiTitolo.setFont(new Font("Arial", Font.BOLD, 30));
         torneiTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         torneiTitolo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        tornei.add(squadreTitolo);
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         for (int i = 0; i < 30; i++) {

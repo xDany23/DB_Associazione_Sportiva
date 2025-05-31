@@ -1,6 +1,7 @@
 package db_ass.view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -111,9 +113,11 @@ public class AdminPage {
         }
         String[] names = {"nome","cognome","codice Fiscale","e-mail"};
         JTable table = new JTable(rowData, names);
-        table.setModel(null);
+        table.setModel(new CustomTableModel(rowData, names));
+        JScrollPane tablePanel = new JScrollPane();
+        tablePanel.setViewportView(table);
         userPanel.add(title);
-        userPanel.add(table);
+        userPanel.add(tablePanel);
         return userPanel;
     }
 }

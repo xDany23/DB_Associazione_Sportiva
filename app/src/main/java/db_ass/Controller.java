@@ -1,8 +1,11 @@
 package db_ass;
 
+import java.util.List;
 import java.util.Objects;
 
+import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
+import db_ass.data.Sport;
 import db_ass.model.Model;
 import db_ass.view.Menu;
 
@@ -24,5 +27,9 @@ public final class Controller {
 
     public Persona findPersona(String cf) {
         return this.model.findPersona(cf);
+    }
+
+    public List<LezionePrivata> findjoinableLesson(String data, String orario, Sport sport) {
+        return this.model.findJoinableLesson(data, orario, sport);
     }
 }

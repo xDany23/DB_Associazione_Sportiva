@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -25,7 +28,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
+import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
+import db_ass.data.Sport;
 
 public class UserPage {
     
@@ -52,53 +57,59 @@ public class UserPage {
         //opzioni per scelte a tendina
         String[] giorniLezioniPrivate = {"Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi"};
         String[] orari = {"15:00:00", "16:30:00", "18:00:00"};
-        String[] sport = {"Calcetto", "Padel", "Tennis singolo", "Tennis doppio"};
+        String[] sports = {"Calcetto", "Padel", "Tennis singolo", "Tennis doppio"};
 
-        //pagine del main
+        //PAGINE DEL MAIN
+        //pannello squadra
         JPanel squadre = new JPanel();
         squadre.setLayout(new BoxLayout(squadre, BoxLayout.Y_AXIS));
         JLabel squadreTitolo = new JLabel("Le mie squadre", SwingConstants.CENTER);
         squadreTitolo.setFont(new Font("Arial", Font.BOLD, 30));
         squadreTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         squadreTitolo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        JPanel contentSquadra = new JPanel();
+        contentSquadra.setLayout(new BoxLayout(contentSquadra, BoxLayout.Y_AXIS));
         for (int i = 0; i < 30; i++) {
-            contentPanel.add(new JLabel("Riga #" + i));
+            contentSquadra.add(new JLabel("Riga #" + i));
         }
-        JScrollPane scrollSquadre = new JScrollPane(contentPanel);
+        JScrollPane scrollSquadre = new JScrollPane(contentSquadra);
         squadre.add(squadreTitolo);
         squadre.add(scrollSquadre);
         
+        //pannello tornei
         JPanel tornei = new JPanel();
         tornei.setLayout(new BoxLayout(tornei, BoxLayout.Y_AXIS));
         JLabel torneiTitolo = new JLabel("I miei tornei", SwingConstants.CENTER);
         torneiTitolo.setFont(new Font("Arial", Font.BOLD, 30));
         torneiTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         torneiTitolo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        JPanel contentTornei = new JPanel();
+        contentTornei.setLayout(new BoxLayout(contentTornei, BoxLayout.Y_AXIS));
         for (int i = 0; i < 30; i++) {
-            contentPanel.add(new JLabel("Riga #" + i));
+            contentTornei.add(new JLabel("Riga #" + i));
         }
-        JScrollPane scrollTornei = new JScrollPane(contentPanel);
+        JScrollPane scrollTornei = new JScrollPane(contentTornei);
         tornei.add(torneiTitolo);
         tornei.add(scrollTornei);
 
+        //pannello iscrizioni
         JPanel iscrizione = new JPanel();
         iscrizione.setLayout(new BoxLayout(iscrizione, BoxLayout.Y_AXIS));
+
+        //titolo
         JLabel iscrizioneTitolo = new JLabel("Iscrizioni", SwingConstants.CENTER);
         iscrizioneTitolo.setFont(new Font("Arial", Font.BOLD, 30));
         iscrizioneTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         iscrizioneTitolo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         iscrizione.add(iscrizioneTitolo);
-        contentPanel = new JPanel(new GridLayout());
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-        for (int i = 0; i < 30; i++) {
-            contentPanel.add(new JLabel("Riga #" + i));
-        }
-        JScrollPane scrollLezioni = new JScrollPane(contentPanel);
+
+        //pannello principale
+        JPanel contentIscrizioni = new JPanel();
+        contentIscrizioni.setLayout(new BoxLayout(contentIscrizioni, BoxLayout.Y_AXIS));
+        JScrollPane scrollLezioni = new JScrollPane(contentIscrizioni);
         iscrizione.add(scrollLezioni, BorderLayout.CENTER);
+
+        //dati da compilare sotto
         JPanel datiIscrizione = new JPanel();
         datiIscrizione.setLayout(new GridLayout(6,2,2,0));
         JLabel numCampoLabel = new JLabel("Numero campo: ");
@@ -110,7 +121,7 @@ public class UserPage {
         JLabel dataLabel = new JLabel("Data: ");
         JTextField dataField = new JTextField(16);
         JLabel sportLabel = new JLabel("Sport: ");
-        JComboBox<String> sportBox = new JComboBox<>(sport);
+        JComboBox<String> sportBox = new JComboBox<>(sports);
         JButton buttonIscrizione = new JButton("Iscrivimi");
         JButton buttonRicerca = new JButton("Cerca");
         datiIscrizione.add(numCampoLabel);
@@ -125,6 +136,48 @@ public class UserPage {
         datiIscrizione.add(sportBox);
         datiIscrizione.add(buttonIscrizione);
         datiIscrizione.add(buttonRicerca);
+
+        //aggiungo un ActionListener sul bottone Cerca
+        buttonRicerca.addActionListener(e -> {
+            List<LezionePrivata> lezioni = new ArrayList<>();
+            String orario = orarioInizioBox.getSelectedItem().toString();
+            String data = dataField.getText();
+            Sport sport = (sportBox.getSelectedIndex() == 0)
+                        ? Sport.CALCETTO 
+                        : (sportBox.getSelectedIndex() == 1)
+                        ? Sport.PADEL
+                        : (sportBox.getSelectedIndex() == 2)
+                        ? Sport.TENNIS
+                        : Sport.TENNIS;
+            if (!numCampoField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Il numero del campo e il giorno non servono per la ricerca", 
+                    "Dati non necessari", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (orario.isEmpty() || data.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Campi mancanti per la ricerca (Orario o Data)", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                lezioni = this.menu.getController().findjoinableLesson(data, orario, sport);
+                if (lezioni.isEmpty()) {
+                    contentIscrizioni.removeAll();
+                    contentIscrizioni.add(new JLabel("Non ci sono lezioni disponibili, prova in altre occasioni..."));
+                } else {
+                    contentIscrizioni.removeAll();
+                    for (int i = 0; i < lezioni.size(); i++) {
+                        contentIscrizioni.add(new JLabel("Campo: " + lezioni.get(i).numeroCampo + ", " +
+                                                        "Orario Inizio: " + lezioni.get(i).orarioInizio + ", " +
+                                                        "Data Svolgimento: " + lezioni.get(i).dataSvolgimento + ", " +
+                                                        "Prezzo: " + lezioni.get(i).prezzo + ", " +
+                                                        "Allenatore: " + lezioni.get(i).allenatore.nome + " " + lezioni.get(i).allenatore.cognome));
+                    }
+                }
+            }
+        });
 
         //aggiungo il pannello dei dati delle iscrizioni dentro al pannello delle iscrizioni
         iscrizione.add(datiIscrizione, BorderLayout.WEST);

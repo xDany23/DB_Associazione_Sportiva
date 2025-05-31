@@ -33,6 +33,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 
+import db_ass.data.Campo;
 import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
@@ -238,7 +239,59 @@ public class UserPage {
 
         //aggiungo un ActionLister al bottone per cercare spazio per delle lezioni
         buttonCercaSpazio.addActionListener(e -> {
-
+            List<Campo> campi = new ArrayList<>();
+            String orario = orarioInizioBox.getSelectedItem().toString();
+            String data = dataField.getText();
+            Sport sport = (sportBox.getSelectedIndex() == 0)
+                        ? Sport.CALCETTO 
+                        : (sportBox.getSelectedIndex() == 1)
+                        ? Sport.PADEL
+                        : (sportBox.getSelectedIndex() == 2)
+                        ? Sport.TENNIS
+                        : Sport.TENNIS;
+            LocalDate str = LocalDate.parse(data);
+            String giornoProva = str.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
+            Giorno giorno = (giornoProva.equals("lunedì"))
+                            ? Giorno.LUNEDI
+                            : (giornoProva.equals("martedì"))
+                            ? Giorno.MARTEDI
+                            : (giornoProva.equals("mercoledì"))
+                            ? Giorno.MERCOLEDI
+                            : (giornoProva.equals("giovedì")) 
+                            ? Giorno.GIOVEDI
+                            : (giornoProva.equals("venerdì"))
+                            ? Giorno.VENERDI
+                            : (giornoProva.equals("sabato"))
+                            ? Giorno.SABATO
+                            : Giorno.DOMENICA;
+            if (data.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Dati mancanti per la prenotazione", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (giorno.equals(Giorno.SABATO) || giorno.equals(Giorno.DOMENICA)) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Le lezioni private NON si svolgono di sabato o di domenica", 
+                    "Campi invalidi", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                campi = this.menu.getController().findSpaceForNewLesson(sport, orario, giorno, data);
+                if (campi.isEmpty()) {
+                    contentIscrizioni.removeAll();
+                    contentIscrizioni.add(new JLabel("Putroppo in questa data non ci sono campi disponibili"));
+                } else {
+                    contentIscrizioni.removeAll();
+                    contentIscrizioni.add(new JLabel("Campi disponibli: "));
+                    contentIscrizioni.add(Box.createVerticalStrut(10));
+                    for (int i = 0; i < campi.size(); i++) {
+                        contentIscrizioni.add(new JLabel("Campo: " + campi.get(i).numeroCampo));
+                    }
+                }
+            }
+            contentIscrizioni.revalidate();
+            contentIscrizioni.repaint();
         });
 
         //aggiungo il pannello dei dati delle iscrizioni dentro al pannello delle iscrizioni

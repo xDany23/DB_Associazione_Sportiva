@@ -379,6 +379,8 @@ values ("Alessandro","Ravaioli","qualcosa@gmail.com","pipipupu","AAAAAAAAAAAAAAA
 	   ("Daniele","Tramonti","qualcosa@gmail.com","pipipupu","DDDDDDDDDDDDDDDD",true,false,false,0),
        ("Edoardo","Frignoli","qualcosa@gmail.com","pipipupu","EEEEEEEEEEEEEEEE",true,false,false,0),
        ("Romeo","ofwianf","qualcosa@gmail.com","pipipupu","RRRRRRRRRRRRRRRR",false,true,true,1);
+insert into persona(Nome,Cognome,E_mail,Password,CF,Utente,Allenatore,Arbitro,LezioniTenute,Admin)
+values ("Gianfranco","Marchini","qualcosaltro@gmail.com","cambioPassword","GGGGGGGGGGGGGGGG",false,false,false,0,true);
 
 -- Inserimento nella tabella fascia_oraria --
 

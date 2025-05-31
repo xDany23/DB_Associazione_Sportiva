@@ -35,6 +35,7 @@ public final class Menu {
     private JFrame mainFrame = this.setUp();
     private Login login = new Login(this, mainFrame);
     private Registration registration = new Registration(this, mainFrame);
+    private AdminLogin adminLogin = new AdminLogin(this, mainFrame);
 
     public Menu(/* Runnable onClose */) {
         this.controller = Optional.empty();
@@ -81,6 +82,9 @@ public final class Menu {
 
         //bottone Login Administrator
         JButton loginAdministratorButton = new JButton("Login Administrator");
+        loginAdministratorButton.addActionListener(e -> {
+            adminLoginFrame();
+        });
 
         //aggiungo i bottoni al buttonPanel
         buttonPanel.add(loginButton);
@@ -126,6 +130,12 @@ public final class Menu {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         mainFrame = registration.setUp();
+    }
+
+    public void adminLoginFrame() {
+        var cp = mainFrame.getContentPane();
+        cp.removeAll();
+        mainFrame = adminLogin.setUp();
     }
 
     public void setController(Controller controller) {

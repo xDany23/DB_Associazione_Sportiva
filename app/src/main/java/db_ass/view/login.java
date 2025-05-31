@@ -118,8 +118,18 @@ public class Login {
             } else {
                 persona = menu.getController().findPersona(cf);
                 if (persona != null) {
-                    userPage = new UserPage(menu, mainFrame, persona);
-                    this.goUserPage(persona);
+                    if (persona.password.equals(pass)) {
+                        userPage = new UserPage(menu, mainFrame, persona);
+                        this.goUserPage(persona);
+                    } else {
+                        JOptionPane.showMessageDialog(
+                        null, 
+                        "La password e il CF non corrispondono", 
+                        "Dati non corretti", 
+                        JOptionPane.WARNING_MESSAGE);
+                        cfField.setText("");
+                        passField.setText("");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(
                     null, 

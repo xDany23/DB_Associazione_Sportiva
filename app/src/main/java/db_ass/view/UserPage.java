@@ -67,6 +67,7 @@ public class UserPage {
             contentPanel.add(new JLabel("Riga #" + i));
         }
         JScrollPane scrollSquadre = new JScrollPane(contentPanel);
+        squadre.add(squadreTitolo);
         squadre.add(scrollSquadre);
         
         JPanel tornei = new JPanel();
@@ -81,7 +82,8 @@ public class UserPage {
             contentPanel.add(new JLabel("Riga #" + i));
         }
         JScrollPane scrollTornei = new JScrollPane(contentPanel);
-        squadre.add(scrollTornei);
+        tornei.add(torneiTitolo);
+        tornei.add(scrollTornei);
 
         JPanel iscrizione = new JPanel();
         iscrizione.setLayout(new BoxLayout(iscrizione, BoxLayout.Y_AXIS));
@@ -110,6 +112,7 @@ public class UserPage {
         JLabel sportLabel = new JLabel("Sport: ");
         JComboBox<String> sportBox = new JComboBox<>(sport);
         JButton buttonIscrizione = new JButton("Iscrivimi");
+        JButton buttonRicerca = new JButton("Cerca");
         datiIscrizione.add(numCampoLabel);
         datiIscrizione.add(numCampoField);
         datiIscrizione.add(giornoLabel);
@@ -121,6 +124,7 @@ public class UserPage {
         datiIscrizione.add(sportLabel);
         datiIscrizione.add(sportBox);
         datiIscrizione.add(buttonIscrizione);
+        datiIscrizione.add(buttonRicerca);
 
         //aggiungo il pannello dei dati delle iscrizioni dentro al pannello delle iscrizioni
         iscrizione.add(datiIscrizione, BorderLayout.WEST);

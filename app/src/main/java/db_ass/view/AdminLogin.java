@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Optional;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -21,18 +20,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.AbstractDocument;
 
-import db_ass.Controller;
 import db_ass.data.Persona;
 
 public class AdminLogin {
-    
-    private Optional<Controller> controller;
+
     private Menu menu;
     private JFrame mainFrame;
     private Persona persona;
 
     public AdminLogin(Menu main, JFrame mainFrame/* Runnable onClose */) {
-        this.controller = Optional.empty();
         this.menu = main;
         this.mainFrame = mainFrame;
     }

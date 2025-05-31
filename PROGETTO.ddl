@@ -210,6 +210,8 @@ alter table PARTECIPA add constraint REF_PARTE_PERSO
      foreign key (CF)
      references PERSONA (CF);
 
+alter table lezione_privata add constraint PERSONE_DIVERSE
+	check (Partecipante1 <> Partecipante2 and Partecipante1 <> Partecipante3 and Partecipante2 <> Partecipante3);
 -- Not implemented
 -- alter table PARTITA add constraint ID_PARTITA_CHK
 --     check(exists(select * from GIOCA
@@ -385,7 +387,7 @@ values ("Gianfranco","Marchini","qualcosaltro@gmail.com","cambioPassword","GGGGG
 -- Inserimento nella tabella fascia_oraria --
 
 insert into fascia_oraria(NumeroCampo, Giorno, OrarioInizio, OrarioFine, Tipo, Prezzo)
-values  (1,"Lunedi","09:00:00","10:30:00","Prenotabile",75.0),(1,"Lunedi","10:30:00","12:00:00","Prenotabile",75.0),(1,"Lunedi","12:00:00","13:30:00","Prenotabile",75.0),(1,"Lunedi","13:30:00","15:00:00","Prenotabile",75.0),(1,"Lunedi","15:00:00","16:30:00","Lezione",null),(1,"Lunedi","16:30:00","19:00:00","Lezione",null),(1,"Lunedi","19:00:00","20:30:00","Lezione",null),(1,"Lunedi","20:30:00","22:00:00","Prenotabile",75.0),(1,"Lunedi","22:00:00","23:30:00","Prenotabile",75.0),
+values  (1,"Lunedi","09:00:00","10:30:00","Prenotabile",75.0),(1,"Lunedi","10:30:00","12:00:00","Prenotabile",75.0),(1,"Lunedi","12:00:00","13:30:00","Prenotabile",75.0),(1,"Lunedi","13:30:00","15:00:00","Prenotabile",75.0),(1,"Lunedi","15:00:00","16:30:00","Lezione",null),(1,"Lunedi","16:30:00","19 	:00:00","Lezione",null),(1,"Lunedi","19:00:00","20:30:00","Lezione",null),(1,"Lunedi","20:30:00","22:00:00","Prenotabile",75.0),(1,"Lunedi","22:00:00","23:30:00","Prenotabile",75.0),
 		(1,"Martedi","09:00:00","10:30:00","Prenotabile",75.0),(1,"Martedi","10:30:00","12:00:00","Prenotabile",75.0),(1,"Martedi","12:00:00","13:30:00","Prenotabile",75.0),(1,"Martedi","13:30:00","15:00:00","Prenotabile",75.0),(1,"Martedi","15:00:00","16:30:00","Lezione",null),(1,"Martedi","16:30:00","19:00:00","Lezione",null),(1,"Martedi","19:00:00","20:30:00","Lezione",null),(1,"Martedi","20:30:00","22:00:00","Prenotabile",75.0),(1,"Martedi","22:00:00","23:30:00","Prenotabile",75.0),
 		(1,"Mercoledi","09:00:00","10:30:00","Prenotabile",67.5),(1,"Mercoledi","10:30:00","12:00:00","Prenotabile",67.5),(1,"Mercoledi","12:00:00","13:30:00","Prenotabile",67.5),(1,"Mercoledi","13:30:00","15:00:00","Prenotabile",67.5),(1,"Mercoledi","15:00:00","16:30:00","Lezione",null),(1,"Mercoledi","16:30:00","19:00:00","Lezione",null),(1,"Mercoledi","19:00:00","20:30:00","Lezione",null),(1,"Mercoledi","20:30:00","22:00:00","Prenotabile",67.5),(1,"Mercoledi","22:00:00","23:30:00","Prenotabile",67.5),
 		(1,"Giovedi","09:00:00","10:30:00","Prenotabile",75.0),(1,"Giovedi","10:30:00","12:00:00","Prenotabile",75.0),(1,"Giovedi","12:00:00","13:30:00","Prenotabile",75.0),(1,"Giovedi","13:30:00","15:00:00","Prenotabile",75.0),(1,"Giovedi","15:00:00","16:30:00","Lezione",null),(1,"Giovedi","16:30:00","19:00:00","Lezione",null),(1,"Giovedi","19:00:00","20:30:00","Lezione",null),(1,"Giovedi","20:30:00","22:00:00","Prenotabile",75.0),(1,"Giovedi","22:00:00","23:30:00","Prenotabile",75.0),

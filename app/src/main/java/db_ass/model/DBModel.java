@@ -133,5 +133,10 @@ public class DBModel implements Model{
     public Persona findPersona(String cf) {
         return Persona.DAO.findPerson(cf, connection);
     }
+
+    @Override
+    public List<Persona> getAllUsers() {
+        return Persona.DAO.getAllUsers(connection);
+    }
     
 }

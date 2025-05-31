@@ -246,4 +246,11 @@ public final class Queries {
 			and g.CodiceSquadra = s.CodiceSquadra
 			ORDER BY p.CodicePartita;
 			""";
+
+	public static final String GET_ALL_USERS = 
+			"""
+			SELECT *
+			FROM persona
+			WHERE Utente = TRUE;		
+			""";
 }

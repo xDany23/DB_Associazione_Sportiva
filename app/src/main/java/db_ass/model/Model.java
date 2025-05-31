@@ -60,6 +60,8 @@ public interface Model {
 
     Persona findPersona(String cf);
 
+    List<Persona> getAllUsers();
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

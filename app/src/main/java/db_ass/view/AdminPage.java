@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 import db_ass.data.Persona;
 
@@ -29,10 +32,7 @@ public class AdminPage {
     }
 
     public JFrame setUp() {
-        JPanel userPanel = new JPanel();
-        userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
-
-        this.panel.addTab("Utenti", userPanel);
+        this.panel.addTab("Utenti", userSetUp());
 
         JPanel trainerPanel = new JPanel();
         trainerPanel.setLayout(new BoxLayout(trainerPanel, BoxLayout.Y_AXIS));
@@ -93,5 +93,27 @@ public class AdminPage {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         mainFrame = menu.setUp();
+    }
+
+    private JPanel userSetUp() {
+        JPanel userPanel = new JPanel();
+        userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("Tutti gli utenti", SwingConstants.CENTER);
+        List<Persona> persone = menu.getController().getAllUsers();
+        Object[][] rowData = new Object[persone.size()][4];
+        int i = 0;
+        for(var per: persone) {
+            rowData[i][0] = per.nome;
+            rowData[i][1] = per.cognome;
+            rowData[i][2] = per.cf;
+            rowData[i][3] = per.email;
+            i++;
+        }
+        String[] names = {"nome","cognome","codice Fiscale","e-mail"};
+        JTable table = new JTable(rowData, names);
+        table.setModel(null);
+        userPanel.add(title);
+        userPanel.add(table);
+        return userPanel;
     }
 }

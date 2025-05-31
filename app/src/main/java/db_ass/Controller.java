@@ -38,4 +38,8 @@ public final class Controller {
     public int joinLesson(Persona persona, int campo, Giorno giorno, String orarioInizio, String data, Sport sport) {
         return this.model.joinLesson(persona, campo, giorno, orarioInizio, data, sport);
     }
+
+    public List<Persona> getAllUsers() {
+        return this.model.getAllUsers();
+    }
 }

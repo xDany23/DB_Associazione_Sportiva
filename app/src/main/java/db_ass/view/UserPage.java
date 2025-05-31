@@ -178,6 +178,7 @@ public class UserPage {
                     }
                 }
             }
+            contentIscrizioni.revalidate();
             contentIscrizioni.repaint();
         });
 
@@ -217,6 +218,7 @@ public class UserPage {
                     contentIscrizioni.add(new JLabel("Sei stato iscritto alla lezione con successo!"));
                 }
             }
+            contentIscrizioni.revalidate();
             contentIscrizioni.repaint();
         });
 

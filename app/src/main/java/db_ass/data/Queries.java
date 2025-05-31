@@ -41,8 +41,8 @@ public final class Queries {
     
     public static final String REGISTER_USER = 
             """
-            INSERT INTO persona(Nome, Cognome, E_mail, Password, CF, Utente)
-            VALUES (?, ?, ?, ?, ?, ?);
+            INSERT INTO persona(Nome, Cognome, E_mail, Password, CF, Utente, Allenatore, Arbitro, LezioniTenute)
+            VALUES (?, ?, ?, ?, ?, ?, false, false, 0);
             """;
     
     public static final String NEW_TRAINER = 

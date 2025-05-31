@@ -195,7 +195,7 @@ public final class Persona {
             List<Persona> preview = new ArrayList<>();
             Persona output = null;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FREE_TRAINER, data, orario);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FREE_TRAINER, orario, data, orario, data);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while (resultSet.next()) {

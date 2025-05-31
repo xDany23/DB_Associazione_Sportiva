@@ -91,7 +91,7 @@ create table PERSONA (
      Nome varchar(20) not null,
      Cognome varchar(20) not null,
      E_mail varchar(30) not null,
-     Password varchar(16) not null,
+     Password varchar(30) not null,
      CF char(16) not null,
      Utente boolean not null,
      Allenatore boolean not null,

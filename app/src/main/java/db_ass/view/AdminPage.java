@@ -2,6 +2,10 @@ package db_ass.view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -9,6 +13,7 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -116,8 +121,19 @@ public class AdminPage {
         table.setModel(new CustomTableModel(rowData, names));
         JScrollPane tablePanel = new JScrollPane();
         tablePanel.setViewportView(table);
+        JComboBox<String> selectableUsers = new JComboBox<>();
+        fillComboBox(selectableUsers, persone.stream().map(p -> p.cf).toList());
+        JPanel selectionPanel = new JPanel(new GridLayout());
+        selectionPanel.add(selectableUsers);
         userPanel.add(title);
         userPanel.add(tablePanel);
+        userPanel.add(selectionPanel);
         return userPanel;
+    }
+
+    private <E> void fillComboBox(JComboBox<E> box, List<E> elements) {
+        for(var elem: elements) {
+            box.addItem(elem);
+        }
     }
 }

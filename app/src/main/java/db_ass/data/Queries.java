@@ -156,8 +156,8 @@ public final class Queries {
 
 	public static final String CREATE_NEW_TEAM = 
 			"""
-			INSERT INTO squadra(Nome, CodiceSquadra, Tipo, Componenti1, Componenti2, Componenti3, Componenti4, Componenti5)
-			VALUES (?,?,?,?,?,?,?,?);		
+			INSERT INTO squadra(Nome, Tipo, Componenti1, Componenti2, Componenti3, Componenti4, Componenti5)
+			VALUES (?,?,?,?,?,?,?);		
 			""";
 
 	public static final String FIND_TEAM = 

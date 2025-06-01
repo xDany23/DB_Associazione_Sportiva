@@ -94,8 +94,8 @@ public final class Controller {
         return this.model.findTeam(codiceSquadra);
     }
 
-    public int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5) {
-        return this.model.createNewTeam(nome, codiceSquadra, tipo, p1, p2, p3, p4, p5);
+    public int createNewTeam(String nome, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5) {
+        return this.model.createNewTeam(nome, tipo, p1, p2, p3, p4, p5);
     }
 
     public int demoteUser(Persona persona) {

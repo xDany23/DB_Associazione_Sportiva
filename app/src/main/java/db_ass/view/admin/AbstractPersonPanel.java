@@ -48,15 +48,5 @@ public abstract class AbstractPersonPanel extends BasePanel{
         return this.mainFrame;
     }
 
-    public String getSearchedOptionOutput(String optionName) {
-        String result = "";
-        for (var option : getOptionAreas()) {
-            if (option.getName().equals(optionName)) {
-                result = option.getText();
-            }
-        }
-        return result;
-    }
-
     public abstract List<JButton> createButtons();
 }

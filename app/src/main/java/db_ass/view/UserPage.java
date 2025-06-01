@@ -370,16 +370,28 @@ public class UserPage {
                     "E' necessario inserire sia il codice Torneo che il codice Squadra per l'iscrizione", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (!this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente1.equals(persona) ||
-                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente2.equals(persona) ||
-                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente3.equals(persona) ||
-                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente4.equals(persona) ||
-                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente5.equals(persona)) {
+            } else if (this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).tipo.equals(TipoSquadra.TENNIS_SINGOLO) &&
+                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente1.equals(persona)) {
                 JOptionPane.showMessageDialog(
                     null, 
                     "Non fai parte della squadra inserita! Riprovare", 
                     "Campi errati", 
                     JOptionPane.WARNING_MESSAGE);
+            } else if ((this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).tipo.equals(TipoSquadra.TENNIS_DOPPIO) ||
+                        this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).tipo.equals(TipoSquadra.PADEL)) &&
+                        (!this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente1.equals(persona) ||
+                        !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente2.equals(persona))) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Non fai parte della squadra inserita! Riprovare", 
+                    "Campi errati", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).tipo.equals(TipoSquadra.CALCETTO) &&
+                        (!this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente1.equals(persona) ||
+                        !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente2.equals(persona) ||
+                        !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente3.equals(persona) ||
+                        !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente4.equals(persona) ||
+                        !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente5.equals(persona))) {
             } else if (this.menu.getController().findTournament(Integer.parseInt(codiceTorneo)) == null) {
                 JOptionPane.showMessageDialog(
                     null, 

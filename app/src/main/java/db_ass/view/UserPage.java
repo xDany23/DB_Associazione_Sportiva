@@ -53,7 +53,7 @@ public class UserPage {
     private Menu menu;
     private JFrame mainFrame;
     private Persona persona;
-    SquadraPanel squadra;
+    SquadraPanel squadra = new SquadraPanel();
 
     public UserPage(Menu menu, JFrame mainFrame, Persona persona) {
         this.menu = menu;

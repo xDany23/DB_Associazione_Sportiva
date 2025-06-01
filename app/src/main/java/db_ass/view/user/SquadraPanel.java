@@ -30,7 +30,10 @@ public final class SquadraPanel {
     private Menu menu;
     private Persona persona;
 
-    public JPanel setUp() {
+    public JPanel setUp(Persona persona, Menu menu) {
+
+        this.persona = persona;
+        this.menu = menu;
         
         String[] sports = {"Calcetto", "Padel", "Tennis singolo", "Tennis doppio"};
 

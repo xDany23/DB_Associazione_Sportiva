@@ -807,7 +807,7 @@ public class UserPage {
 
 
         //aggiungo al main
-        main.addTab("Squadre", squadra.setUp());
+        main.addTab("Squadre", squadra.setUp(persona, menu));
         main.addTab("Tornei", tornei);
         main.addTab("Iscrizioni", iscrizione);
         main.addTab("Prenotazioni", prenotazione);

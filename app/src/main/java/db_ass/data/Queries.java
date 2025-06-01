@@ -304,4 +304,15 @@ public final class Queries {
 		WHERE p.CodiceCorso = c.CodiceCorso 
 		AND p.cf = ?;  
 		""";
+
+	public static final String ALL_TEAMS_OF_USER = 
+	"""
+	SELECT s.*
+	FROM squadra s
+	WHERE s.Componenti1 = ?
+	OR s.Componenti2 = ?
+	OR s.Componenti3 = ?
+	OR s.Componenti4 = ?
+	OR s.Componenti5 = ?;		
+	""";
 }

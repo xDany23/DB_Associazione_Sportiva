@@ -2,6 +2,7 @@ package db_ass.data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Squadra {
@@ -156,9 +157,9 @@ public final class Squadra {
 
     public static final class DAO {
         public static int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5, Connection connection) {
-            if (tipo.equals(TipoSquadra.TENNIS_SINGOLO)) {
+            if (tipo.equals(TipoSquadra.TENNIS_SINGOLO) && p2 == null && p3 == null && p4 == null && p5 == null) {
                 return createNewSingleTennisTeam(nome, codiceSquadra, tipo, p1, connection);
-            } else if (tipo.equals(TipoSquadra.TENNIS_DOPPIO) || tipo.equals(TipoSquadra.PADEL)) {
+            } else if ((tipo.equals(TipoSquadra.TENNIS_DOPPIO) || tipo.equals(TipoSquadra.PADEL)) && p3 == null && p4 == null && p5 == null) {
                 return createNewDoubleTennisTeam(nome, codiceSquadra, tipo, p1, p2, connection);
             } else if (tipo.equals(TipoSquadra.CALCETTO)) {
                 return createNewSoccerTeam(nome, codiceSquadra, tipo, p1, p2, p3, p4, p5, connection);
@@ -174,7 +175,8 @@ public final class Squadra {
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new DAOException(e);
+                return 0;
+                //throw new DAOException(e);
             }
             return rowsInserted;
         }
@@ -186,7 +188,8 @@ public final class Squadra {
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new DAOException(e);
+                return 0;
+                //throw new DAOException(e);
             }
             return rowsInserted;
         }
@@ -198,7 +201,8 @@ public final class Squadra {
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new DAOException(e);
+                return 0;
+                //throw new DAOException(e);
             }
             return rowsInserted;
         }
@@ -230,6 +234,39 @@ public final class Squadra {
                 throw new DAOException(e);
             }
             return squadra;
+        }
+
+        public static List<Squadra> allTeamsOfUser(Persona persona, Connection connection) {
+            List<Squadra> preview = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_TEAMS_OF_USER, persona, persona, persona, persona, persona);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var codice = resultSet.getInt("CodiceSquadra");
+                    var nome = resultSet.getString("Nome");
+                    TipoSquadra tipo = TipoSquadra.valueOf(resultSet.getString("Tipo").toUpperCase());
+                    var p1 = Persona.DAO.findPerson(resultSet.getString("Componenti1"), connection);
+                    var p2 = Persona.DAO.findPerson(resultSet.getString("Componenti2"), connection);
+                    var p3 = Persona.DAO.findPerson(resultSet.getString("Componenti3"), connection);
+                    var p4 = Persona.DAO.findPerson(resultSet.getString("Componenti4"), connection);
+                    var p5 = Persona.DAO.findPerson(resultSet.getString("Componenti5"), connection);
+                    if (tipo.equals(TipoSquadra.TENNIS_SINGOLO)) {
+                        var team = new Squadra(codice, nome, tipo, p1);
+                        preview.add(team);
+                    } else if (tipo.equals(TipoSquadra.PADEL) || tipo.equals(TipoSquadra.TENNIS_DOPPIO)) {
+                        var team = new Squadra(codice, nome, tipo, p1, p2);
+                        preview.add(team);
+                    } else {
+                        var team = new Squadra(codice, nome, tipo, p1, p2, p3, p4, p5);
+                        preview.add(team);
+                    }
+                }
+                
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
         }
     }
 }

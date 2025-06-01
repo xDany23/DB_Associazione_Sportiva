@@ -9,6 +9,8 @@ import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
 import db_ass.data.Sport;
+import db_ass.data.Squadra;
+import db_ass.data.TipoSquadra;
 import db_ass.model.Model;
 import db_ass.view.Menu;
 
@@ -82,5 +84,17 @@ public final class Controller {
 
     public List<Corso> allCoursesOfUser(Persona persona) {
         return this.model.allCoursesOfUser(persona);
+    }
+
+    public List<Squadra> allTeamsOfUser(Persona persona) {
+        return this.model.allTeamsOfUser(persona);
+    }
+
+    public Squadra findTeam(int codiceSquadra) {
+        return this.model.findTeam(codiceSquadra);
+    }
+
+    public int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5) {
+        return this.model.createNewTeam(nome, codiceSquadra, tipo, p1, p2, p3, p4, p5);
     }
 }

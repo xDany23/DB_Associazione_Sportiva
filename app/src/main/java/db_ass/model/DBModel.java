@@ -164,5 +164,15 @@ public class DBModel implements Model{
     public List<Corso> allCoursesOfUser(Persona persona) {
         return Corso.DAO.allCoursesOfUser(persona, connection);
     }
+
+    @Override
+    public List<Squadra> allTeamsOfUser(Persona persona) {
+        return Squadra.DAO.allTeamsOfUser(persona, connection);
+    }
+
+    @Override
+    public Squadra findTeam(int codiceSquadra) {
+        return Squadra.DAO.findTeam(codiceSquadra, connection);
+    }
     
 }

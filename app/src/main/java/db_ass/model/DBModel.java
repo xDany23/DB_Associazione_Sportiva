@@ -42,8 +42,8 @@ public class DBModel implements Model{
     }
 
     @Override
-    public List<Integer> findFieldToBook(FasciaOraria fascia, String data, Sport sport) {
-        return Prenotazione.DAO.findFieldToBook(fascia.orarioInizio, data, sport, connection);
+    public List<Integer> findFieldToBook(String orarioInizio, String data, Sport sport) {
+        return Prenotazione.DAO.findFieldToBook(orarioInizio, data, sport, connection);
     }
 
     @Override
@@ -178,6 +178,11 @@ public class DBModel implements Model{
     @Override
     public Torneo findTournament(int codiceTorneo) {
         return Torneo.DAO.findTournament(codiceTorneo, connection);
+    }
+
+    @Override
+    public FasciaOraria findPeriod(int campo, Giorno giorno, String orarioInizio) {
+        return FasciaOraria.DAO.findPeriod(campo, giorno, orarioInizio, connection);
     }
     
     @Override

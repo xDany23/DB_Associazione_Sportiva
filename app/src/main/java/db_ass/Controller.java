@@ -1,13 +1,16 @@
 package db_ass;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Objects;
 
 import db_ass.data.Campo;
 import db_ass.data.Corso;
+import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
+import db_ass.data.Prenotazione;
 import db_ass.data.RisultatiTorneo;
 import db_ass.data.Sport;
 import db_ass.data.Squadra;
@@ -122,6 +125,18 @@ public final class Controller {
 
     public List<RisultatiTorneo> visualizeAllTournamentMatches(int codiceTorneo) {
         return this.model.visualizeAllTournamentMatches(codiceTorneo);
+    }
+
+    public List<Integer> findFieldToBook(String orarioInizio, String data, Sport sport) {
+        return this.model.findFieldToBook(orarioInizio, data, sport);
+    }
+
+    public int bookField(Prenotazione p) {
+        return this.model.bookField(p);
+    }
+
+    public FasciaOraria findPeriod(int campo, Giorno giorno, String orarioInizio) {
+        return this.model.findPeriod(campo, giorno, orarioInizio);
     }
 
     public int promoteToTrainer(String cf) {

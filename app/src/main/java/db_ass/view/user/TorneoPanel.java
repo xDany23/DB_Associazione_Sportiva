@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import db_ass.data.Persona;
 import db_ass.data.RisultatiTorneo;
 import db_ass.data.TipoSquadra;
+import db_ass.data.Torneo;
 import db_ass.view.Menu;
 
 public final class TorneoPanel {
@@ -204,6 +205,41 @@ public final class TorneoPanel {
                 contentTornei.revalidate();
                 contentTornei.repaint();
             }
+        });
+
+        //aggiungo un ActionListener per il bottone per visualizzare tutti i tornei partecipabili
+        torneiPartecipabili.addActionListener(e -> {
+            TipoSquadra tipo;
+            List<Torneo> output = new ArrayList<>();
+            codiceSquadraTorneoField.setText("");
+            codiceTorneoField.setText("");
+            if (tipoTorneoBox.getSelectedIndex() == 0) {
+                tipo = TipoSquadra.CALCETTO;
+            } else if (tipoTorneoBox.getSelectedIndex() == 1) {
+                tipo = TipoSquadra.PADEL;
+            } else if (tipoTorneoBox.getSelectedIndex() == 2) {
+                tipo = TipoSquadra.TENNIS_SINGOLO;
+            } else {
+                tipo = TipoSquadra.TENNIS_DOPPIO;
+            }
+            output = menu.getController().tournamentsEnterable(tipo);
+            contentTornei.removeAll();
+            if (output.isEmpty()) {
+                contentTornei.add(new JLabel("Putroppo per questo sport non ci sono tornei previsti per ora"));
+            } else {
+                contentTornei.add(new JLabel("TORNEI PREVISTI:"));
+                contentTornei.add(Box.createVerticalStrut(10));
+                for (int i = 0; i < output.size(); i++) {
+                    contentTornei.add(new JLabel("Codice torneo: " + output.get(i).codiceTorneo + ", " + 
+                                                "Nome: " + output.get(i).nome + ", " +
+                                                "Data di Svolgimento: " + output.get(i).dataSvolgimento + ", " +
+                                                "Premio: " + output.get(i).premio + ", " + 
+                                                "Max partecipanti: " + output.get(i).massimoPartecipanti + ", " +
+                                                "Quota d'iscrizione: " + output.get(i).quotaIscrizione));
+                }
+            }
+            contentTornei.revalidate();
+            contentTornei.repaint();
         });
 
         //aggiungo il pannello dei dati dentro a quello principale dei tornei

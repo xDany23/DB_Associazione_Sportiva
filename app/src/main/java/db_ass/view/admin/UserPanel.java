@@ -27,6 +27,14 @@ public class UserPanel extends AbstractPersonPanel{
         });
         JButton demote = new JButton("Rimuovi utente");
         demote.addActionListener(l -> {
+            String cf = getSearchedOptionOutput("Codice Fiscale");
+            if (!cf.isBlank()) {
+                getMainFrame().getController().demoteUser(getMainFrame().getController().findPersona(cf));
+            } 
+            update(getMainFrame().getController().getAllUsers());
+        });
+        JButton promoteTrainer = new JButton("Aggiungi tra gli allenatori");
+        promoteTrainer.addActionListener(l -> {
             getMainFrame().getController().demoteUser(getMainFrame().getController().findPersona(getSearchedOptionOutput("Codice Fiscale")));
             update(getMainFrame().getController().getAllUsers());
         });

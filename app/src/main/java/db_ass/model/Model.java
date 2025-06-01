@@ -80,6 +80,10 @@ public interface Model {
 
     Torneo findTournament(int codiceTorneo);
 
+    int promoteToTrainer(Persona persona);
+
+    int promoteToReferee(Persona persona);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

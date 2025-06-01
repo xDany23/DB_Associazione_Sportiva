@@ -123,4 +123,12 @@ public final class Controller {
     public List<RisultatiTorneo> visualizeAllTournamentMatches(int codiceTorneo) {
         return this.model.visualizeAllTournamentMatches(codiceTorneo);
     }
+
+    public int promoteToTrainer(String cf) {
+        return this.model.promoteToTrainer(this.findPersona(cf));
+    }
+
+    public int promoteToReferee(String cf) {
+        return this.model.promoteToReferee(this.findPersona(cf));
+    }
 }

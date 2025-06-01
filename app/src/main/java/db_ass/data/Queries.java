@@ -346,4 +346,18 @@ public final class Queries {
 			AND Admin = false
 			AND CF = ?		
 			""";
+
+	public static final String PROMOTE_TO_TRAINER = 
+			"""
+			UPDATE persona
+			SET Allenatore = true
+			WHERE CF = ?;		
+			""";
+
+	public static final String PROMOTE_TO_REFEREE = 
+			"""
+			UPDATE persona
+			SET Arbitro = true
+			WHERE CF = ?;		
+			""";
 }

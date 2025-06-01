@@ -180,10 +180,18 @@ public class DBModel implements Model{
         return Torneo.DAO.findTournament(codiceTorneo, connection);
     }
     
-
     @Override
     public int demoteUser(Persona persona) {
         return Persona.DAO.demoteUser(persona, connection);
     }
     
+    @Override
+    public int promoteToTrainer(Persona persona) {
+        return Persona.DAO.promoteToTrainer(persona, connection);
+    }
+
+    @Override
+    public int promoteToReferee(Persona persona) {
+        return Persona.DAO.promoteToReferee(persona, connection);
+    }
 }

@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
 
 import db_ass.view.CustomTableModel;
+import db_ass.view.LimitDocumentFilter;
 import db_ass.view.OptionArea;
 
 public abstract class BasePanel extends JPanel{
@@ -33,6 +35,7 @@ public abstract class BasePanel extends JPanel{
         this.searchField = new JTextField();
         this.tablePanel = new JScrollPane(); 
         this.table = new JTable();
+        ((AbstractDocument)searchField.getDocument()).setDocumentFilter(new LimitDocumentFilter(16));
     }
 
     public JLabel getTitle() {

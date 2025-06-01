@@ -8,9 +8,11 @@ import db_ass.data.Corso;
 import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
+import db_ass.data.RisultatiTorneo;
 import db_ass.data.Sport;
 import db_ass.data.Squadra;
 import db_ass.data.TipoSquadra;
+import db_ass.data.Torneo;
 import db_ass.model.Model;
 import db_ass.view.Menu;
 
@@ -96,5 +98,25 @@ public final class Controller {
 
     public int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5) {
         return this.model.createNewTeam(nome, codiceSquadra, tipo, p1, p2, p3, p4, p5);
+    }
+
+    public Torneo findTournament(int codiceTorneo) {
+        return this.model.findTournament(codiceTorneo);
+    }
+
+    public int enterTournament(int codicetorneo, int codiceSquadra) {
+        return this.model.enterTournament(codicetorneo, codiceSquadra);
+    }
+
+    public List<Torneo> tournamentsEnterable(TipoSquadra tipo) {
+        return this.model.isTournamentEnterable(tipo);
+    }
+
+    public List<Persona> findAllPartecipants(int codiceTorneo) {
+        return this.model.findAllPartecipants(codiceTorneo);
+    }
+
+    public List<RisultatiTorneo> visualizeAllTournamentMatches(int codiceTorneo) {
+        return this.model.visualizeAllTournamentMatches(codiceTorneo);
     }
 }

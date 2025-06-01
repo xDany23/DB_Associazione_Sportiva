@@ -174,5 +174,10 @@ public class DBModel implements Model{
     public Squadra findTeam(int codiceSquadra) {
         return Squadra.DAO.findTeam(codiceSquadra, connection);
     }
+
+    @Override
+    public Torneo findTournament(int codiceTorneo) {
+        return Torneo.DAO.findTournament(codiceTorneo, connection);
+    }
     
 }

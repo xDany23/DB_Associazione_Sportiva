@@ -76,6 +76,8 @@ public interface Model {
 
     Squadra findTeam(int codiceSquadra);
 
+    Torneo findTournament(int codiceTorneo);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

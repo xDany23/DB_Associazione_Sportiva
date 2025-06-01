@@ -156,8 +156,8 @@ public final class Queries {
 
 	public static final String CREATE_NEW_TEAM = 
 			"""
-			INSERT INTO squadra(Nome, CodiceSquadra, Tipo, Componenti1, Componenti2, Componenti3, Componenti4, Componenti5)
-			VALUES (?,?,?,?,?,?,?,?);		
+			INSERT INTO squadra(Nome, Tipo, Componenti1, Componenti2, Componenti3, Componenti4, Componenti5)
+			VALUES (?,?,?,?,?,?,?);		
 			""";
 
 	public static final String FIND_TEAM = 
@@ -315,4 +315,35 @@ public final class Queries {
 	OR s.Componenti4 = ?
 	OR s.Componenti5 = ?;		
 	""";
+
+	public static final String DEMOTE_USER = 
+			"""
+			UPDATE persona
+			SET Utente = false
+			WHERE CF = ?;		
+			""";
+	
+	public static final String DEMOTE_TRAINER = 
+			"""
+			UPDATE persona
+			SET Allenatore = false
+			WHERE CF = ?;		
+			""";
+
+	public static final String DEMOTE_REFEREE = 
+			"""
+			UPDATE persona
+			SET Arbitro = false
+			WHERE CF = ?;		
+			""";
+
+	public static final String DELETE_PERSONA = 
+			"""
+			DELETE FROM persona
+			WHERE Utente = false
+			AND Allenatore = false
+			AND Arbitro = false
+			AND Admin = false
+			AND CF = ?		
+			""";
 }

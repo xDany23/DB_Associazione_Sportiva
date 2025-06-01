@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import db_ass.view.CustomTableModel;
 import db_ass.view.OptionArea;
 
-public class BasePanel extends JPanel{
+public abstract class BasePanel extends JPanel{
     
     private List<OptionArea> fields;
     private List<JButton> buttons;
@@ -41,6 +41,10 @@ public class BasePanel extends JPanel{
 
     public String getSearchField() {
         return this.searchField.getText();
+    }
+
+    public List<OptionArea> getOptionAreas() {
+        return this.fields;
     }
 
     public JScrollPane getTablePanel() {
@@ -103,9 +107,18 @@ public class BasePanel extends JPanel{
             for (OptionArea opt : options) {
                 if (opt.getName().equals(t.getColumnName(i))) {
                     opt.setText(objs.get(i).toString());
-                    System.out.println(objs.get(i).toString());
                 }
             }
         }
+    }
+
+    public String getSearchedOptionOutput(String optionName) {
+        String result = "";
+        for (var option : getOptionAreas()) {
+            if (option.getName().equals(optionName)) {
+                result = option.getText();
+            }
+        }
+        return result;
     }
 }

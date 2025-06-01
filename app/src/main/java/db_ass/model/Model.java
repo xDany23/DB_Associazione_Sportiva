@@ -40,7 +40,7 @@ public interface Model {
 
     int joinCourse(Persona persona, int codiceCorso);
 
-    int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5);
+    int createNewTeam(String nome, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5);
 
     List<Torneo> isTournamentEnterable(TipoSquadra tipo);
 
@@ -75,6 +75,8 @@ public interface Model {
     List<Squadra> allTeamsOfUser(Persona persona);
 
     Squadra findTeam(int codiceSquadra);
+
+    int demoteUser(Persona persona);
 
     Torneo findTournament(int codiceTorneo);
 

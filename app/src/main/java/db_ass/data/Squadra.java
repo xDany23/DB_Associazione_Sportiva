@@ -239,7 +239,7 @@ public final class Squadra {
         public static List<Squadra> allTeamsOfUser(Persona persona, Connection connection) {
             List<Squadra> preview = new ArrayList<>();
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_TEAMS_OF_USER, persona, persona, persona, persona, persona);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_TEAMS_OF_USER, persona.cf, persona.cf, persona.cf, persona.cf, persona.cf);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while (resultSet.next()) {

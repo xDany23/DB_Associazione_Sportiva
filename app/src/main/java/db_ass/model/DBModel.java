@@ -83,7 +83,7 @@ public class DBModel implements Model{
     }
 
     @Override
-    public int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3,
+    public int createNewTeam(String nome, TipoSquadra tipo, Persona p1, Persona p2, Persona p3,
             Persona p4, Persona p5) {
         return Squadra.DAO.createNewTeam(nome, tipo, p1, p2, p3, p4, p5, connection);      
     }
@@ -183,6 +183,12 @@ public class DBModel implements Model{
     @Override
     public FasciaOraria findPeriod(int campo, Giorno giorno, String orarioInizio) {
         return FasciaOraria.DAO.findPeriod(campo, giorno, orarioInizio, connection);
+    }
+    
+
+    @Override
+    public int demoteUser(Persona persona) {
+        return Persona.DAO.demoteUser(persona, connection);
     }
     
 }

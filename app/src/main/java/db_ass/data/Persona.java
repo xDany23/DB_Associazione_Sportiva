@@ -258,6 +258,30 @@ public final class Persona {
             }
             return persone;
         }
+
+        public static int demoteUser(Persona persona, Connection connection) {
+            return demoter(persona.cf, Queries.DEMOTE_USER, connection);
+        }
+
+        public static int demoteTrainer(Persona persona, Connection connection) {
+            return demoter(persona.cf, Queries.DEMOTE_TRAINER, connection);
+        }
+
+        public static int demoteReferee(Persona persona, Connection connection) {
+            return demoter(persona.cf, Queries.DEMOTE_REFEREE, connection);
+        }
+
+        private static int demoter(String cf, String query, Connection connection) {
+            int rowsInserted;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, query, cf);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
     }
 
     

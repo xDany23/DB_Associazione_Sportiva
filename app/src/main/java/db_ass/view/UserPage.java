@@ -299,7 +299,6 @@ public class UserPage {
             } else {
                 contentSquadra.removeAll();
                 if (this.menu.getController().createNewTeam(nome, 
-                                                            Integer.parseInt(codice), 
                                                             tipo, 
                                                             this.menu.getController().findPersona(p1), 
                                                             this.menu.getController().findPersona(p2), 

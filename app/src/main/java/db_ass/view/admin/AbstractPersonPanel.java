@@ -23,14 +23,6 @@ public abstract class AbstractPersonPanel extends BasePanel{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setFields(List.of(new OptionArea("Codice Fiscale", "Codice Fiscale")));
         setTitle(text, SwingConstants.CENTER);
-        /* JButton search = new JButton("CERCA");
-        search.addActionListener(l -> {
-            update(getSearchField().isBlank() 
-                    ? this.mainFrame.getController().getAllUsers()
-                    : this.mainFrame.getController().findPersona(getSearchField()) == null
-                    ? List.of()
-                    : List.of(this.mainFrame.getController().findPersona(getSearchField())));
-        }); */
         setButtons(createButtons());
         fillOptionPanel();
         createTablePanel(List.of("Nome","Cognome","Codice Fiscale","e-mail"),

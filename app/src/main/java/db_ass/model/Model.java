@@ -72,6 +72,10 @@ public interface Model {
 
     List<Corso> allCoursesOfUser(Persona persona);
 
+    List<Squadra> allTeamsOfUser(Persona persona);
+
+    Squadra findTeam(int codiceSquadra);
+
     int demoteUser(Persona persona);
 
     static Model fromConnection(Connection connection) {

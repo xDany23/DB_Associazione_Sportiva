@@ -166,6 +166,17 @@ public class DBModel implements Model{
     }
 
     @Override
+    public List<Squadra> allTeamsOfUser(Persona persona) {
+        return Squadra.DAO.allTeamsOfUser(persona, connection);
+    }
+
+    @Override
+    public Squadra findTeam(int codiceSquadra) {
+        return Squadra.DAO.findTeam(codiceSquadra, connection);
+    }
+    
+
+    @Override
     public int demoteUser(Persona persona) {
         return Persona.DAO.demoteUser(persona, connection);
     }

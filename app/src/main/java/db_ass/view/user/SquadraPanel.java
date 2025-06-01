@@ -26,14 +26,8 @@ import db_ass.view.LimitDocumentFilter;
 import db_ass.view.Menu;
 
 public final class SquadraPanel {
-    
-    private Menu menu;
-    private Persona persona;
 
     public JPanel setUp(Persona persona, Menu menu) {
-
-        this.persona = persona;
-        this.menu = menu;
         
         String[] sports = {"Calcetto", "Padel", "Tennis singolo", "Tennis doppio"};
 
@@ -109,7 +103,7 @@ public final class SquadraPanel {
             componente3Field.setText("");
             componente4Field.setText("");
             componente5Field.setText("");
-            List<Squadra> list = this.menu.getController().allTeamsOfUser(persona);
+            List<Squadra> list = menu.getController().allTeamsOfUser(persona);
             if (list.isEmpty()) {
                 contentSquadra.removeAll();
                 contentSquadra.add(new JLabel("Non fai parte di nessuna squadra"));
@@ -165,7 +159,7 @@ public final class SquadraPanel {
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
             } else {
-                team = this.menu.getController().findTeam(Integer.parseInt(codice));
+                team = menu.getController().findTeam(Integer.parseInt(codice));
                 contentSquadra.removeAll();
                 if (team == null) {
                     contentSquadra.add(new JLabel("La squadra selezionata non esiste"));
@@ -227,31 +221,31 @@ public final class SquadraPanel {
                     "Necessario inserire il nome della squadra", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (!p1.isEmpty() && this.menu.getController().findPersona(p1) == null) {
+            } else if (!p1.isEmpty() && menu.getController().findPersona(p1) == null) {
                 JOptionPane.showMessageDialog(
                     null, 
                     "Il componente 1 inserito non esiste", 
                     "Campi errati", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (!p2.isEmpty() && this.menu.getController().findPersona(p2) == null) {
+            } else if (!p2.isEmpty() && menu.getController().findPersona(p2) == null) {
                 JOptionPane.showMessageDialog(
                     null, 
                     "Il componente 2 inserito non esiste", 
                     "Campi errati", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (!p3.isEmpty() && this.menu.getController().findPersona(p3) == null) {
+            } else if (!p3.isEmpty() && menu.getController().findPersona(p3) == null) {
                 JOptionPane.showMessageDialog(
                     null, 
                     "Il componente 3 inserito non esiste", 
                     "Campi errati", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (!p4.isEmpty() && this.menu.getController().findPersona(p4) == null) {
+            } else if (!p4.isEmpty() && menu.getController().findPersona(p4) == null) {
                 JOptionPane.showMessageDialog(
                     null, 
                     "Il componente 4 inserito non esiste", 
                     "Campi errati", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (!p5.isEmpty() && this.menu.getController().findPersona(p5) == null) {
+            } else if (!p5.isEmpty() && menu.getController().findPersona(p5) == null) {
                 JOptionPane.showMessageDialog(
                     null, 
                     "Il componente 5 inserito non esiste", 
@@ -259,13 +253,13 @@ public final class SquadraPanel {
                     JOptionPane.WARNING_MESSAGE);
             } else {
                 contentSquadra.removeAll();
-                if (this.menu.getController().createNewTeam(nome, 
+                if (menu.getController().createNewTeam(nome, 
                                                             tipo, 
-                                                            this.menu.getController().findPersona(p1), 
-                                                            this.menu.getController().findPersona(p2), 
-                                                            this.menu.getController().findPersona(p3), 
-                                                            this.menu.getController().findPersona(p4), 
-                                                            this.menu.getController().findPersona(p5)) == 0) {
+                                                            menu.getController().findPersona(p1), 
+                                                            menu.getController().findPersona(p2), 
+                                                            menu.getController().findPersona(p3), 
+                                                            menu.getController().findPersona(p4), 
+                                                            menu.getController().findPersona(p5)) == 0) {
                                                                 contentSquadra.add(new JLabel("Qualcosa è andato storto, assicurati che il numero di persone inserite corrisponda con il numero di giocatori dello sport. Altrimenti è probabile che per quello sport esista già una squadra con quel nome"));
                                                             }
                 else {

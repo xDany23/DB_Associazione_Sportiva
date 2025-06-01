@@ -126,6 +126,12 @@ public class Registration {
                     "CF non valido", 
                     "Errore", 
                     JOptionPane.WARNING_MESSAGE);
+            } else if (this.menu.getController().findPersona(cf) != null) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Questo CF è già registrato nel DB", 
+                    "Errore", 
+                    JOptionPane.WARNING_MESSAGE);
             } else {
                 menu.getController().addUser(new Persona(cf, nome, cognome, email, pass, true, false, false, 0));
                 nomeField.setText("");

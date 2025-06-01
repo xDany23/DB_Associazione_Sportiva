@@ -85,7 +85,7 @@ public class DBModel implements Model{
     @Override
     public int createNewTeam(String nome, int codiceSquadra, TipoSquadra tipo, Persona p1, Persona p2, Persona p3,
             Persona p4, Persona p5) {
-        return Squadra.DAO.createNewTeam(nome, codiceSquadra, tipo, p1, p2, p3, p4, p5, connection);      
+        return Squadra.DAO.createNewTeam(nome, tipo, p1, p2, p3, p4, p5, connection);      
     }
 
     @Override

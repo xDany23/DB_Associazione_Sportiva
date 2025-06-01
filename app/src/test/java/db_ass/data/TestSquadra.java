@@ -52,10 +52,10 @@ public class TestSquadra {
 
         persone.stream().forEach(p -> Persona.DAO.addUser(p, connection));
 
-        assertEquals(1, Squadra.DAO.createNewTeam("Ciao", 5, TipoSquadra.TENNIS_SINGOLO, persone.get(0), null, null, null, null, connection));
-        assertEquals(1, Squadra.DAO.createNewTeam("Cosi", 6, TipoSquadra.TENNIS_DOPPIO, persone.get(1), persone.get(2), null, null, null, connection));
-        assertEquals(1, Squadra.DAO.createNewTeam("nawfoi", 7, TipoSquadra.PADEL, persone.get(3), persone.get(4), null, null, null, connection));
-        assertEquals(1, Squadra.DAO.createNewTeam("ahaha", 8, TipoSquadra.CALCETTO, persone.get(0), persone.get(1),persone.get(2), persone.get(3), persone.get(4), connection));
+        assertEquals(1, Squadra.DAO.createNewTeam("Ciao", TipoSquadra.TENNIS_SINGOLO, persone.get(0), null, null, null, null, connection));
+        assertEquals(1, Squadra.DAO.createNewTeam("Cosi", TipoSquadra.TENNIS_DOPPIO, persone.get(1), persone.get(2), null, null, null, connection));
+        assertEquals(1, Squadra.DAO.createNewTeam("nawfoi", TipoSquadra.PADEL, persone.get(3), persone.get(4), null, null, null, connection));
+        assertEquals(1, Squadra.DAO.createNewTeam("ahaha", TipoSquadra.CALCETTO, persone.get(0), persone.get(1),persone.get(2), persone.get(3), persone.get(4), connection));
 
         assertEquals(squadre.get(0), Squadra.DAO.findTeam(5, connection));
         assertEquals(squadre.get(1), Squadra.DAO.findTeam(6, connection));

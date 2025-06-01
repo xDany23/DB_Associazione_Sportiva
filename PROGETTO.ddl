@@ -90,7 +90,7 @@ create table PARTITA (
 create table PERSONA (
      Nome varchar(20) not null,
      Cognome varchar(20) not null,
-     E_mail varchar(30) not null,
+     E_mail varchar(50) not null,
      Password varchar(30) not null,
      CF char(16) not null,
      Utente boolean not null,
@@ -118,6 +118,7 @@ create table SQUADRA (
      Componenti3 char(16),
      Componenti4 char(16),
      Componenti5 char(16),
+     constraint UN_SQUADRA_UN unique (Nome,Tipo),
      constraint ID_SQUADRA_ID primary key (CodiceSquadra));
 
 create table TORNEO (

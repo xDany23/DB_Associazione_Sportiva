@@ -41,12 +41,9 @@ public class AdminPage {
     }
 
     public JFrame setUp() {
-        PersonPanel user = new PersonPanel(this.menu);
-        PersonPanel trainer = new PersonPanel(this.menu);
-        PersonPanel referee = new PersonPanel(this.menu);
-        user.setUp(this.menu.getController().getAllUsers());
-        trainer.setUp(this.menu.getController().getAllTrainers());
-        referee.setUp(this.menu.getController().getAllReferees());
+        AbstractPersonPanel user = new UserPanel(this.menu);
+        AbstractPersonPanel trainer = new TrainerPanel(this.menu);
+        AbstractPersonPanel referee = new RefereePanel(this.menu);
         this.panel.addTab("Utenti", user);
         this.panel.addTab("Allenatori", trainer);
         this.panel.addTab("Arbitri", referee);

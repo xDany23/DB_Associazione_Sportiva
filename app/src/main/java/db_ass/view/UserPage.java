@@ -2,11 +2,13 @@ package db_ass.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -46,9 +48,12 @@ public class UserPage {
         JPanel backPanel = new JPanel();
         backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.Y_AXIS));
 
-        JPanel userPanel = new JPanel(new GridLayout(4,1,2,0));
-        userPanel.setMaximumSize(new Dimension(500, 30));
-        userPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        Font labelFont = new Font("Arial", Font.PLAIN, 18);
+        Font titleFont = new Font("Arial", Font.BOLD, 24);
+
+        JPanel userPanel = new JPanel();
+        userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
+        userPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         //aggiungo al main
         main.addTab("Squadre", squadra.setUp(persona, menu));
@@ -60,18 +65,26 @@ public class UserPage {
 
         //campi dello userPanel
         JLabel title = new JLabel("Informazioni personali", SwingConstants.CENTER);
+        title.setFont(titleFont);
         JLabel nomeLabel = new JLabel("Nome: " + persona.nome);
         JLabel cognomeLabel = new JLabel("Cognome: " + persona.cognome);
         JLabel emailLabel = new JLabel("Email: "+ persona.email);
-        nomeLabel.setAlignmentX(JLabel.RIGHT);
-        cognomeLabel.setAlignmentX(JLabel.RIGHT);
-        emailLabel.setAlignmentX(JLabel.RIGHT);
+        JLabel userCode = new JLabel("CF: " + persona.cf);
+        nomeLabel.setFont(labelFont);
+        cognomeLabel.setFont(labelFont);
+        emailLabel.setFont(labelFont);
+        userCode.setFont(labelFont);
         userPanel.add(title);
         userPanel.add(Box.createVerticalStrut(20));
         userPanel.add(nomeLabel);
         userPanel.add(cognomeLabel);
+        userPanel.add(Box.createVerticalStrut(5));
         userPanel.add(emailLabel);
+        userPanel.add(Box.createVerticalStrut(5));
+        userPanel.add(userCode);
 
+        JPanel userWrapper = new JPanel(new BorderLayout());
+        userWrapper.add(userPanel, BorderLayout.NORTH);
 
 
         //bottone indietro
@@ -87,7 +100,7 @@ public class UserPage {
         //aggiungo tutto al mainFrame
         mainFrame.getContentPane().add(main, BorderLayout.CENTER);
         mainFrame.getContentPane().add(backPanel, BorderLayout.WEST);
-        mainFrame.getContentPane().add(userPanel, BorderLayout.EAST);
+        mainFrame.getContentPane().add(userWrapper, BorderLayout.EAST);
         mainFrame.setResizable(false);
         mainFrame.setVisible(true);
         mainFrame.addWindowListener(

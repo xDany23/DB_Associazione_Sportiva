@@ -157,11 +157,11 @@ public final class Squadra {
 
     public static final class DAO {
         public static int createNewTeam(String nome, TipoSquadra tipo, Persona p1, Persona p2, Persona p3, Persona p4, Persona p5, Connection connection) {
-            if (tipo.equals(TipoSquadra.TENNIS_SINGOLO) && p2 == null && p3 == null && p4 == null && p5 == null) {
+            if (tipo.equals(TipoSquadra.TENNIS_SINGOLO) && p2 == null && p3 == null && p4 == null && p5 == null && p1 != null) {
                 return createNewSingleTennisTeam(nome, tipo, p1, connection);
-            } else if ((tipo.equals(TipoSquadra.TENNIS_DOPPIO) || tipo.equals(TipoSquadra.PADEL)) && p3 == null && p4 == null && p5 == null) {
+            } else if ((tipo.equals(TipoSquadra.TENNIS_DOPPIO) || tipo.equals(TipoSquadra.PADEL)) && p3 == null && p4 == null && p5 == null && p1 != null && p2 != null) {
                 return createNewDoubleTennisTeam(nome, tipo, p1, p2, connection);
-            } else if (tipo.equals(TipoSquadra.CALCETTO)) {
+            } else if (tipo.equals(TipoSquadra.CALCETTO) && p1 != null && p2 != null && p3 != null && p4 != null && p5 != null) {
                 return createNewSoccerTeam(nome, tipo, p1, p2, p3, p4, p5, connection);
             } else {
                 return 0;

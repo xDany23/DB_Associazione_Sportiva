@@ -146,4 +146,16 @@ public final class Controller {
     public int promoteToReferee(String cf) {
         return this.model.promoteToReferee(this.findPersona(cf));
     }
+
+    public int promoteToUser(String cf) {
+        return this.model.promoteToUser(this.findPersona(cf));
+    }
+
+    public int demoteTrainer(String cf) {
+        return this.model.demoteTrainer(this.findPersona(cf));
+    }
+
+    public int demoteReferee(String cf) {
+        return this.model.demoteReferee(this.model.findPersona(cf));
+    }
 }

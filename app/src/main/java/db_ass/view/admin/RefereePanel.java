@@ -25,7 +25,22 @@ public class RefereePanel extends AbstractPersonPanel{
                     ? List.of()
                     : List.of(persona));
         });
-        return List.of(search);
+        JButton demote = new JButton("Rimuovi arbitro");
+        demote.addActionListener(l -> {
+            getMainFrame().getController().demoteReferee(getSearchedOptionOutput("Codice Fiscale"));
+            update(getMainFrame().getController().getAllReferees());
+        });
+        JButton promoteUser = new JButton("Aggiungi tra gli utenti");
+        promoteUser.addActionListener(l -> {
+            getMainFrame().getController().promoteToUser(getSearchedOptionOutput("Codice Fiscale"));
+            update(getMainFrame().getController().getAllReferees());
+        });
+        JButton promoteTrainer = new JButton("Aggiungi tra gli allenatori");
+        promoteTrainer.addActionListener(l -> {
+            getMainFrame().getController().promoteToTrainer(getSearchedOptionOutput("Codice Fiscale"));
+            update(getMainFrame().getController().getAllReferees());
+        });
+        return List.of(search,demote,promoteUser,promoteTrainer);
     }
 
     @Override

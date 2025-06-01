@@ -78,6 +78,10 @@ public interface Model {
 
     int demoteUser(Persona persona);
 
+    int demoteTrainer(Persona persona);
+    
+    int demoteReferee(Persona persona);
+
     Torneo findTournament(int codiceTorneo);
 
     FasciaOraria findPeriod(int campo, Giorno giorno, String orarioInizio);
@@ -85,6 +89,8 @@ public interface Model {
     int promoteToTrainer(Persona persona);
 
     int promoteToReferee(Persona persona);
+
+    int promoteToUser(Persona persona);
 
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);

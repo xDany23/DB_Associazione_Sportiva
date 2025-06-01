@@ -279,6 +279,10 @@ public final class Persona {
             return persona == null ? 0 : updateWithCF(persona.cf, Queries.PROMOTE_TO_REFEREE, connection);
         }
 
+        public static int promoteToUser(Persona persona, Connection connection) {
+            return persona == null ? 0 : updateWithCF(persona.cf, Queries.PROMOTE_TO_USER, connection);
+        }
+
         private static int updateWithCF(String cf, String query, Connection connection) {
             int rowsInserted;
             try (

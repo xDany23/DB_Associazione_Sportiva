@@ -25,7 +25,22 @@ public class TrainerPanel extends AbstractPersonPanel{
                     ? List.of()
                     : List.of(persona));
         });
-        return List.of(search);
+        JButton demote = new JButton("Rimuovi allenatore");
+        demote.addActionListener(l -> {
+            getMainFrame().getController().demoteTrainer(getSearchedOptionOutput("Codice Fiscale"));
+            update(getMainFrame().getController().getAllTrainers());
+        });
+        JButton promoteUser = new JButton("Aggiungi tra gli utenti");
+        promoteUser.addActionListener(l -> {
+            getMainFrame().getController().promoteToUser(getSearchedOptionOutput("Codice Fiscale"));
+            update(getMainFrame().getController().getAllTrainers());
+        });
+        JButton promoteReferee = new JButton("Aggiungi tra gli arbitri");
+        promoteReferee.addActionListener(l -> {
+            getMainFrame().getController().promoteToReferee(getSearchedOptionOutput("Codice Fiscale"));
+            update(getMainFrame().getController().getAllTrainers());
+        });
+        return List.of(search,demote,promoteUser,promoteReferee);
     }
 
     @Override

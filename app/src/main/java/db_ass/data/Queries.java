@@ -360,4 +360,11 @@ public final class Queries {
 			SET Arbitro = true
 			WHERE CF = ?;		
 			""";
+
+	public static final String PROMOTE_TO_USER = 
+			"""
+			UPDATE persona
+			SET Utente = true
+			WHERE CF = ?;				
+			""";
 }

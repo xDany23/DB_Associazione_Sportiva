@@ -189,6 +189,16 @@ public class DBModel implements Model{
     public int demoteUser(Persona persona) {
         return Persona.DAO.demoteUser(persona, connection);
     }
+
+    @Override
+    public int demoteTrainer(Persona persona) {
+        return Persona.DAO.demoteTrainer(persona, connection);
+    }
+
+    @Override
+    public int demoteReferee(Persona persona) {
+        return Persona.DAO.demoteReferee(persona, connection);
+    }
     
     @Override
     public int promoteToTrainer(Persona persona) {
@@ -198,5 +208,10 @@ public class DBModel implements Model{
     @Override
     public int promoteToReferee(Persona persona) {
         return Persona.DAO.promoteToReferee(persona, connection);
+    }
+
+    @Override
+    public int promoteToUser(Persona persona) {
+        return Persona.DAO.promoteToUser(persona, connection);
     }
 }

@@ -194,15 +194,16 @@ public final class Torneo {
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TOURNAMENT, codiceTorneo);
                 var resultSet = preparedStatement.executeQuery();
             ) {
-                resultSet.next();
-                var data = resultSet.getString("DataSvolgimento");
-                var nome = resultSet.getString("Nome");
-                var premio = resultSet.getString("Premio");
-                var maxp = resultSet.getInt("MassimoPartecipanti");
-                var quota = resultSet.getDouble("QuotaIscrizione");
-                var tipo = TipoSquadra.valueOf(resultSet.getString("Tipo").toUpperCase());
-                var vincitore = Squadra.DAO.findTeam(resultSet.getInt("SquadraVincitrice"), connection);
-                torneo = new Torneo(codiceTorneo, data, nome, premio, maxp, quota, tipo, vincitore);
+                if (resultSet.next()) {
+                    var data = resultSet.getString("DataSvolgimento");
+                    var nome = resultSet.getString("Nome");
+                    var premio = resultSet.getString("Premio");
+                    var maxp = resultSet.getInt("MassimoPartecipanti");
+                    var quota = resultSet.getDouble("QuotaIscrizione");
+                    var tipo = TipoSquadra.valueOf(resultSet.getString("Tipo").toUpperCase());
+                    var vincitore = Squadra.DAO.findTeam(resultSet.getInt("SquadraVincitrice"), connection);
+                    torneo = new Torneo(codiceTorneo, data, nome, premio, maxp, quota, tipo, vincitore);
+                }
             } catch (SQLException e) {
                 throw new DAOException(e);
             }

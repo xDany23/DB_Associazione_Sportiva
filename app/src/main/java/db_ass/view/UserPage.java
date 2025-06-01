@@ -515,6 +515,8 @@ public class UserPage {
                                                 "Quota d'iscrizione: " + output.get(i).quotaIscrizione));
                 }
             }
+            contentTornei.revalidate();
+            contentTornei.repaint();
         });
 
         //aggiungo il pannello dei dati dentro a quello principale dei tornei

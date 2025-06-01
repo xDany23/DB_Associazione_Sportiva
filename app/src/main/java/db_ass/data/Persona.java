@@ -275,10 +275,8 @@ public final class Persona {
             int rowsInserted;
             try (
                 var preparedStatement = DAOUtils.prepare(connection, query, cf);
-                var deleteStatement = DAOUtils.prepare(connection, Queries.DELETE_PERSONA, cf);
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
-                deleteStatement.executeUpdate();
             } catch (SQLException e) {
                 throw new DAOException(e);
             }

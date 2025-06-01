@@ -25,7 +25,12 @@ public class UserPanel extends AbstractPersonPanel{
                     ? List.of()
                     : List.of(persona));
         });
-        return List.of(search);
+        JButton demote = new JButton("Rimuovi utente");
+        demote.addActionListener(l -> {
+            getMainFrame().getController().demoteUser(getMainFrame().getController().findPersona(getSearchedOptionOutput("Codice Fiscale")));
+            update(getMainFrame().getController().getAllUsers());
+        });
+        return List.of(search,demote);
     }
     
 }

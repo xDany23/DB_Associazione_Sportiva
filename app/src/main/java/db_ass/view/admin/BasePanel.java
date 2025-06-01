@@ -43,6 +43,10 @@ public class BasePanel extends JPanel{
         return this.searchField.getText();
     }
 
+    public List<OptionArea> getOptionAreas() {
+        return this.fields;
+    }
+
     public JScrollPane getTablePanel() {
         return tablePanel;
     }
@@ -103,7 +107,6 @@ public class BasePanel extends JPanel{
             for (OptionArea opt : options) {
                 if (opt.getName().equals(t.getColumnName(i))) {
                     opt.setText(objs.get(i).toString());
-                    System.out.println(objs.get(i).toString());
                 }
             }
         }

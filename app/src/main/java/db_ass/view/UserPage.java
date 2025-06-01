@@ -276,6 +276,9 @@ public class UserPage {
                 contentSquadra.repaint();
             }
         });
+
+        //aggiungo al pannello principale
+        squadre.add(datiSquadra);
         
 
         //PANNELLO TORNEI

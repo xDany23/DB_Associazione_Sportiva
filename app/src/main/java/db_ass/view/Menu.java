@@ -2,14 +2,10 @@ package db_ass.view;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.TextArea;
-import java.awt.TextField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -21,12 +17,9 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 import db_ass.Controller;
-import db_ass.view.Login;
 import db_ass.view.admin.AdminLogin;
 
 public final class Menu {

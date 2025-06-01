@@ -29,6 +29,8 @@ public class Registration {
 
     private Menu menu;
     private JFrame mainFrame;
+    private Persona persona;
+    private UserPage userPage;
 
     public Registration(Menu menu, JFrame mainFrame) {
         this.menu = menu;
@@ -131,6 +133,8 @@ public class Registration {
                 cfField.setText("");
                 emailField.setText("");
                 passField.setText("");
+                persona = this.menu.getController().findPersona(cf);
+                this.goUserPage(persona);
             }
         });
         
@@ -161,6 +165,12 @@ public class Registration {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         mainFrame = menu.setUp();
+    }
+
+    public void goUserPage(Persona persona) {
+        var cp = mainFrame.getContentPane();
+        cp.removeAll();
+        userPage.setUp(); 
     }
     
 }

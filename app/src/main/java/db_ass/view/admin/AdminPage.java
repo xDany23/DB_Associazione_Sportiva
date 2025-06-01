@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import db_ass.data.Corso;
 import db_ass.data.Persona;
@@ -81,6 +83,9 @@ public class AdminPage {
                 }
             }
         );
+        this.panel.addChangeListener(e -> {
+            JTabbedPane pane = (JTabbedPane)e.getSource();
+        });
         
         return mainFrame;
     }

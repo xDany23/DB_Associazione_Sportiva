@@ -404,7 +404,7 @@ public class UserPage {
                     "La squadra che hai inserito non è dello stesso tipo del torneo!", 
                     "Campi errati", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (this.menu.getController().tournamentsEnterable(this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).tipo).contains(this.menu.getController().findTournament(Integer.parseInt(codiceTorneo)))) { //controllo se il torneo è joinable oppure no
+            } else if (!this.menu.getController().tournamentsEnterable(this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).tipo).contains(this.menu.getController().findTournament(Integer.parseInt(codiceTorneo)))) { //controllo se il torneo è joinable oppure no
                 JOptionPane.showMessageDialog(
                     null, 
                     "Il torneo che hai inserito purtroppo non accetta piú iscrizioni", 

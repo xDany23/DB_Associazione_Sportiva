@@ -35,10 +35,15 @@ public class UserPanel extends AbstractPersonPanel{
         });
         JButton promoteTrainer = new JButton("Aggiungi tra gli allenatori");
         promoteTrainer.addActionListener(l -> {
-            getMainFrame().getController().demoteUser(getMainFrame().getController().findPersona(getSearchedOptionOutput("Codice Fiscale")));
+            getMainFrame().getController().promoteToTrainer(getSearchedOptionOutput("Codice Fiscale"));
             update(getMainFrame().getController().getAllUsers());
         });
-        return List.of(search,demote);
+        JButton promoteReferee = new JButton("Aggiungi tra gli allenatori");
+        promoteReferee.addActionListener(l -> {
+            getMainFrame().getController().promoteToReferee(getSearchedOptionOutput("Codice Fiscale"));
+            update(getMainFrame().getController().getAllUsers());
+        });
+        return List.of(search,demote,promoteTrainer,promoteReferee);
     }
     
 }

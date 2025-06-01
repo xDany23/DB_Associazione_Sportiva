@@ -83,15 +83,15 @@ public class FasciaOraria {
     }
 
     public static final class DAO {
-        public static FasciaOraria findPeriod(Campo campo, Giorno giorno, String orarioInizio, Connection connection) {
+        public static FasciaOraria findPeriod(int campo, Giorno giorno, String orarioInizio, Connection connection) {
             FasciaOraria f;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TIME, campo.numeroCampo, giorno.toString(), orarioInizio);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TIME, campo, giorno.toString(), orarioInizio);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 resultSet.next();
                 f = new FasciaOraria(
-                                    campo,
+                                    Campo.DAO.findField(campo, connection),
                                     giorno,
                                     orarioInizio,
                                     resultSet.getString("OrarioFine"),

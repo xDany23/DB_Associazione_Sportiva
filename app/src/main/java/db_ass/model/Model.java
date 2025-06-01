@@ -24,7 +24,7 @@ public interface Model {
 
     int newReferee(Persona persona);
 
-    List<Integer> findFieldToBook(FasciaOraria fascia, String data, Sport sport);
+    List<Integer> findFieldToBook(String orarioInizio, String data, Sport sport);
 
     int bookField(Prenotazione p);
 
@@ -77,6 +77,8 @@ public interface Model {
     Squadra findTeam(int codiceSquadra);
 
     Torneo findTournament(int codiceTorneo);
+
+    FasciaOraria findPeriod(int campo, Giorno giorno, String orarioInizio);
 
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);

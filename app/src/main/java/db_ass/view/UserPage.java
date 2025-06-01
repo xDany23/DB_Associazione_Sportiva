@@ -146,7 +146,21 @@ public class UserPage {
                 contentSquadra.add(new JLabel("LE TUE SQUADRE:"));
                 contentSquadra.add(Box.createVerticalStrut(10));
                 for (int i = 0; i < list.size(); i++) {
-                    contentSquadra.add(new JLabel("Codice Squadra: " + list.get(i).codiceSquadra + ", " +
+                    if (list.get(i).tipo.equals(TipoSquadra.TENNIS_SINGOLO)) {
+                        contentSquadra.add(new JLabel("Codice Squadra: " + list.get(i).codiceSquadra + ", " +
+                                                    "Nome: " + list.get(i).nome + ", " + 
+                                                    "Tipo: " + list.get(i).tipo + ", " +
+                                                    "Componente 1: " + list.get(i).componente1.nome + list.get(i).componente1.cognome)
+                                        );
+                    } else if (list.get(i).tipo.equals(TipoSquadra.TENNIS_DOPPIO) || list.get(i).tipo.equals(TipoSquadra.PADEL)) {
+                        contentSquadra.add(new JLabel("Codice Squadra: " + list.get(i).codiceSquadra + ", " +
+                                                    "Nome: " + list.get(i).nome + ", " + 
+                                                    "Tipo: " + list.get(i).tipo + ", " +
+                                                    "Componente 1: " + list.get(i).componente1.nome + list.get(i).componente1.cognome + ", " +
+                                                    "Componente 2: " + list.get(i).componente2.nome + list.get(i).componente2.cognome)
+                                        );
+                    } else {
+                        contentSquadra.add(new JLabel("Codice Squadra: " + list.get(i).codiceSquadra + ", " +
                                                     "Nome: " + list.get(i).nome + ", " + 
                                                     "Tipo: " + list.get(i).tipo + ", " +
                                                     "Componente 1: " + list.get(i).componente1.nome + list.get(i).componente1.cognome + ", " +
@@ -154,7 +168,8 @@ public class UserPage {
                                                     "Componente 3: " + list.get(i).componente3.nome + list.get(i).componente3.cognome + ", " +
                                                     "Componente 4: " + list.get(i).componente4.nome + list.get(i).componente4.cognome + ", " +
                                                     "Componente 5: " + list.get(i).componente5.nome + list.get(i).componente5.cognome + ", ")
-                    );
+                                        );
+                    }
                 }
             }
             contentSquadra.revalidate();
@@ -185,6 +200,18 @@ public class UserPage {
                 } else {
                     contentSquadra.add(new JLabel("ECCO LA SQUADRA CERCATA:"));
                     contentSquadra.add(Box.createVerticalStrut(10));
+                    if (team.tipo.equals(TipoSquadra.TENNIS_SINGOLO)) {
+                        contentSquadra.add(new JLabel(  "Nome: " + team.nome + ", " + 
+                                                    "Tipo: " + team.tipo + ", " +
+                                                    "Componente 1: " + team.componente1.nome + team.componente1.cognome)
+                        );
+                    } else if (team.tipo.equals(TipoSquadra.PADEL) || team.tipo.equals(TipoSquadra.TENNIS_DOPPIO)) {
+                        contentSquadra.add(new JLabel(  "Nome: " + team.nome + ", " + 
+                                                    "Tipo: " + team.tipo + ", " +
+                                                    "Componente 1: " + team.componente1.nome + team.componente1.cognome + ", " +
+                                                    "Componente 2: " + team.componente2.nome + team.componente2.cognome)
+                    );
+                    } else {
                     contentSquadra.add(new JLabel(  "Nome: " + team.nome + ", " + 
                                                     "Tipo: " + team.tipo + ", " +
                                                     "Componente 1: " + team.componente1.nome + team.componente1.cognome + ", " +
@@ -193,6 +220,7 @@ public class UserPage {
                                                     "Componente 4: " + team.componente4.nome + team.componente4.cognome + ", " +
                                                     "Componente 5: " + team.componente5.nome + team.componente5.cognome + ", ")
                     );
+                    }
                 }
                 contentSquadra.revalidate();
                 contentSquadra.repaint();

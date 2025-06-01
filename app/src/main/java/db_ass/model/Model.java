@@ -72,6 +72,8 @@ public interface Model {
 
     List<Corso> allCoursesOfUser(Persona persona);
 
+    int demoteUser(Persona persona);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

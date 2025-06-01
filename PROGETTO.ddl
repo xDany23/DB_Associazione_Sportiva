@@ -118,8 +118,8 @@ create table SQUADRA (
      Componenti3 char(16),
      Componenti4 char(16),
      Componenti5 char(16),
-     constraint UN_SQUADRA_UN unique (Nome,Tipo),
-     constraint ID_SQUADRA_ID primary key (CodiceSquadra));
+     constraint ID_SQUADRA_ID primary key (CodiceSquadra),
+     constraint UN_SQUADRA_UN unique (Nome,Tipo));
 
 create table TORNEO (
      DataSvolgimento date not null,

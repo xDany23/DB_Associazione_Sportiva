@@ -304,4 +304,35 @@ public final class Queries {
 		WHERE p.CodiceCorso = c.CodiceCorso 
 		AND p.cf = ?;  
 		""";
+
+	public static final String DEMOTE_USER = 
+			"""
+			UPDATE persona
+			SET Utente = false
+			WHERE CF = ?;		
+			""";
+	
+	public static final String DEMOTE_TRAINER = 
+			"""
+			UPDATE persona
+			SET Allenatore = false
+			WHERE CF = ?;		
+			""";
+
+	public static final String DEMOTE_REFEREE = 
+			"""
+			UPDATE persona
+			SET Arbitro = false
+			WHERE CF = ?;		
+			""";
+
+	public static final String DELETE_PERSONA = 
+			"""
+			DELETE FROM persona
+			WHERE Utente = false
+			AND Allenatore = false
+			AND Arbitro = false
+			AND Admin = false
+			AND CF = ?		
+			""";
 }

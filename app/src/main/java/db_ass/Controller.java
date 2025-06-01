@@ -83,4 +83,8 @@ public final class Controller {
     public List<Corso> allCoursesOfUser(Persona persona) {
         return this.model.allCoursesOfUser(persona);
     }
+
+    public int demoteUser(Persona persona) {
+        return this.model.demoteUser(persona);
+    }
 }

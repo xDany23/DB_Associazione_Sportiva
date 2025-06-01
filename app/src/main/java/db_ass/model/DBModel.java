@@ -164,5 +164,10 @@ public class DBModel implements Model{
     public List<Corso> allCoursesOfUser(Persona persona) {
         return Corso.DAO.allCoursesOfUser(persona, connection);
     }
+
+    @Override
+    public int demoteUser(Persona persona) {
+        return Persona.DAO.demoteUser(persona, connection);
+    }
     
 }

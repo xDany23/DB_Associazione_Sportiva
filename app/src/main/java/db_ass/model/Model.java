@@ -78,6 +78,8 @@ public interface Model {
 
     int demoteUser(Persona persona);
 
+    Torneo findTournament(int codiceTorneo);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

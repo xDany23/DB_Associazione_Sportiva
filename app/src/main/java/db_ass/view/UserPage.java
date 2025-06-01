@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AbstractDocument;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -38,9 +39,11 @@ import db_ass.data.Corso;
 import db_ass.data.Giorno;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
+import db_ass.data.RisultatiTorneo;
 import db_ass.data.Sport;
 import db_ass.data.Squadra;
 import db_ass.data.TipoSquadra;
+import db_ass.data.Torneo;
 
 public class UserPage {
     
@@ -97,14 +100,19 @@ public class UserPage {
         JComboBox<String> tipoSquadraBox = new JComboBox<>(sports);
         JLabel componente1Label = new JLabel("Componente 1: ");
         JTextField componente1Field = new JTextField(16);
+        ((AbstractDocument) componente1Field.getDocument()).setDocumentFilter(new LimitDocumentFilter(16));
         JLabel componente2Label = new JLabel("Componente 2: ");
         JTextField componente2Field = new JTextField(16);
+        ((AbstractDocument) componente2Field.getDocument()).setDocumentFilter(new LimitDocumentFilter(16));
         JLabel componente3Label = new JLabel("Componente 3: ");
         JTextField componente3Field = new JTextField(16);
+        ((AbstractDocument) componente3Field.getDocument()).setDocumentFilter(new LimitDocumentFilter(16));
         JLabel componente4Label = new JLabel("Componente 4: ");
         JTextField componente4Field = new JTextField(16);
+        ((AbstractDocument) componente4Field.getDocument()).setDocumentFilter(new LimitDocumentFilter(16));
         JLabel componente5Label = new JLabel("Componente 5: ");
         JTextField componente5Field = new JTextField(16);
+        ((AbstractDocument) componente5Field.getDocument()).setDocumentFilter(new LimitDocumentFilter(16));
         JButton creaNuovaSquadraButton = new JButton("Crea");
         JButton mieSquadreButton = new JButton("Le mie squadre");
         JButton cercaSquadraButton = new JButton("Cerca");
@@ -305,7 +313,7 @@ public class UserPage {
         });
 
         //aggiungo al pannello principale
-        squadre.add(datiSquadra);
+        squadre.add(datiSquadra, BorderLayout.WEST);
         
 
         //PANNELLO TORNEI
@@ -325,6 +333,188 @@ public class UserPage {
         JScrollPane scrollTornei = new JScrollPane(contentTornei);
         tornei.add(scrollTornei, BorderLayout.CENTER);
 
+        //dati da compilare sotto
+        JPanel datiTorneo = new JPanel();
+        datiTorneo.setLayout(new GridLayout(5, 2, 2, 0));
+        JLabel codiceTorneoLabel = new JLabel("Codice Torneo: ");
+        JTextField codiceTorneoField = new JTextField(16);
+        JLabel codiceSquadraTorneoLabel = new JLabel("Codice Squadra: ");
+        JTextField codiceSquadraTorneoField = new JTextField(16);
+        JLabel tipoTorneoLabel = new JLabel("Tipo: ");
+        JComboBox<String> tipoTorneoBox = new JComboBox<>(sports);
+        JButton registrationButtonTorneo = new JButton("Iscrivi squadra");
+        JButton tuttiPartecipantiButton = new JButton("Mostra partecipanti");
+        JButton tuttePartiteButton = new JButton("Mostra partite");
+        JButton torneiPartecipabili = new JButton("Tornei partecipabili");
+        datiTorneo.add(codiceTorneoLabel);
+        datiTorneo.add(codiceTorneoField);
+        datiTorneo.add(codiceSquadraTorneoLabel);
+        datiTorneo.add(codiceSquadraTorneoField);
+        datiTorneo.add(tipoTorneoLabel);
+        datiTorneo.add(tipoTorneoBox);
+        datiTorneo.add(registrationButtonTorneo);
+        datiTorneo.add(tuttiPartecipantiButton);
+        datiTorneo.add(tuttePartiteButton);
+        datiTorneo.add(torneiPartecipabili);
+
+        //aggiungo un ActionListener per il bottone dell'iscrizione al torneo
+        registrationButtonTorneo.addActionListener(e -> {
+            String codiceTorneo = codiceTorneoField.getText();
+            String codiceSquadra = codiceSquadraTorneoField.getText();
+            if (codiceSquadra.isEmpty() || codiceTorneo.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "E' necessario inserire sia il codice Torneo che il codice Squadra per l'iscrizione", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (!this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente1.equals(persona) ||
+                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente2.equals(persona) ||
+                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente3.equals(persona) ||
+                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente4.equals(persona) ||
+                       !this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).componente5.equals(persona)) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Non fai parte della squadra inserita! Riprovare", 
+                    "Campi errati", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (this.menu.getController().findTournament(Integer.parseInt(codiceTorneo)) == null) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Il torneo inserito non esiste! Riprovare", 
+                    "Campi errati", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (!this.menu.getController().findTournament(Integer.parseInt(codiceTorneo)).tipo.equals(this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).tipo)) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "La squadra che hai inserito non è dello stesso tipo del torneo!", 
+                    "Campi errati", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (this.menu.getController().tournamentsEnterable(this.menu.getController().findTeam(Integer.parseInt(codiceSquadra)).tipo).contains(this.menu.getController().findTournament(Integer.parseInt(codiceTorneo)))) { //controllo se il torneo è joinable oppure no
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Il torneo che hai inserito purtroppo non accetta piú iscrizioni", 
+                    "Torneo non disponibile", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                contentTornei.removeAll();
+                if (this.menu.getController().enterTournament(Integer.parseInt(codiceTorneo), Integer.parseInt(codiceSquadra)) == 0) {
+                    contentTornei.add(new JLabel("C'è stato un errore nella registrazione, riprovare"));
+                } else {
+                    contentTornei.add(new JLabel("Iscrizione effettuata con successo!"));
+                }
+                contentTornei.revalidate();
+                contentTornei.repaint();
+            }
+        });
+
+        //aggiungo un ActionListener al bottone per visualizzare tutti i partecipanti di un torneo
+        tuttiPartecipantiButton.addActionListener(e -> {
+            List<Persona> output = new ArrayList<>();
+            String codiceTorneo = codiceTorneoField.getText();
+            codiceSquadraTorneoField.setText("");
+            if (codiceTorneo.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "E' necessario inserire il codice Torneo per visualizzare i partecipanti di un torneo", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (this.menu.getController().findTournament(Integer.parseInt(codiceTorneo)) == null) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Il torneo selezionato non esiste", 
+                    "Campi errati", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                contentTornei.removeAll();
+                output = this.menu.getController().findAllPartecipants(Integer.parseInt(codiceTorneo));
+                if (output.isEmpty()) {
+                    contentTornei.add(new JLabel("Non ci sono ancora iscritti al torneo selezionato"));
+                } else {
+                    contentTornei.add(new JLabel("PARTECIPANTI:"));
+                    contentTornei.add(Box.createVerticalStrut(10));
+                    for (int i = 0; i < output.size(); i++) {
+                        contentTornei.add(new JLabel("Nome: " + output.get(i).nome + output.get(i).cognome + ", " + 
+                                                    "CF: " + output.get(i).cf + ", " + 
+                                                    "Email: " + output.get(i).email));
+                    }
+                    contentTornei.revalidate();
+                    contentTornei.repaint();
+                }
+            }
+        });
+
+        //aggiungo un ActionListener per il bottone per visualizzare tutte le partite di un torneo
+        tuttePartiteButton.addActionListener(e -> {
+            List<RisultatiTorneo> output = new ArrayList<>();
+            String codiceTorneo = codiceTorneoField.getText();
+            codiceSquadraTorneoField.setText("");
+            if (codiceTorneo.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "E' necessario inserire il codice Torneo per visualizzare i partecipanti di un torneo", 
+                    "Campi mancanti", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else if (this.menu.getController().findTournament(Integer.parseInt(codiceTorneo)) == null) {
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Il torneo selezionato non esiste", 
+                    "Campi errati", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                contentTornei.removeAll();
+                output = this.menu.getController().visualizeAllTournamentMatches(Integer.parseInt(codiceTorneo));
+                output.sort((a,b) -> Integer.compare(a.codicePartita, b.codicePartita));
+                if (output.isEmpty()) {
+                    contentTornei.add(new JLabel("Per ora non ci sono ancora partite in programma per questo torneo"));
+                } else {
+                    contentTornei.add(new JLabel("PARTITE DEL TORNEO " + codiceTorneo));
+                    contentTornei.add(Box.createVerticalStrut(10));
+                    for (int i = 0; i < output.size(); i = i + 2) {
+                        contentTornei.add(new JLabel("Codice partita: " + output.get(i).codicePartita + ", " + 
+                                                    "[" + output.get(i).nomeSquadra + "(" + output.get(i).codiceSquadra + "), " 
+                                                    + output.get(i + 1).nomeSquadra + "(" + output.get(i + 1).codiceSquadra + ")]: " +
+                                                    output.get(i).punteggio + " - " + output.get(i + 1).punteggio));
+                    }
+                }
+                contentTornei.revalidate();
+                contentTornei.repaint();
+            }
+        });
+
+        //aggiungo un ActionListener per il bottone per visualizzare tutti i tornei partecipabili
+        torneiPartecipabili.addActionListener(e -> {
+            TipoSquadra tipo;
+            List<Torneo> output = new ArrayList<>();
+            codiceSquadraTorneoField.setText("");
+            codiceTorneoField.setText("");
+            if (tipoTorneoBox.getSelectedIndex() == 0) {
+                tipo = TipoSquadra.CALCETTO;
+            } else if (tipoTorneoBox.getSelectedIndex() == 1) {
+                tipo = TipoSquadra.PADEL;
+            } else if (tipoTorneoBox.getSelectedIndex() == 2) {
+                tipo = TipoSquadra.TENNIS_SINGOLO;
+            } else {
+                tipo = TipoSquadra.TENNIS_DOPPIO;
+            }
+            contentTornei.removeAll();
+            if (output.isEmpty()) {
+                contentTornei.add(new JLabel("Putroppo per questo sport non ci sono tornei previsti per ora"));
+            } else {
+                contentTornei.add(new JLabel("TORNEI PREVISTI:"));
+                contentTornei.add(Box.createVerticalStrut(10));
+                for (int i = 0; i < output.size(); i++) {
+                    contentTornei.add(new JLabel("Codice torneo: " + output.get(i).codiceTorneo + ", " + 
+                                                "Nome: " + output.get(i).nome + ", " +
+                                                "Data di Svolgimento: " + output.get(i).dataSvolgimento + ", " +
+                                                "Premio: " + output.get(i).premio + ", " + 
+                                                "Max partecipanti: " + output.get(i).massimoPartecipanti + ", " +
+                                                "Quota d'iscrizione: " + output.get(i).quotaIscrizione));
+                }
+            }
+        });
+
+        //aggiungo il pannello dei dati dentro a quello principale dei tornei
+        tornei.add(datiTorneo, BorderLayout.WEST);
 
         //PANNELLO ISCRIZIONI
         JPanel iscrizione = new JPanel();

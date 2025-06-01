@@ -189,7 +189,7 @@ public final class Torneo {
         }
 
         public static Torneo findTournament(int codiceTorneo, Connection connection) {
-            Torneo torneo;
+            Torneo torneo = null;
             try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TOURNAMENT, codiceTorneo);
                 var resultSet = preparedStatement.executeQuery();

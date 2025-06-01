@@ -174,6 +174,7 @@ public class Registration {
     }
 
     public void goUserPage(Persona persona) {
+        this.userPage = new UserPage(menu, mainFrame, persona);
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         userPage.setUp(); 

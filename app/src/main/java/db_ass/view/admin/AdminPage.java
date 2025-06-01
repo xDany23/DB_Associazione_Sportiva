@@ -43,14 +43,14 @@ public class AdminPage {
     }
 
     public JFrame setUp() {
-        AbstractPersonPanel user = new UserPanel(this.menu);
-        AbstractPersonPanel trainer = new TrainerPanel(this.menu);
-        AbstractPersonPanel referee = new RefereePanel(this.menu);
+        BasePanel user = new UserPanel(this.menu);
+        BasePanel trainer = new TrainerPanel(this.menu);
+        BasePanel referee = new RefereePanel(this.menu);
         this.panel.addTab("Utenti", user);
         this.panel.addTab("Allenatori", trainer);
         this.panel.addTab("Arbitri", referee);
-        this.panel.addTab("Corsi", courseSetUp());
-        this.panel.addTab("Tornei", tournamentSetUp());
+        /* this.panel.addTab("Corsi", courseSetUp());
+        this.panel.addTab("Tornei", tournamentSetUp()); */
 
         JPanel fieldPanel = new JPanel();
         fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.Y_AXIS));
@@ -85,6 +85,7 @@ public class AdminPage {
         );
         this.panel.addChangeListener(e -> {
             JTabbedPane pane = (JTabbedPane)e.getSource();
+            ((BasePanel)pane.getSelectedComponent()).update();
         });
         
         return mainFrame;

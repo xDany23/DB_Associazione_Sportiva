@@ -38,12 +38,17 @@ public class UserPanel extends AbstractPersonPanel{
             getMainFrame().getController().promoteToTrainer(getSearchedOptionOutput("Codice Fiscale"));
             update(getMainFrame().getController().getAllUsers());
         });
-        JButton promoteReferee = new JButton("Aggiungi tra gli allenatori");
+        JButton promoteReferee = new JButton("Aggiungi tra gli arbitri");
         promoteReferee.addActionListener(l -> {
             getMainFrame().getController().promoteToReferee(getSearchedOptionOutput("Codice Fiscale"));
             update(getMainFrame().getController().getAllUsers());
         });
         return List.of(search,demote,promoteTrainer,promoteReferee);
+    }
+
+    @Override
+    public void update() {
+        update(getMainFrame().getController().getAllUsers());
     }
     
 }

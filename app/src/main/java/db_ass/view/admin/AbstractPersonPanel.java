@@ -19,7 +19,12 @@ public abstract class AbstractPersonPanel extends BasePanel{
         this.mainFrame = mainFrame;
     }
     
-    public void setUp(List<Persona> persone, String text) {
+    @Override
+    public void setUp(List<?> elements, String text) {
+        if (! (elements.get(0) instanceof Persona)) {
+            throw new IllegalArgumentException("Expected a List of Persona");
+        }
+        List<Persona> persone = (List<Persona>)List.copyOf(elements);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setFields(List.of(new OptionArea("Codice Fiscale", "Codice Fiscale")));
         setTitle(text, SwingConstants.CENTER);

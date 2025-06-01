@@ -124,4 +124,8 @@ public abstract class BasePanel extends JPanel{
         }
         return result;
     }
+
+    public abstract void setUp(List<?> elements, String Title);
+
+    public abstract void update();
 }

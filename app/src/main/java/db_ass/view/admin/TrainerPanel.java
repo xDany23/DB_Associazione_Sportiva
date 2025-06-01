@@ -27,5 +27,10 @@ public class TrainerPanel extends AbstractPersonPanel{
         });
         return List.of(search);
     }
+
+    @Override
+    public void update() {
+        update(getMainFrame().getController().getAllTrainers());
+    }
     
 }

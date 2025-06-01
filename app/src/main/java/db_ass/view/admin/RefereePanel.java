@@ -27,5 +27,10 @@ public class RefereePanel extends AbstractPersonPanel{
         });
         return List.of(search);
     }
+
+    @Override
+    public void update() {
+        update(getMainFrame().getController().getAllReferees());
+    }
     
 }

@@ -102,7 +102,7 @@ public final class Persona {
         public static int newTrainer(Persona p, Connection connection) {
             int rowsInserted = 0;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true, p.LezioniTenute);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.NEW_TRAINER, p.nome, p.cognome, p.email, p.password, p.cf);
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -115,7 +115,7 @@ public final class Persona {
         public static int newReferee(Persona p, Connection connection) {
             int rowsInserted = 0;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.REGISTER_USER, p.nome, p.cognome, p.email, p.password, p.cf, true);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.NEW_REFEREE, p.nome, p.cognome, p.email, p.password, p.cf);
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {

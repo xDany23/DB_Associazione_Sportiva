@@ -162,4 +162,12 @@ public final class Controller {
     public List<Prenotazione> allReservationsOfUser(Persona persona) {
         return this.model.allReservationsOfUser(persona);
     }
+
+    public int newTrainer(String nome, String cognome, String cf, String email, String password) {
+        return this.model.newTrainer(new Persona(cf, nome, cognome, email, password, false, true, false, 0));
+    }
+
+    public int newReferee(String nome, String cognome, String cf, String email, String password) {
+        return this.model.newReferee(new Persona(cf, nome, cognome, email, password, false, false, true, 0));
+    }
 }

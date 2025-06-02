@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import db_ass.data.Persona;
 import db_ass.view.Menu;
@@ -41,7 +43,28 @@ public class RefereePanel extends AbstractPersonPanel{
             getMenu().getController().promoteToTrainer(getSearchedOptionOutput("Codice Fiscale"));
             update(getMenu().getController().getAllReferees());
         });
-        return List.of(search,demote,promoteUser,promoteTrainer);
+        JButton addReferee =  new JButton("Aggiungi arbitro");
+        addReferee.addActionListener(l -> {
+            AddPanel insert = new AddPanel(List.of(new JTextField("Nome"), new JTextField("Cognome"), new JTextField("Codice Fiscale"), new JTextField("e-mail"), new JTextField("Password")));
+            String[] options = {"Continua", "Annulla"};
+            int n = JOptionPane.showOptionDialog(this, insert, "Aggiungi un arbitro",JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+            if (n == JOptionPane.OK_OPTION) {
+                List<String> texts = insert.getTexts();
+                String pass = insert.getPassword();
+                String cf = insert.getCF();
+                if (texts.stream().allMatch(t -> !t.isBlank()) && !pass.isBlank()) {
+                    if (cf.isBlank()) {
+                        JOptionPane.showMessageDialog(null, "Codice Fiscale invalido");
+                    } else {
+                        getMenu().getController().newReferee(texts.get(0), texts.get(1), cf, texts.get(2), pass);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Devi inserire tutti i campi");
+                }
+            }
+            update(getMenu().getController().getAllReferees());
+        });
+        return List.of(search,demote,promoteUser,promoteTrainer, addReferee);
     }
 
     @Override

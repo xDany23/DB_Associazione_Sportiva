@@ -47,14 +47,14 @@ public final class Queries {
     
     public static final String NEW_TRAINER = 
             """
-            INSERT INTO persona(Nome, Cognome, E_mail, Password, CF, Allenatore, LezioniTenute)
-            VALUES (?, ?, ?, ?, ?, ?, 0);        
+            INSERT INTO persona(Nome, Cognome, E_mail, Password, CF, Utente, Allenatore, Arbitro, LezioniTenute)
+            VALUES (?, ?, ?, ?, ?, false, true, false, 0);        
             """;
 
     public static final String NEW_REFEREE = 
             """
-            INSERT INTO persona(Nome, Cognome, E_mail, Password, CF, Arbitro)
-            VALUES (?, ?, ?, ?, ?, ?);
+            INSERT INTO persona(Nome, Cognome, E_mail, Password, CF, Utente, Allenatore, Arbitro, LezioniTenute)
+            VALUES (?, ?, ?, ?, ?, false, false, true, 0);
             """;
 
     public static final String FIND_FIELD_TO_BOOK = 

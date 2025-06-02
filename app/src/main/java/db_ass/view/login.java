@@ -28,10 +28,12 @@ public class Login {
     private JFrame mainFrame;
     private Persona persona;
     private UserPage userPage;
+    private Runnable onClose;
 
-    public Login(Menu menu, JFrame mainFrame/* Runnable onClose */) {
+    public Login(Menu menu, JFrame mainFrame, Runnable onClose) {
         this.menu = menu;
         this.mainFrame = mainFrame;
+        this.onClose = onClose;
     }
 
     public JFrame setUp(/* Runnable onClose */) {
@@ -111,7 +113,7 @@ public class Login {
                 persona = menu.getController().findPersona(cf);
                 if (persona != null) {
                     if (persona.password.equals(pass) && persona.utente == true) {
-                        userPage = new UserPage(menu, mainFrame, persona);
+                        userPage = new UserPage(menu, mainFrame, persona, onClose);
                         this.goUserPage(persona);
                     } else {
                         JOptionPane.showMessageDialog(
@@ -149,7 +151,7 @@ public class Login {
         mainFrame.addWindowListener(
             (WindowListener) new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
-                    //onClose.run();
+                    onClose.run();
                     System.exit(0);
                 }
             }
@@ -173,7 +175,7 @@ public class Login {
     public void back() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = menu.setUp();
+        mainFrame = menu.setUp(onClose);
     }
 
     public void goUserPage(Persona persona) {

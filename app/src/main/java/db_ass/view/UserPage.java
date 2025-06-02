@@ -35,11 +35,13 @@ public class UserPage {
     IscrizionePanel iscrizione = new IscrizionePanel();
     PrenotazionePanel prenotazione = new PrenotazionePanel();
     CorsoPanel corso = new CorsoPanel();
+    private Runnable onClose;
 
-    public UserPage(Menu menu, JFrame mainFrame, Persona persona) {
+    public UserPage(Menu menu, JFrame mainFrame, Persona persona, Runnable onClose) {
         this.menu = menu;
         this.mainFrame = mainFrame;
         this.persona = persona;
+        this.onClose = onClose;
     }
 
     public JFrame setUp() {
@@ -106,7 +108,7 @@ public class UserPage {
         mainFrame.addWindowListener(
             (WindowListener) new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
-                    //onClose.run();
+                    onClose.run();
                     System.exit(0);
                 }
             }
@@ -118,6 +120,6 @@ public class UserPage {
     public void back() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = menu.setUp();
+        mainFrame = menu.setUp(onClose);
     }
 }

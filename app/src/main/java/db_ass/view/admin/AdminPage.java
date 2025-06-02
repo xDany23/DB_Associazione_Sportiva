@@ -34,12 +34,14 @@ public class AdminPage {
     private JFrame mainFrame;
     private Persona persona;
     private JTabbedPane panel;
+    private Runnable onClose;
 
-    public AdminPage(Menu menu, JFrame mainFrame, Persona persona) {
+    public AdminPage(Menu menu, JFrame mainFrame, Persona persona, Runnable onClose) {
         this.menu = menu;
         this.mainFrame = mainFrame;
         this.persona = persona;
         this.panel = new JTabbedPane(JTabbedPane.TOP);
+        this.onClose = onClose;
     }
 
     public JFrame setUp() {
@@ -78,7 +80,7 @@ public class AdminPage {
         mainFrame.addWindowListener(
             (WindowListener) new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
-                    //onClose.run();
+                    onClose.run();
                     System.exit(0);
                 }
             }
@@ -94,7 +96,7 @@ public class AdminPage {
     public void back() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = menu.setUp();
+        mainFrame = menu.setUp(onClose);
     }
 
     private JPanel userSetUp() {

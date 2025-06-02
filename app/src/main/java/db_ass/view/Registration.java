@@ -28,10 +28,12 @@ public class Registration {
     private JFrame mainFrame;
     private Persona persona;
     private UserPage userPage;
+    private Runnable onClose;
 
-    public Registration(Menu menu, JFrame mainFrame) {
+    public Registration(Menu menu, JFrame mainFrame, Runnable onClose) {
         this.menu = menu;
         this.mainFrame = mainFrame;
+        this.onClose = onClose;
     }
 
     public JFrame setUp() {
@@ -155,7 +157,7 @@ public class Registration {
         mainFrame.addWindowListener(
             (WindowListener) new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
-                    //onClose.run();
+                    onClose.run();
                     System.exit(0);
                 }
             }
@@ -167,11 +169,11 @@ public class Registration {
     public void back() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = menu.setUp();
+        mainFrame = menu.setUp(onClose);
     }
 
     public void goUserPage(Persona persona) {
-        this.userPage = new UserPage(menu, mainFrame, persona);
+        this.userPage = new UserPage(menu, mainFrame, persona, onClose);
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         userPage.setUp(); 

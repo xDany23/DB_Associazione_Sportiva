@@ -29,10 +29,12 @@ public class AdminLogin {
     private Menu menu;
     private JFrame mainFrame;
     private Persona persona;
+    private Runnable onClose;
 
-    public AdminLogin(Menu main, JFrame mainFrame/* Runnable onClose */) {
+    public AdminLogin(Menu main, JFrame mainFrame, Runnable onClose) {
         this.menu = main;
         this.mainFrame = mainFrame;
+        this.onClose = onClose;
     }
 
     public JFrame setUp(/* Runnable onClose */) {
@@ -140,7 +142,7 @@ public class AdminLogin {
         mainFrame.addWindowListener(
             (WindowListener) new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
-                    //onClose.run();
+                    onClose.run();
                     System.exit(0);
                 }
             }
@@ -164,12 +166,12 @@ public class AdminLogin {
     public void back() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = menu.setUp();
+        mainFrame = menu.setUp(onClose);
     }
 
     public void goAdminPage() {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        mainFrame = new AdminPage(menu, mainFrame, persona).setUp();
+        mainFrame = new AdminPage(menu, mainFrame, persona, onClose).setUp();
     }
 }

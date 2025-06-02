@@ -26,17 +26,20 @@ public final class Menu {
 
     private int count = 0;
     private Optional<Controller> controller;
-    private JFrame mainFrame = this.setUp();
-    private Login login = new Login(this, mainFrame);
-    private Registration registration = new Registration(this, mainFrame);
-    private AdminLogin adminLogin = new AdminLogin(this, mainFrame);
+    private JFrame mainFrame;
+    private Login login;
+    private Registration registration;
+    private AdminLogin adminLogin;
 
-    public Menu(/* Runnable onClose */) {
+    public Menu(Runnable onClose) {
         this.controller = Optional.empty();
-        this.setUp();
+        this.mainFrame = this.setUp(onClose);
+        this.login = new Login(this, mainFrame, onClose);
+        this.registration = new Registration(this, mainFrame, onClose);
+        this.adminLogin = new AdminLogin(this, mainFrame, onClose);
     }
 
-    public JFrame setUp(/* Runnable onClose */) {
+    public JFrame setUp(Runnable onClose) {
         if (count == 0) {
             this.mainFrame = new JFrame("PROGETTO");
             var padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -104,7 +107,7 @@ public final class Menu {
         mainFrame.addWindowListener(
             new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
-                    //onClose.run();
+                    onClose.run();
                     System.exit(0);
                 }
             }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 
 import db_ass.data.Persona;
@@ -12,10 +13,12 @@ import db_ass.view.OptionArea;
 
 public abstract class AbstractPersonPanel extends BasePanel{
 
-    private final Menu mainFrame;
+    private final Menu menu;
+    private final JFrame mainFrame;
 
-    public AbstractPersonPanel(Menu mainFrame) {
+    public AbstractPersonPanel(Menu menu, JFrame mainFrame) {
         super();
+        this.menu = menu;
         this.mainFrame = mainFrame;
     }
     
@@ -49,7 +52,11 @@ public abstract class AbstractPersonPanel extends BasePanel{
         
     }
 
-    public Menu getMainFrame() {
+    public Menu getMenu() {
+        return this.menu;
+    }
+
+    public JFrame getMainFrame() {
         return this.mainFrame;
     }
 

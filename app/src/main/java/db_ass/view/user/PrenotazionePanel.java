@@ -174,9 +174,9 @@ public final class PrenotazionePanel {
                 contentPrenotazione.add(Box.createVerticalStrut(10));
                 for (int i = 0; i < output.size(); i++) {
                     contentPrenotazione.add(new JLabel("Data: " + output.get(i).dataPartita + ", " +
-                                                        "Campo: " + output.get(i).fasciaOraria.numeroCampo + ", " +
+                                                        "Campo: " + output.get(i).fasciaOraria.numeroCampo.numeroCampo + ", " +
                                                         "Orario d'inizio: " + output.get(i).fasciaOraria.orarioInizio + ", " +
-                                                        "Sport: " + output.get(i).fasciaOraria.tipo + ", "));
+                                                        "Sport: " + output.get(i).fasciaOraria.numeroCampo.tipo + ", "));
                 }
             }
             contentPrenotazione.revalidate();

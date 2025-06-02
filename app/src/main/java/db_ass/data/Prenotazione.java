@@ -102,7 +102,7 @@ public final class Prenotazione {
                     preview.add(new Prenotazione(resultSet.getString("DataPartita"), 
                                                 resultSet.getString("DataPrenotazioneEffettuata"), 
                                                 persona, 
-                                                FasciaOraria.DAO.findPeriod(resultSet.getInt("Campo"), 
+                                                FasciaOraria.DAO.findPeriod(resultSet.getInt("NumeroCampo"), 
                                                                             Giorno.valueOf(resultSet.getString("Giorno").toUpperCase()), 
                                                                             resultSet.getString("OrarioInizio"), connection)));
                 }

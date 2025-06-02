@@ -214,4 +214,9 @@ public class DBModel implements Model{
     public int promoteToUser(Persona persona) {
         return Persona.DAO.promoteToUser(persona, connection);
     }
+
+    @Override
+    public List<Prenotazione> allReservationsOfUser(Persona persona) {
+        return Prenotazione.DAO.allReservationsOfUser(persona, connection);
+    }
 }

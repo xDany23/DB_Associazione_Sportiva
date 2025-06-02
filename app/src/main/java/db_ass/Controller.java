@@ -158,4 +158,8 @@ public final class Controller {
     public int demoteReferee(String cf) {
         return this.model.demoteReferee(this.model.findPersona(cf));
     }
+
+    public List<Prenotazione> allReservationsOfUser(Persona persona) {
+        return this.model.allReservationsOfUser(persona);
+    }
 }

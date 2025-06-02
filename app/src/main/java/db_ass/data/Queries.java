@@ -367,4 +367,11 @@ public final class Queries {
 			SET Utente = true
 			WHERE CF = ?;				
 			""";
+
+	public static final String ALL_RESERVATIONS_OF_USER = 
+			"""
+			SELECT *
+			from prenotazione
+			WHERE Prenotante = ?;		
+			""";
 }

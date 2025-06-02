@@ -91,5 +91,26 @@ public final class Prenotazione {
             }
             return rowsInserted;
         }
+
+        public static List<Prenotazione> allReservationsOfUser(Persona persona, Connection connection) {
+            List<Prenotazione> preview = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_RESERVATIONS_OF_USER, persona.cf);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    preview.add(new Prenotazione(resultSet.getString("DataPartita"), 
+                                                resultSet.getString("DataPrenotazioneEffettuata"), 
+                                                persona, 
+                                                FasciaOraria.DAO.findPeriod(resultSet.getInt("Campo"), 
+                                                                            Giorno.valueOf(resultSet.getString("Giorno").toUpperCase()), 
+                                                                            resultSet.getString("OrarioInizio"), connection)));
+                }
+                
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
+        }
     }
 }

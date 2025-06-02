@@ -92,6 +92,8 @@ public interface Model {
 
     int promoteToUser(Persona persona);
 
+    List<Prenotazione> allReservationsOfUser(Persona persona);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

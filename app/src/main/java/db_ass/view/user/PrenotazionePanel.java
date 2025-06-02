@@ -53,7 +53,7 @@ public final class PrenotazionePanel {
 
         //dati da compilare
         JPanel datiPrenotazione = new JPanel();
-        datiPrenotazione.setLayout(new GridLayout(5,2,2,0));
+        datiPrenotazione.setLayout(new GridLayout(6,2,2,0));
         JLabel orarioInizioPrenLabel = new JLabel("Fascia oraria: ");
         JComboBox<String> orarioInizioPrenBox = new JComboBox<>(orariPrenotazioni);
         JLabel dataPrenLabel = new JLabel("Data: ");
@@ -64,6 +64,7 @@ public final class PrenotazionePanel {
         JTextField campoPrenField = new JTextField(16);
         JButton cercaCampoButton = new JButton("Cerca");
         JButton prenotaCampoButton = new JButton("Prenota");
+        JButton userPrenotazioniButton = new JButton("Le mie prenotazioni");
         datiPrenotazione.add(dataPrenLabel);
         datiPrenotazione.add(dataPrenField);
         datiPrenotazione.add(campoPrenLabel);
@@ -74,6 +75,7 @@ public final class PrenotazionePanel {
         datiPrenotazione.add(sportPrenBox);
         datiPrenotazione.add(cercaCampoButton);
         datiPrenotazione.add(prenotaCampoButton);
+        datiPrenotazione.add(userPrenotazioniButton);
 
         //aggiungo un ActionListener per il bottone della ricerca di un campo
         cercaCampoButton.addActionListener(e -> {
@@ -157,6 +159,28 @@ public final class PrenotazionePanel {
                 contentPrenotazione.revalidate();
                 contentPrenotazione.repaint();
             }
+        });
+
+        //aggiungo un ActionListener per il bottone per visualizzare le prenotazioni dell'utente
+        userPrenotazioniButton.addActionListener(e -> {
+            dataPrenField.setText("");
+            campoPrenField.setText("");
+            List<Prenotazione> output = menu.getController().allReservationsOfUser(persona);
+            contentPrenotazione.removeAll();
+            if (output.isEmpty()) {
+                contentPrenotazione.add(new JLabel("Non hai prenotazioni in programma"));
+            } else {
+                contentPrenotazione.add(new JLabel("LE TUE PRENOTAZIONI:"));
+                contentPrenotazione.add(Box.createVerticalStrut(10));
+                for (int i = 0; i < output.size(); i++) {
+                    contentPrenotazione.add(new JLabel("Data: " + output.get(i).dataPartita + ", " +
+                                                        "Campo: " + output.get(i).fasciaOraria.numeroCampo + ", " +
+                                                        "Orario d'inizio: " + output.get(i).fasciaOraria.orarioInizio + ", " +
+                                                        "Sport: " + output.get(i).fasciaOraria.tipo + ", "));
+                }
+            }
+            contentPrenotazione.revalidate();
+            contentPrenotazione.repaint();
         });
 
         //aggiungo il pannello dei dati a quello principale

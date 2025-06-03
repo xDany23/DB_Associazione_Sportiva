@@ -382,6 +382,27 @@ public final class Queries {
 			WHERE Utente = false
 			AND Allenatore = false
 			AND Arbitro = false
-			AND Admin = false		
+			AND Admin = false;		
+			""";
+
+	public static final String END_ONGOING_COURSE = 
+			"""
+			UPDATE corso
+			SET DataFine = now()
+			WHERE DataFine > now()
+			AND CodiceCorse = ?;		
+			""";
+
+	public static final String ADD_NEW_COURSE = 
+			"""
+			INSERT INTO corso(DataInizio, DataFine, SportPraticato, Prezzo, Allenatore)
+			VALUES (?,?,?,?,?);		
+			""";
+
+	public static final String FIND_COURSE = 
+			"""
+			SELECT * 
+			FROM corso
+			WHERE CodiceCorso = ?;
 			""";
 }

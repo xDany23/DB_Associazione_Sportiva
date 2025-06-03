@@ -224,4 +224,19 @@ public class DBModel implements Model{
     public List<Persona> getAllDisabledUsers() {
         return Persona.DAO.getAllDisabledUsers(connection);
     }
+
+    @Override
+    public int terminateCourse(int codiceCorso) {
+        return Corso.DAO.terminateCourse(codiceCorso, connection);
+    }
+
+    @Override
+    public int addNewCourse(String DataInizio, String DataFine, Sport Sport, double prezzo, String allenatore) {
+        return Corso.DAO.addNewCourse(DataInizio, DataFine, Sport, prezzo, allenatore, connection);
+    }
+
+    @Override
+    public Corso findCourse(int codiceCorso) {
+        return Corso.DAO.findCourse(codiceCorso, connection);
+    }
 }

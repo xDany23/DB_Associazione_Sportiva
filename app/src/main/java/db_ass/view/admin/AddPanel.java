@@ -21,7 +21,11 @@ public class AddPanel extends JPanel{
     private JTextField cf;
     private JComboBox<String> trainerBox;
 
-    public AddPanel(List<JTextField> optionAreas, JComboBox<String>... selections) {
+    public AddPanel(List<JTextField> optionAreas) {
+        this(optionAreas,null);
+    }
+
+    public AddPanel(List<JTextField> optionAreas, JComboBox<String> selections) {
         this.pass = new JPasswordField();
         this.cf = new JTextField();
         this.pass.setMinimumSize(new Dimension(150,15));
@@ -49,7 +53,7 @@ public class AddPanel extends JPanel{
                 this.add(option);
             }
         }
-        this.trainerBox = selections.length == 1 ? selections[0] : new JComboBox<>();
+        this.trainerBox = selections != null ? selections : new JComboBox<>();
         this.options.removeAll(toRemove);
     }
 

@@ -13,15 +13,14 @@ import db_ass.view.OptionArea;
 
 public abstract class AbstractPersonPanel extends BasePanel{
 
-    private final Menu menu;
     private final JFrame mainFrame;
 
     public AbstractPersonPanel(Menu menu, JFrame mainFrame) {
-        super();
-        this.menu = menu;
+        super(menu);
         this.mainFrame = mainFrame;
     }
     
+    @SuppressWarnings("unchecked")
     @Override
     public void setUp(List<?> elements, String text) {
         if (! (elements.get(0) instanceof Persona)) {
@@ -50,10 +49,6 @@ public abstract class AbstractPersonPanel extends BasePanel{
                                         persone.stream().map(p -> p.cf).toList(),
                                         persone.stream().map(p -> p.email).toList());
         
-    }
-
-    public Menu getMenu() {
-        return this.menu;
     }
 
     public JFrame getMainFrame() {

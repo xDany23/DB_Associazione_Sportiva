@@ -174,4 +174,16 @@ public final class Controller {
     public List<Persona> getAllDisabledUsers() {
         return this.model.getAllDisabledUsers();
     }
+
+    public int terminateCourse(int codiceCorso) {
+        return this.model.terminateCourse(codiceCorso);
+    }
+
+    public int addNewCourse(String DataInizio, String DataFine, Sport Sport, double prezzo, String allenatore) {
+        return this.model.addNewCourse(DataInizio, DataFine, Sport, prezzo, allenatore);
+    }
+
+    public Corso findCourse(int codiceCorso) {
+        return this.model.findCourse(codiceCorso);
+    }
 }

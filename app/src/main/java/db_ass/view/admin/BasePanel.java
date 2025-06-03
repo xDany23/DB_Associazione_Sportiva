@@ -16,6 +16,7 @@ import javax.swing.text.AbstractDocument;
 
 import db_ass.view.CustomTableModel;
 import db_ass.view.LimitDocumentFilter;
+import db_ass.view.Menu;
 import db_ass.view.OptionArea;
 
 public abstract class BasePanel extends JPanel{
@@ -27,14 +28,16 @@ public abstract class BasePanel extends JPanel{
     private JPanel optionPanel;
     private JTextField searchField;
     private JTable table;
+    private Menu menu;
 
-    public BasePanel() {
+    public BasePanel(Menu menu) {
         this.fields = new LinkedList<>();
         this.buttons = new LinkedList<>();
-        optionPanel = new JPanel(new GridLayout());
+        this.optionPanel = new JPanel(new GridLayout());
         this.searchField = new JTextField();
         this.tablePanel = new JScrollPane(); 
         this.table = new JTable();
+        this.menu = menu;
         ((AbstractDocument)searchField.getDocument()).setDocumentFilter(new LimitDocumentFilter(16));
     }
 
@@ -123,6 +126,10 @@ public abstract class BasePanel extends JPanel{
             }
         }
         return result;
+    }
+
+    public Menu getMenu() {
+        return this.menu;
     }
 
     public abstract void setUp(List<?> elements, String Title);

@@ -182,5 +182,49 @@ public class Corso {
             }
             return preview;
         }
+
+        public static int terminateCourse(int codiceCorso, Connection connection) {
+            int rowsChanged = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.END_ONGOING_COURSE, codiceCorso);
+            ) {
+                rowsChanged = preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                throw new DAOException(e);
+            }
+            return rowsChanged;
+        }
+
+        public static int addNewCourse(String DataInizio, String DataFine, Sport Sport, double prezzo, String allenatore ,Connection connection) {
+            int rowsInserted = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ADD_NEW_COURSE, DataInizio,DataFine,Sport.toString(),prezzo,allenatore);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
+
+        public static Corso findCourse(int codiceCorso, Connection connection) {
+            Corso corso = null;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_COURSE, codiceCorso);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                if(resultSet.next()) {
+                    var dataInizio = resultSet.getString("DataInizio");
+                    var dataFine = resultSet.getString("DataFine");
+                    Sport sport = Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase());
+                    var prezzo = resultSet.getDouble("Prezzo");
+                    Persona allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
+                    corso = new Corso(dataInizio, dataFine, sport, prezzo, codiceCorso, allenatore);
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return corso;
+        }
     }
 }

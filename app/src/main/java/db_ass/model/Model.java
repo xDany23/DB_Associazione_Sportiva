@@ -96,6 +96,12 @@ public interface Model {
 
     List<Persona> getAllDisabledUsers();
 
+    int terminateCourse(int codiceCorso);
+
+    int addNewCourse(String DataInizio, String DataFine, Sport Sport, double prezzo, String allenatore);
+
+    Corso findCourse(int codiceCorso);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

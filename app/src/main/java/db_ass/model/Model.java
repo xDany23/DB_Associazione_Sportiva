@@ -94,6 +94,8 @@ public interface Model {
 
     List<Prenotazione> allReservationsOfUser(Persona persona);
 
+    List<Persona> getAllDisabledUsers();
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

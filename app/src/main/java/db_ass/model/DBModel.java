@@ -219,4 +219,9 @@ public class DBModel implements Model{
     public List<Prenotazione> allReservationsOfUser(Persona persona) {
         return Prenotazione.DAO.allReservationsOfUser(persona, connection);
     }
+
+    @Override
+    public List<Persona> getAllDisabledUsers() {
+        return Persona.DAO.getAllDisabledUsers(connection);
+    }
 }

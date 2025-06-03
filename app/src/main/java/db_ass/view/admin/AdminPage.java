@@ -48,9 +48,11 @@ public class AdminPage {
         BasePanel user = new UserPanel(this.menu, this.mainFrame);
         BasePanel trainer = new TrainerPanel(this.menu, this.mainFrame);
         BasePanel referee = new RefereePanel(this.menu, this.mainFrame);
+        BasePanel disabled = new DisabledUsersPanel(this.menu, this.mainFrame);
         this.panel.addTab("Utenti", user);
         this.panel.addTab("Allenatori", trainer);
         this.panel.addTab("Arbitri", referee);
+        this.panel.addTab("Utenti disabilitati", disabled);
         /* this.panel.addTab("Corsi", courseSetUp());
         this.panel.addTab("Tornei", tournamentSetUp()); */
 

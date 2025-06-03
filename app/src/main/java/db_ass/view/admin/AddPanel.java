@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -18,8 +19,9 @@ public class AddPanel extends JPanel{
     private List<JTextField> options;
     private JPasswordField pass;
     private JTextField cf;
+    private JComboBox<String> trainerBox;
 
-    public AddPanel(List<JTextField> optionAreas) {
+    public AddPanel(List<JTextField> optionAreas, JComboBox<String>... selections) {
         this.pass = new JPasswordField();
         this.cf = new JTextField();
         this.pass.setMinimumSize(new Dimension(150,15));
@@ -47,7 +49,7 @@ public class AddPanel extends JPanel{
                 this.add(option);
             }
         }
-
+        this.trainerBox = selections.length == 1 ? selections[0] : new JComboBox<>();
         this.options.removeAll(toRemove);
     }
 
@@ -60,6 +62,10 @@ public class AddPanel extends JPanel{
     }
 
     public String getCF() {
-        return cf.getText().length() < 16 ? "" : cf.getText();
+        return this.cf.getText().length() < 16 ? "" : cf.getText();
+    }
+
+    public String getTrainer() {
+        return this.trainerBox.getItemAt(this.trainerBox.getSelectedIndex());
     }
 }

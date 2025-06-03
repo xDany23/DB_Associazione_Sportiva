@@ -374,4 +374,14 @@ public final class Queries {
 			from prenotazione
 			WHERE Prenotante = ?;		
 			""";
+
+	public static final String GET_ALL_DISABLED_USERS = 
+			"""
+			SELECT *
+			FROM persona
+			WHERE Utente = false
+			AND Allenatore = false
+			AND Arbitro = false
+			AND Admin = false		
+			""";
 }

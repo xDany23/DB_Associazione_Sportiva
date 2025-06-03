@@ -170,4 +170,8 @@ public final class Controller {
     public int newReferee(String nome, String cognome, String cf, String email, String password) {
         return this.model.newReferee(new Persona(cf, nome, cognome, email, password, false, false, true, 0));
     }
+
+    public List<Persona> getAllDisabledUsers() {
+        return this.model.getAllDisabledUsers();
+    }
 }

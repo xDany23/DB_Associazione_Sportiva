@@ -234,6 +234,10 @@ public final class Persona {
             return getAllOfAtype(Queries.GET_ALL_REFEREES, connection);
         }
 
+        public static List<Persona> getAllDisabledUsers(Connection connection) {
+            return getAllOfAtype(Queries.GET_ALL_DISABLED_USERS, connection);
+        }
+
         private static List<Persona> getAllOfAtype(String Query,Connection connection) {
             List<Persona> persone = new LinkedList<>();
             try (

@@ -203,4 +203,8 @@ public final class Controller {
     public int deleteCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport) {
         return this.model.deleteCourseLesson(numeroCampo, giorno, orario, dataSvolgimento, sport);
     }
+
+    public List<Persona> findMostRequestedTrainer() {
+        return this.model.findMostRequestedTrainer();
+    }
 }

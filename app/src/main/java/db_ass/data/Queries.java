@@ -224,7 +224,7 @@ public final class Queries {
 
 	public static final String FIND_MOST_REQUESTED_TRAINER = 
 			"""
-			select Nome, Cognome, LezioniTenute
+			select *
 			from persona
 			where Allenatore = TRUE
 			order by LezioniTenute desc limit 15;		

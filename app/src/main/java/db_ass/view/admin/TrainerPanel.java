@@ -64,12 +64,25 @@ public class TrainerPanel extends AbstractPersonPanel{
             }
             update(getMenu().getController().getAllTrainers());
         });
-        return List.of(search,demote,promoteUser,promoteReferee,addTrainer);
+        JButton mostRequested = new JButton("I piu richiesti");
+        mostRequested.addActionListener(l -> {
+            update(getMenu().getController().findMostRequestedTrainer());
+        });
+        return List.of(search,demote,promoteUser,promoteReferee,addTrainer,mostRequested);
     }
 
     @Override
     public void update() {
         update(getMenu().getController().getAllTrainers());
     }
-    
+
+    @Override
+    public void update(List<Persona> persone) {
+        createTablePanel(List.of("Nome","Cognome","Codice Fiscale","e-mail","Lezioni Tenute"),
+                                        persone.stream().map(p -> p.nome).toList(),
+                                        persone.stream().map(p -> p.cognome).toList(),
+                                        persone.stream().map(p -> p.cf).toList(),
+                                        persone.stream().map(p -> p.email).toList(),
+                                        persone.stream().map(p -> p.LezioniTenute).toList());
+    }
 }

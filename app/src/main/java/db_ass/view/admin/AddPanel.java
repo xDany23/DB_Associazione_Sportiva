@@ -30,7 +30,7 @@ public class AddPanel extends JPanel{
         this.cf = new JTextField();
         this.pass.setMinimumSize(new Dimension(150,15));
         this.options = new LinkedList<>(List.copyOf(optionAreas));
-        this.setLayout(new GridLayout(options.size(), 2));
+        this.setLayout(new GridLayout(optionAreas.size()+selections.size(), 2));
         this.options.forEach(o -> {
                                     o.setMinimumSize(new Dimension(150, 15));
                                     o.setAlignmentX(JLabel.LEFT_ALIGNMENT);

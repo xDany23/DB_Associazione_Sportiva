@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import db_ass.utility.Pair;
+
 public final class Torneo {
 
     public final int codiceTorneo;
@@ -150,10 +152,10 @@ public final class Torneo {
             return rowsInserted;
         }
 
-        public static int createTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota, int codiceTorneo, TipoSquadra tipo, Squadra vincitore, Connection connection) {
+        public static int createTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota, TipoSquadra tipo, Connection connection) {
             int rowsInserted;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_TOURNAMENT, dataSvolgimento, nome, premio, maxp, quota, codiceTorneo, tipo.toString(), vincitore);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.CREATE_TOURNAMENT, dataSvolgimento, nome, premio, maxp, quota, tipo.toString());
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -188,7 +190,11 @@ public final class Torneo {
         }
 
         public static Torneo findTournament(int codiceTorneo, Connection connection) {
-            Torneo torneo = null;
+            return find(codiceTorneo, connection).first();
+        }
+
+        public static Pair<Torneo,Integer> find(int codiceTorneo, Connection connection) {
+            Pair<Torneo,Integer> torneo = null;
             try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TOURNAMENT, codiceTorneo);
                 var resultSet = preparedStatement.executeQuery();
@@ -201,7 +207,7 @@ public final class Torneo {
                     var quota = resultSet.getDouble("QuotaIscrizione");
                     var tipo = TipoSquadra.valueOf(resultSet.getString("Tipo").toUpperCase());
                     var vincitore = Squadra.DAO.findTeam(resultSet.getInt("SquadraVincitrice"), connection);
-                    torneo = new Torneo(codiceTorneo, data, nome, premio, maxp, quota, tipo, vincitore);
+                    torneo = new Pair<>(new Torneo(codiceTorneo, data, nome, premio, maxp, quota, tipo, vincitore), resultSet.getInt("NumeroPartecipanti"));
                 }
             } catch (SQLException e) {
                 throw new DAOException(e);
@@ -227,6 +233,84 @@ public final class Torneo {
                 throw new DAOException(e);
             }
             return preview;
+        }
+
+        public static List<Pair<Torneo,Integer>> getAllTournaments(Connection connection) {
+            return getAll(connection, Queries.GET_ALL_TOURNAMENTS);
+        }
+        
+        public static List<Pair<Torneo,Integer>> getAllEnterableTournaments(Connection connection) {
+            return getAll(connection, Queries.GET_ALL_ENTERABLE_TOURNAMENTS);
+        }
+
+        private static List<Pair<Torneo,Integer>> getAll(Connection connection, String query) {
+            List<Pair<Torneo,Integer>> tornei = new LinkedList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, query);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    tornei.add(new Pair<Torneo,Integer>(new Torneo(
+                        resultSet.getInt("CodiceTorneo"), 
+                        resultSet.getString("DataSvolgimento"), 
+                        resultSet.getString("Nome"), 
+                        resultSet.getString("Premio"), 
+                        resultSet.getInt("MassimoPartecipanti"),
+                        resultSet.getDouble("QuotaIscrizione"),
+                        TipoSquadra.valueOf(resultSet.getString("Tipo").toUpperCase()),
+                        Squadra.DAO.findTeam(resultSet.getInt("SquadraVincitrice"), connection)), resultSet.getInt("NumeroIscritti")));
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return tornei;
+        }
+
+        public static int modifyPrice(Torneo codiceTorneo, double prezzo, Connection connection) {
+            return modifyTournament(codiceTorneo.codiceTorneo, codiceTorneo.dataSvolgimento, prezzo, connection);
+        }
+
+        public static int modifyDate(Torneo codiceTorneo, String data, Connection connection) {
+            return modifyTournament(codiceTorneo.codiceTorneo, data, codiceTorneo.quotaIscrizione, connection);
+        }
+
+        public static int modifyWinner(Torneo codiceTorneo, int codiceSquadra, Connection connection) {
+            int rowsChanged = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.MODIFY_WINNER, codiceSquadra)
+            ) {
+                rowsChanged = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsChanged;
+        }
+
+        private static int modifyTournament(int codiceTorneo, String dataSvolgimento, double prezzo, Connection connection) {
+            int rowsChanged = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.MODIFY_TOURNAMENT, dataSvolgimento, prezzo, codiceTorneo)
+            ) {
+                rowsChanged = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsChanged;
+        }
+
+        public static List<Squadra> allTeamsInTournament(int codiceTorneo, Connection connection) {
+            List<Squadra> squadre = new LinkedList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.GET_ALL_TEAMS_IN_TOURNAMENT, codiceTorneo);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    squadre.add(Squadra.DAO.findTeam(resultSet.getInt("CodiceSquadra"), connection));
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return squadre;
         }
     }
     

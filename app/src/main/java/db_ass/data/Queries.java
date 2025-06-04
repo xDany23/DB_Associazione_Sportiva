@@ -186,8 +186,8 @@ public final class Queries {
 
 	public static final String CREATE_TOURNAMENT = 
 			"""
-			INSERT INTO torneo(DataSvolgimento, Nome, Premio, MassimoPartecipanti, QuotaIscrizione, CodiceTorneo, Tipo, SquadraVincitrice)
-			VALUES (?,?,?,?,?,?,?,?);
+			INSERT INTO torneo(DataSvolgimento, Nome, Premio, MassimoPartecipanti, QuotaIscrizione, Tipo)
+			VALUES (?,?,?,?,?,?);
 			""";
 
 	public static final String FIND_ALL_PARTECIPANTS = 
@@ -232,9 +232,10 @@ public final class Queries {
 
 	public static final String FIND_TOURNAMENT = 
 			"""
-			SELECT *
-			FROM torneo
-			WHERE CodiceTorneo = ?;		
+			SELECT torneo.*, count(i.CodiceSquadra) as NumeroPartecipanti
+			FROM torneo, iscrizione i
+			WHERE torneo.CodiceTorneo = ?
+			GROUP BY torneo.CodiceTorneo;		
 			""";
 
 	public static final String VISUALIZE_ALL_TOURNAMENT_MATCHES = 
@@ -434,5 +435,49 @@ public final class Queries {
 			AND Giorno = ?
 			AND DataSvolgimento = ?
 			AND SportPraticato = ?;		
+			""";
+
+	public static final String GET_ALL_TOURNAMENTS =
+			"""
+			SELECT torneo.*, count(i.CodiceSquadra) as numeroIscritti
+			FROM torneo, iscrizione i
+			GROUP BY CodiceTorneo;		
+			""";
+
+	public static final String GET_ALL_ENTERABLE_TOURNAMENTS =
+			"""
+			SELECT t.*, count(i.CodiceSquadra) as numeroIscritti
+			FROM torneo t, iscrizione i
+			WHERE t.DataSvolgimento > now()
+			AND t.MassimoPartecipanti > (select count(*)
+										from iscrizione i
+										where i.CodiceTorneo = t.CodiceTorneo)
+			GROUP BY t.CodiceTorneo;
+			""";
+
+	public static final String MODIFY_TOURNAMENT = 
+			"""
+			UPDATE torneo
+			SET DataSvolgimento = ?,
+				QuotaIscrizione = ?
+			WHERE CodiceTorneo = ?
+			AND DataSvolgimento > now();		
+			""";
+
+	public static final String MODIFY_WINNER = 
+			"""
+			UPDATE torneo
+			SET SquadraVincitrice = ?
+			WHERE CodiceTorneo = ?
+			AND DataSvolgimento > now();		
+			""";
+
+	public static final String GET_ALL_TEAMS_IN_TOURNAMENT = 
+			"""
+			SELECT squadra.*
+			FROM squadra, torneo, iscrizione i
+			WHERE torneo.CodiceTorneo = ?
+			AND i.CodiceTorneo = torneo.CodiceTorneo
+			AND squadra.CodiceSquadra = i.CodiceSquadra;
 			""";
 }

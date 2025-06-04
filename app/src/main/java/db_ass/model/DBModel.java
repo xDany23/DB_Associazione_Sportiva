@@ -17,6 +17,7 @@ import db_ass.data.Sport;
 import db_ass.data.Squadra;
 import db_ass.data.TipoSquadra;
 import db_ass.data.Torneo;
+import db_ass.utility.Pair;
 
 public class DBModel implements Model{
 
@@ -100,9 +101,8 @@ public class DBModel implements Model{
     }
 
     @Override
-    public int createNewTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota,
-            int codiceTorneo, TipoSquadra tipo, Squadra vincitore) {
-        return Torneo.DAO.createTournament(dataSvolgimento, nome, premio, maxp, quota, codiceTorneo, tipo, vincitore, connection);
+    public int createNewTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota, TipoSquadra tipo) {
+        return Torneo.DAO.createTournament(dataSvolgimento, nome, premio, maxp, quota, tipo, connection);
     }
 
     @Override
@@ -260,5 +260,40 @@ public class DBModel implements Model{
     @Override
     public int deleteCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport) {
         return LezioneCorso.DAO.deleteCourseLesson(numeroCampo, giorno, orario, dataSvolgimento, sport, connection);
+    }
+
+    @Override
+    public List<Pair<Torneo, Integer>> getAllEnterableTournaments() {
+        return Torneo.DAO.getAllEnterableTournaments(connection);
+    }
+
+    @Override
+    public List<Pair<Torneo, Integer>> getAllTournaments() {
+        return Torneo.DAO.getAllTournaments(connection);
+    }
+
+    @Override
+    public Pair<Torneo, Integer> findTournamentAndPartecipants(int codiceTorneo) {
+        return Torneo.DAO.find(codiceTorneo, connection);
+    }
+
+    @Override
+    public int modifyTournamentDate(int codiceTorneo, String data) {
+        return Torneo.DAO.modifyDate(this.findTournament(codiceTorneo), data, connection);
+    }
+
+    @Override
+    public int modifyTournamentPrice(int codiceTorneo, double prezzo) {
+        return Torneo.DAO.modifyPrice(this.findTournament(codiceTorneo), prezzo, connection);
+    }
+
+    @Override
+    public int modifyTournamentWinner(int codiceTorneo, int codiceSquadra) {
+        return Torneo.DAO.modifyWinner(this.findTournament(codiceTorneo), codiceSquadra, connection);
+    }
+
+    @Override
+    public List<Squadra> allTeamsInTournament(int codiceTorneo) {
+        return Torneo.DAO.allTeamsInTournament(codiceTorneo, connection);
     }
 }

@@ -1,6 +1,5 @@
 package db_ass;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,6 +17,7 @@ import db_ass.data.Squadra;
 import db_ass.data.TipoSquadra;
 import db_ass.data.Torneo;
 import db_ass.model.Model;
+import db_ass.utility.Pair;
 import db_ass.view.Menu;
 
 public final class Controller {
@@ -206,5 +206,37 @@ public final class Controller {
 
     public List<Persona> findMostRequestedTrainer() {
         return this.model.findMostRequestedTrainer();
+    }
+
+    public List<Pair<Torneo,Integer>> getAllTournaments() {
+        return this.model.getAllTournaments();
+    }
+
+    public List<Pair<Torneo,Integer>> getAllEnterableTournaments() {
+        return this.model.getAllEnterableTournaments();
+    }
+
+    public Pair<Torneo,Integer> findTournamentAndPartecipants(int codiceTorneo) {
+        return this.model.findTournamentAndPartecipants(codiceTorneo);
+    }
+
+    public int modifyTournamentDate(int codiceTorneo, String data) {
+        return this.model.modifyTournamentDate(codiceTorneo, data);
+    }
+
+    public int modifyTournamentPrice(int codiceTorneo, double prezzo) {
+        return this.model.modifyTournamentPrice(codiceTorneo, prezzo);
+    }
+
+    public int modifyTournamentWinner(int codiceTorneo, int codiceSquadra) {
+        return this.model.modifyTournamentWinner(codiceTorneo, codiceSquadra);
+    }
+
+    public int createNewTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota, TipoSquadra tipo) {
+        return this.model.createNewTournament(dataSvolgimento, nome, premio, maxp, quota, tipo);
+    }
+
+    public List<Squadra> allTeamsInTournament(int codiceTorneo) {
+        return this.model.allTeamsInTournament(codiceTorneo);
     }
 }

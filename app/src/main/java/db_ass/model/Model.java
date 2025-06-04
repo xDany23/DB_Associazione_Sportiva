@@ -16,6 +16,7 @@ import db_ass.data.Sport;
 import db_ass.data.Squadra;
 import db_ass.data.TipoSquadra;
 import db_ass.data.Torneo;
+import db_ass.utility.Pair;
 
 public interface Model {
     
@@ -47,7 +48,7 @@ public interface Model {
 
     int enterTournament(int codiceTorneo, int codiceSquadra);
 
-    int createNewTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota, int codiceTorneo, TipoSquadra tipo, Squadra vincitore);
+    int createNewTournament(String dataSvolgimento, String nome, String premio, int maxp, double quota, TipoSquadra tipo);
 
     List<Persona> findAllPartecipants(int codiceTorneo);
 
@@ -110,6 +111,20 @@ public interface Model {
     List<LezioneCorso> getAllCourseLessons(int CodiceCorso);
 
     int deleteCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport);
+
+    List<Pair<Torneo,Integer>> getAllTournaments();
+
+    List<Pair<Torneo,Integer>> getAllEnterableTournaments();
+
+    Pair<Torneo,Integer> findTournamentAndPartecipants(int codiceTorneo);
+
+    int modifyTournamentPrice(int codiceTorneo, double prezzo);
+
+    int modifyTournamentDate(int codiceTorneo, String data);
+
+    int modifyTournamentWinner(int codiceTorneo, int codiceSquadra);
+
+    List<Squadra> allTeamsInTournament(int codiceTorneo);
 
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);

@@ -41,7 +41,7 @@ public class TestTorneo {
         assertEquals(List.of(), Torneo.DAO.isTournementEnterable(TipoSquadra.CALCETTO, connection));
         assertEquals(List.of(Torneo.DAO.findTournament(1, connection)), Torneo.DAO.isTournementEnterable(TipoSquadra.TENNIS_SINGOLO, connection));
         
-        assertEquals(1, Torneo.DAO.createTournament(torneo.dataSvolgimento, torneo.nome, torneo.premio, torneo.massimoPartecipanti, torneo.quotaIscrizione, torneo.codiceTorneo, torneo.tipo, null, connection));
+        assertEquals(1, Torneo.DAO.createTournament(torneo.dataSvolgimento, torneo.nome, torneo.premio, torneo.massimoPartecipanti, torneo.quotaIscrizione, torneo.tipo, connection));
         assertEquals(List.of(torneo), Torneo.DAO.isTournementEnterable(TipoSquadra.CALCETTO, connection));
         assertEquals(1, Torneo.DAO.enterTournament(10, 1, connection));
     }

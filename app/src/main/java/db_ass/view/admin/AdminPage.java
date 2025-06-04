@@ -19,8 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import db_ass.data.Corso;
 import db_ass.data.Persona;
@@ -50,11 +48,13 @@ public class AdminPage {
         BasePanel referee = new RefereePanel(this.menu, this.mainFrame);
         BasePanel disabled = new DisabledUsersPanel(this.menu, this.mainFrame);
         BasePanel courses = new CoursesPanel(this.menu);
+        BasePanel tournaments = new TournamentPanel(this.menu);
         this.panel.addTab("Utenti", user);
         this.panel.addTab("Allenatori", trainer);
         this.panel.addTab("Arbitri", referee);
         this.panel.addTab("Utenti disabilitati", disabled);
         this.panel.addTab("Corsi", courses);
+        this.panel.addTab("Tornei", tournaments);
 
         JPanel backPanel = new JPanel();
         backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.Y_AXIS));

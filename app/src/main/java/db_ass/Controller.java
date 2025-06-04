@@ -186,4 +186,12 @@ public final class Controller {
     public Corso findCourse(int codiceCorso) {
         return this.model.findCourse(codiceCorso);
     }
+
+    public int addNewCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport, int codiceCorso) {
+        return this.model.addNewCourseLesson(numeroCampo, giorno, orario, dataSvolgimento, sport, codiceCorso);
+    }
+
+    public List<Integer> getFieldFromType(Sport sport) {
+        return this.model.getFieldFromType(sport);
+    }
 }

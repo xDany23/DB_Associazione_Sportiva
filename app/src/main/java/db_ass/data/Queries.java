@@ -63,7 +63,7 @@ public final class Queries {
             from campo
             where tipo = ?
             and NumeroCampo not in (SELECT c.NumeroCampo
-				    FROM prenotazione p, fascia_oraria f, campo c
+				    				FROM prenotazione p, fascia_oraria f, campo c
                                     WHERE p.NumeroCampo = f.NumeroCampo
                                     AND f.NumeroCampo = c.NumeroCampo
                                     AND f.Tipo = "Prenotabile"
@@ -390,7 +390,7 @@ public final class Queries {
 			UPDATE corso
 			SET DataFine = now()
 			WHERE DataFine > now()
-			AND CodiceCorse = ?;		
+			AND CodiceCorso = ?;		
 			""";
 
 	public static final String ADD_NEW_COURSE = 
@@ -404,5 +404,18 @@ public final class Queries {
 			SELECT * 
 			FROM corso
 			WHERE CodiceCorso = ?;
+			""";
+
+	public static final String ADD_LESSON_TO_COURSE = 
+			"""
+			INSERT INTO lezione_corso(NumeroCampo, Giorno, OrarioInizio, DataSvolgimento, SportPraticato, CodiceCorso)
+			VALUES (?,?,?,?,?,?);	
+			""";
+
+	public static final String FIND_FIELD_OF_TYPE = 
+			"""
+			SELECT NumeroCampo
+			FROM campo
+			WHERE Tipo = ?;		
 			""";
 }

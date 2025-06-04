@@ -23,9 +23,6 @@ public abstract class AbstractPersonPanel extends BasePanel{
     @SuppressWarnings("unchecked")
     @Override
     public void setUp(List<?> elements, String text) {
-        if (! (elements.get(0) instanceof Persona)) {
-            throw new IllegalArgumentException("Expected a List of Persona");
-        }
         List<Persona> persone = (List<Persona>)List.copyOf(elements);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setFields(List.of(new OptionArea("Codice Fiscale", "Codice Fiscale")));

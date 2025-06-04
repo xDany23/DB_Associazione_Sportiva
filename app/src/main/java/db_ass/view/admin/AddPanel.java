@@ -19,13 +19,13 @@ public class AddPanel extends JPanel{
     private List<JTextField> options;
     private JPasswordField pass;
     private JTextField cf;
-    private JComboBox<String> trainerBox;
+    private List<JComboBox<?>> selections;
 
     public AddPanel(List<JTextField> optionAreas) {
         this(optionAreas,null);
     }
 
-    public AddPanel(List<JTextField> optionAreas, JComboBox<String> selections) {
+    public AddPanel(List<JTextField> optionAreas, List<JComboBox<?>> selections) {
         this.pass = new JPasswordField();
         this.cf = new JTextField();
         this.pass.setMinimumSize(new Dimension(150,15));
@@ -53,8 +53,21 @@ public class AddPanel extends JPanel{
                 this.add(option);
             }
         }
-        this.trainerBox = selections != null ? selections : new JComboBox<>();
+        this.selections = selections != null ? selections : List.of();
+        if(!this.selections.isEmpty()) {
+            for (var  sel : selections) {
+                var text = sel.getName();
+                sel.setName("");
+                JLabel label = new JLabel(text);
+                label.setAlignmentX(JLabel.RIGHT);
+                sel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+                sel.setMinimumSize(new Dimension(150, 15));
+                this.add(label);
+                this.add(sel);
+            }
+        }
         this.options.removeAll(toRemove);
+  
     }
 
     public List<String> getTexts() {
@@ -69,7 +82,7 @@ public class AddPanel extends JPanel{
         return this.cf.getText().length() < 16 ? "" : cf.getText();
     }
 
-    public String getTrainer() {
-        return this.trainerBox.getItemAt(this.trainerBox.getSelectedIndex());
+    public List<String> getSelection() {
+        return this.selections.stream().map(s -> s.getSelectedItem()).filter(o -> o != null).map(o -> o.toString()).toList();
     }
 }

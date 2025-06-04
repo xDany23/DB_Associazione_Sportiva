@@ -49,17 +49,12 @@ public class AdminPage {
         BasePanel trainer = new TrainerPanel(this.menu, this.mainFrame);
         BasePanel referee = new RefereePanel(this.menu, this.mainFrame);
         BasePanel disabled = new DisabledUsersPanel(this.menu, this.mainFrame);
+        BasePanel courses = new CoursesPanel(this.menu);
         this.panel.addTab("Utenti", user);
         this.panel.addTab("Allenatori", trainer);
         this.panel.addTab("Arbitri", referee);
         this.panel.addTab("Utenti disabilitati", disabled);
-        /* this.panel.addTab("Corsi", courseSetUp());
-        this.panel.addTab("Tornei", tournamentSetUp()); */
-
-        JPanel fieldPanel = new JPanel();
-        fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.Y_AXIS));
-
-        this.panel.addTab("Campi", fieldPanel);
+        this.panel.addTab("Corsi", courses);
 
         JPanel backPanel = new JPanel();
         backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.Y_AXIS));

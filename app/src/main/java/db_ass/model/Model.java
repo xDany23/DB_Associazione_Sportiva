@@ -102,6 +102,10 @@ public interface Model {
 
     Corso findCourse(int codiceCorso);
 
+    int addNewCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport, int codiceCorso);
+
+    List<Integer> getFieldFromType(Sport sport);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

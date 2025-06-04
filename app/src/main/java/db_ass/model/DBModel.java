@@ -8,6 +8,7 @@ import db_ass.data.Campo;
 import db_ass.data.Corso;
 import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
+import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
 import db_ass.data.Prenotazione;
@@ -238,5 +239,16 @@ public class DBModel implements Model{
     @Override
     public Corso findCourse(int codiceCorso) {
         return Corso.DAO.findCourse(codiceCorso, connection);
+    }
+
+    @Override
+    public int addNewCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport,
+            int codiceCorso) {
+        return LezioneCorso.DAO.insertLesson(numeroCampo, giorno, orario, dataSvolgimento, sport, codiceCorso, connection);
+    }
+
+    @Override
+    public List<Integer> getFieldFromType(Sport sport) {
+        return Campo.DAO.findFieldsFromType(sport, connection);
     }
 }

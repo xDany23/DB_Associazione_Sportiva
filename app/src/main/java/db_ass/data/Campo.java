@@ -87,6 +87,21 @@ public final class Campo {
             }
             return preview;
         }
+
+        public static List<Integer> findFieldsFromType(Sport sport, Connection connection) {
+            List<Integer> fields = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FIELD_OF_TYPE, sport.toString());
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    fields.add(resultSet.getInt("NumeroCampo"));
+                }
+            } catch (Exception e) {
+                throw new DAOException(e);
+            }
+            return fields;
+        }
     }
     
 }

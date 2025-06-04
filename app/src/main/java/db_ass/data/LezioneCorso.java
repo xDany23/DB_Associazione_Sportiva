@@ -1,5 +1,6 @@
 package db_ass.data;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class LezioneCorso {
@@ -79,5 +80,20 @@ public class LezioneCorso {
             Printer.field("Sport Praticato", this.sportPraticato),
             Printer.field("Codice Corso", this.codiceCorso)
         ));
+    }
+
+    public static class DAO {
+    
+        public static int insertLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport, int codiceCorso, Connection connection) {
+            int rowsInserted = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ADD_LESSON_TO_COURSE, numeroCampo, giorno.toString(), orario, dataSvolgimento, sport.toString(), codiceCorso);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
     }
 }

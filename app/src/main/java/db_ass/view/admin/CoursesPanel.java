@@ -9,13 +9,14 @@ import java.util.Locale;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import db_ass.data.Campo;
 import db_ass.data.Corso;
 import db_ass.data.Giorno;
+import db_ass.data.LezioneCorso;
 import db_ass.data.Sport;
 import db_ass.view.Menu;
 import db_ass.view.OptionArea;
@@ -34,6 +35,7 @@ public class CoursesPanel extends BasePanel{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setFields(List.of(new OptionArea("Codice Corso", "0"), new OptionArea("Sport Praticato", ""), new OptionArea("Data Inizio", ""), new OptionArea("Data Fine", "")));
         setTitle(title, SwingConstants.CENTER);
+        getOptionPanel().removeAll();
         setButtons(createButtons());
         fillOptionPanel();
         createTablePanel(List.of("Codice Corso","Sport Praticato", "Data Inizio", "Data Fine", "Allenatore", "Prezzo"),
@@ -46,6 +48,7 @@ public class CoursesPanel extends BasePanel{
         this.add(getTitle());
         this.add(getTablePanel());
         this.add(getOptionPanel());
+        getOptionPanel().revalidate();
     }
     
 
@@ -198,7 +201,11 @@ public class CoursesPanel extends BasePanel{
             }
             update();
         });
-        return List.of(search,terminate,addNew,addLesson);
+        JButton getLessons = new JButton("Visualizza tutte\n le lezioni del corso");
+        getLessons.addActionListener(l -> {
+            setLezioni(Integer.parseInt(getSearchedOptionOutput("Codice Corso")));
+        });
+        return List.of(search,terminate,addNew,addLesson,getLessons);
     }
 
     private <E> void fillComboBox(JComboBox<E> box, List<E> elements) {
@@ -206,5 +213,63 @@ public class CoursesPanel extends BasePanel{
         for(var elem: elements) {
             box.addItem(elem);
         }
+    }
+
+    private void setLezioni(int codiceCorso) {
+        this.removeAll();
+        getOptionPanel().removeAll();
+        this.setTitle("Lezioni del corso" + codiceCorso, JLabel.CENTER);
+        List<LezioneCorso> lezioni = getMenu().getController().getAllCourseLessons(codiceCorso);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setFields(List.of(new OptionArea("Data Svolgimento", ""), new OptionArea("Orario Inizio", ""), new OptionArea("Numero Campo", ""), new OptionArea("Sport Praticato", "")));
+        JButton backButton = new JButton("Indietro");
+        backButton.addActionListener(l -> {
+            this.removeAll();
+            this.setUp(getMenu().getController().getAllActiveCourses(), "Tutti i corsi attivi");
+        });
+        JButton deleteButton = new JButton("Elimina Lezione");
+        deleteButton.addActionListener(l -> {
+            if (!getSearchedOptionOutput("Sport Praticato").isBlank()) {
+                String data = getSearchedOptionOutput("Data Svolgimento");
+                String hour = getSearchedOptionOutput("Orario Inizio");
+                int field = Integer.parseInt(getSearchedOptionOutput("Numero Campo"));
+                Sport sport = Sport.valueOf(getSearchedOptionOutput("Sport Praticato").toUpperCase());
+                String giornoProva = LocalDate.parse(data).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
+                Giorno giorno = (giornoProva.equals("lunedì"))
+                    ? Giorno.LUNEDI
+                    : (giornoProva.equals("martedì"))
+                    ? Giorno.MARTEDI
+                    : (giornoProva.equals("mercoledì"))
+                    ? Giorno.MERCOLEDI
+                    : (giornoProva.equals("giovedì")) 
+                    ? Giorno.GIOVEDI
+                    : (giornoProva.equals("venerdì"))
+                    ? Giorno.VENERDI
+                    : (giornoProva.equals("sabato"))
+                    ? Giorno.SABATO
+                    : Giorno.DOMENICA;
+                getMenu().getController().deleteCourseLesson(field, giorno, hour, data, sport);
+                updatelessons(getMenu().getController().getAllCourseLessons(codiceCorso));
+            }
+        });
+        setButtons(List.of(deleteButton, backButton));
+        fillOptionPanel();
+        createTablePanel(List.of("Data Svolgimento","Orario Inizio", "Numero Campo", "Sport Praticato"),
+                         lezioni.stream().map(l -> l.dataSvolgimento).toList(),
+                         lezioni.stream().map(l -> l.orarioInizio).toList(),
+                         lezioni.stream().map(l -> l.numeroCampo.numeroCampo).toList(),
+                         lezioni.stream().map(l -> l.sportPraticato.toString()).toList());
+        this.add(getTitle());
+        this.add(getTablePanel());
+        this.add(getOptionPanel());
+        getOptionPanel().revalidate();
+    }
+
+    private void updatelessons(List<LezioneCorso> lezioni) {
+        createTablePanel(List.of("Data Svolgimento","Orario Inizio", "Numero Campo", "Sport Praticato"),
+                         lezioni.stream().map(l -> l.dataSvolgimento).toList(),
+                         lezioni.stream().map(l -> l.orarioInizio).toList(),
+                         lezioni.stream().map(l -> l.numeroCampo.numeroCampo).toList(),
+                         lezioni.stream().map(l -> l.sportPraticato.toString()).toList());
     }
 }

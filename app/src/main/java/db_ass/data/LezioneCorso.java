@@ -1,6 +1,8 @@
 package db_ass.data;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class LezioneCorso {
@@ -88,6 +90,38 @@ public class LezioneCorso {
             int rowsInserted = 0;
             try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.ADD_LESSON_TO_COURSE, numeroCampo, giorno.toString(), orario, dataSvolgimento, sport.toString(), codiceCorso);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
+
+        public static List<LezioneCorso> getAllCourseLessons(int CodiceCorso,Connection connection) {
+            List<LezioneCorso> lezioni =  new LinkedList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.GET_ALL_COURSE_LESSONS, CodiceCorso);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    lezioni.add(new LezioneCorso(Campo.DAO.findField(resultSet.getInt("NumeroCampo"),connection),
+                                                 Giorno.valueOf(resultSet.getString("Giorno").toUpperCase()),
+                                                 resultSet.getString("OrarioInizio"),
+                                                 resultSet.getString("DataSvolgimento"),
+                                                 Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase()),
+                                                 Corso.DAO.findCourse(CodiceCorso, connection)));
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return lezioni;
+        }
+
+        public static int deleteCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport, Connection connection) {
+            int rowsInserted = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.DELETE_COURSE_LESSON, numeroCampo, orario, giorno.toString(), dataSvolgimento, sport.toString());
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (Exception e) {

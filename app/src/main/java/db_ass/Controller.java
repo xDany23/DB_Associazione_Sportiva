@@ -8,6 +8,7 @@ import db_ass.data.Campo;
 import db_ass.data.Corso;
 import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
+import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
 import db_ass.data.Prenotazione;
@@ -193,5 +194,13 @@ public final class Controller {
 
     public List<Integer> getFieldFromType(Sport sport) {
         return this.model.getFieldFromType(sport);
+    }
+
+    public List<LezioneCorso> getAllCourseLessons(int codiceCorso) {
+        return this.model.getAllCourseLessons(codiceCorso);
+    }
+
+    public int deleteCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport) {
+        return this.model.deleteCourseLesson(numeroCampo, giorno, orario, dataSvolgimento, sport);
     }
 }

@@ -418,4 +418,21 @@ public final class Queries {
 			FROM campo
 			WHERE Tipo = ?;		
 			""";
+
+	public static final String GET_ALL_COURSE_LESSONS = 
+			"""
+			SELECT *
+			FROM lezione_corso
+			WHERE CodiceCorso = ?;
+			""";
+
+	public static final String DELETE_COURSE_LESSON = 
+			"""
+			DELETE FROM lezione_corso
+			WHERE NumeroCampo = ?
+			AND OrarioInizio = ?
+			AND Giorno = ?
+			AND DataSvolgimento = ?
+			AND SportPraticato = ?;		
+			""";
 }

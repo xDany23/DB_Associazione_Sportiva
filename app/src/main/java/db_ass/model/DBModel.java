@@ -251,4 +251,14 @@ public class DBModel implements Model{
     public List<Integer> getFieldFromType(Sport sport) {
         return Campo.DAO.findFieldsFromType(sport, connection);
     }
+
+    @Override
+    public List<LezioneCorso> getAllCourseLessons(int CodiceCorso) {
+        return LezioneCorso.DAO.getAllCourseLessons(CodiceCorso, connection);
+    }
+
+    @Override
+    public int deleteCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport) {
+        return LezioneCorso.DAO.deleteCourseLesson(numeroCampo, giorno, orario, dataSvolgimento, sport, connection);
+    }
 }

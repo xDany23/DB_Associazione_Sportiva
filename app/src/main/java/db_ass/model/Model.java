@@ -7,6 +7,7 @@ import db_ass.data.Campo;
 import db_ass.data.Corso;
 import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
+import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
 import db_ass.data.Prenotazione;
@@ -105,6 +106,10 @@ public interface Model {
     int addNewCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport, int codiceCorso);
 
     List<Integer> getFieldFromType(Sport sport);
+
+    List<LezioneCorso> getAllCourseLessons(int CodiceCorso);
+
+    int deleteCourseLesson(int numeroCampo, Giorno giorno, String orario, String dataSvolgimento, Sport sport);
 
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);

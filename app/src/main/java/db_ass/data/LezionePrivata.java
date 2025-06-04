@@ -168,7 +168,8 @@ public class LezionePrivata {
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new DAOException(e);
+                return 0;
+                //throw new DAOException(e);
             }
             return rowsInserted;
         }
@@ -180,7 +181,8 @@ public class LezionePrivata {
             ) {
                 rowsInserted = preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new DAOException(e);
+                return 0;
+                //throw new DAOException(e);
             }
             return rowsInserted;
         }

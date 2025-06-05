@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
@@ -76,6 +77,7 @@ public class TrainerPage {
 
 
         //aggiungo tutto al mainFrame
+        mainFrame.getContentPane().add(main, BorderLayout.CENTER);
         mainFrame.getContentPane().add(backPanel, BorderLayout.WEST);
         mainFrame.setResizable(false);
         mainFrame.setVisible(true);

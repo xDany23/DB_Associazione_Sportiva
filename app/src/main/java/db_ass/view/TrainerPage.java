@@ -56,12 +56,14 @@ public class TrainerPage {
 
         JLabel title = new JLabel("Ciao " + persona.nome + ", ecco le prossime lezioni:", SwingConstants.CENTER);
         title.setFont(titleFont);
+        title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         main.add(title);
-        main.add(Box.createVerticalStrut(20));
+        main.add(Box.createVerticalStrut(50));
         List<LezionePrivata> lezioni = menu.getController().allLessonsOfTrainer(persona);
         if (lezioni.isEmpty()) {
             JLabel line = new JLabel("Non hai nessuna lezione in programma!");
             line.setFont(labelFont);
+            line.setAlignmentX(JLabel.LEFT_ALIGNMENT);
             main.add(line);
         } else {
             for(int i = 0; i < lezioni.size(); i++) {
@@ -70,6 +72,7 @@ public class TrainerPage {
                                         "Sport: " + lezioni.get(i).sportPraticato + ", " +
                                         "Campo: " + lezioni.get(i).numeroCampo.numeroCampo + ", ");
                 line.setFont(labelFont);
+                line.setAlignmentX(JLabel.LEFT_ALIGNMENT);
                 main.add(line);
             }
         }

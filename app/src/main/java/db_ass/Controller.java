@@ -239,4 +239,16 @@ public final class Controller {
     public List<Squadra> allTeamsInTournament(int codiceTorneo) {
         return this.model.allTeamsInTournament(codiceTorneo);
     }
+
+    public List<Pair<Corso, Integer>> getAllActiveCoursesWithPartecipants() {
+        return this.model.getAllActiveCoursesWithPartecipants();
+    }
+
+    public List<Pair<Corso, Integer>> getAllCoursesWithPartecipants() {
+        return this.model.getAllCoursesWithPartecipants();
+    }
+
+    public int removeTeamFromTournament(int codiceTorneo, int codiceSquadra) {
+        return this.model.removeTeamFromTournament(codiceTorneo, codiceSquadra);
+    }
 }

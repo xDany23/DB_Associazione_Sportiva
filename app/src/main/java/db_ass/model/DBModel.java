@@ -8,6 +8,7 @@ import db_ass.data.Campo;
 import db_ass.data.Corso;
 import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
+import db_ass.data.Iscrizione;
 import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
@@ -158,7 +159,7 @@ public class DBModel implements Model{
 
     @Override
     public List<Corso> getAllActiveCourses() {
-        return Corso.DAO.getAllActiveCourses(connection);
+        return Corso.DAO.getAllActiveCourses(connection).stream().map(e -> e.first()).toList();
     }
 
     @Override
@@ -295,5 +296,20 @@ public class DBModel implements Model{
     @Override
     public List<Squadra> allTeamsInTournament(int codiceTorneo) {
         return Torneo.DAO.allTeamsInTournament(codiceTorneo, connection);
+    }
+
+    @Override
+    public List<Pair<Corso, Integer>> getAllActiveCoursesWithPartecipants() {
+        return Corso.DAO.getAllActiveCourses(connection);
+    }
+
+    @Override
+    public List<Pair<Corso, Integer>> getAllCoursesWithPartecipants() {
+        return Corso.DAO.getAllCourses(connection);
+    }
+
+    @Override
+    public int removeTeamFromTournament(int codiceTorneo, int codiceSquadra) {
+        return Iscrizione.DAO.removeTeamFromTournament(codiceTorneo, codiceSquadra, connection);
     }
 }

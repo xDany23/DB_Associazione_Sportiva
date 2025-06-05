@@ -1,5 +1,7 @@
 package db_ass.data;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,6 +49,16 @@ public final class Iscrizione {
     }
 
     public static final class DAO {
-        //da fare
+        public static int removeTeamFromTournament(int codiceTorneo, int codiceSquadra, Connection connection) {
+            int rowsChanged = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.REMOVE_TEAM_FROM_TOURNAMENT, codiceTorneo, codiceSquadra);
+            ) {
+                rowsChanged = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsChanged;
+        }
     }
 }

@@ -18,6 +18,7 @@ import db_ass.data.Corso;
 import db_ass.data.Giorno;
 import db_ass.data.LezioneCorso;
 import db_ass.data.Sport;
+import db_ass.utility.Pair;
 import db_ass.view.Menu;
 import db_ass.view.OptionArea;
 
@@ -25,26 +26,27 @@ public class CoursesPanel extends BasePanel{
 
     public CoursesPanel(Menu menu) {
         super(menu);
-        this.setUp(getMenu().getController().getAllActiveCourses(), "Tutti i corsi attivi");
+        this.setUp(getMenu().getController().getAllActiveCoursesWithPartecipants(), "Tutti i corsi attivi");
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void setUp(List<?> elements, String title) {
-        List<Corso> corsi = (List<Corso>)List.copyOf(elements);
+        List<Pair<Corso,Integer>> corsi = (List<Pair<Corso,Integer>>)List.copyOf(elements);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setFields(List.of(new OptionArea("Codice Corso", "0"), new OptionArea("Sport Praticato", ""), new OptionArea("Data Inizio", ""), new OptionArea("Data Fine", "")));
         setTitle(title, SwingConstants.CENTER);
         getOptionPanel().removeAll();
         setButtons(createButtons());
         fillOptionPanel();
-        createTablePanel(List.of("Codice Corso","Sport Praticato", "Data Inizio", "Data Fine", "Allenatore", "Prezzo"),
-                         corsi.stream().map(c -> c.codiceCorso).toList(),
-                         corsi.stream().map(c -> c.sportPraticato.toString()).toList(),
-                         corsi.stream().map(c -> c.dataInizio).toList(),
-                         corsi.stream().map(c -> c.dataFine).toList(),
-                         corsi.stream().map(c -> c.allenatore.cf).toList(),
-                         corsi.stream().map(c -> c.prezzo).toList());
+        createTablePanel(List.of("Codice Corso","Sport Praticato", "Data Inizio", "Data Fine", "Allenatore", "Prezzo", "Numero Iscritti"),
+                         corsi.stream().map(c -> c.first().codiceCorso).toList(),
+                         corsi.stream().map(c -> c.first().sportPraticato.toString()).toList(),
+                         corsi.stream().map(c -> c.first().dataInizio).toList(),
+                         corsi.stream().map(c -> c.first().dataFine).toList(),
+                         corsi.stream().map(c -> c.first().allenatore.cf).toList(),
+                         corsi.stream().map(c -> c.first().prezzo).toList(),
+                         corsi.stream().map(c -> c.second()).toList());
         this.add(getTitle());
         this.add(getTablePanel());
         this.add(getOptionPanel());
@@ -54,24 +56,26 @@ public class CoursesPanel extends BasePanel{
 
     @Override
     public void update() {
-        update(getMenu().getController().getAllActiveCourses());
+        this.removeAll();
+        this.setUp(getMenu().getController().getAllActiveCoursesWithPartecipants(), "Tutti i corsi attivi");
     }
 
-    private void update(List<Corso> corsi) {
-        createTablePanel(List.of("Codice Corso","Sport Praticato", "Data Inizio", "Data Fine", "Allenatore", "Prezzo"),
-                         corsi.stream().map(c -> c.codiceCorso).toList(),
-                         corsi.stream().map(c -> c.sportPraticato.toString()).toList(),
-                         corsi.stream().map(c -> c.dataInizio).toList(),
-                         corsi.stream().map(c -> c.dataFine).toList(),
-                         corsi.stream().map(c -> c.allenatore.cf).toList(),
-                         corsi.stream().map(c -> c.prezzo).toList());
+    private void update(List<Pair<Corso,Integer>> corsi) {
+        createTablePanel(List.of("Codice Corso","Sport Praticato", "Data Inizio", "Data Fine", "Allenatore", "Prezzo", "Numero Iscritti"),
+                         corsi.stream().map(c -> c.first().codiceCorso).toList(),
+                         corsi.stream().map(c -> c.first().sportPraticato.toString()).toList(),
+                         corsi.stream().map(c -> c.first().dataInizio).toList(),
+                         corsi.stream().map(c -> c.first().dataFine).toList(),
+                         corsi.stream().map(c -> c.first().allenatore.cf).toList(),
+                         corsi.stream().map(c -> c.first().prezzo).toList(),
+                         corsi.stream().map(c -> c.second()).toList());
     }
     
     private List<JButton> createButtons() {
         JButton search = new JButton("Cerca");
         search.addActionListener(l -> {
             if (getSearchField().isBlank()) {
-                update();
+                update(getMenu().getController().getAllActiveCoursesWithPartecipants());
             } else {
                 int code;
                 try {
@@ -79,7 +83,7 @@ public class CoursesPanel extends BasePanel{
                     Corso corso = getMenu().getController().findCourse(code);
                     update( corso == null
                         ? List.of()
-                        : List.of(corso));
+                        : List.of(getMenu().getController().getAllCoursesWithPartecipants().stream().filter(c -> c.first().equals(corso)).findFirst().get()));
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Il codice corso deve essere un numero intero");
                 }
@@ -91,7 +95,7 @@ public class CoursesPanel extends BasePanel{
             if (!code.isBlank()) {
                 getMenu().getController().terminateCourse(Integer.parseInt(code));
             } 
-            update();
+            update(getMenu().getController().getAllActiveCoursesWithPartecipants());
         });
         JButton addNew = new JButton("Aggiungi nuovo corso");
         addNew.addActionListener(l -> {
@@ -119,7 +123,7 @@ public class CoursesPanel extends BasePanel{
                     JOptionPane.showMessageDialog(null, "Devi inserire tutti i campi");
                 }
             }
-            update();
+            update(getMenu().getController().getAllActiveCoursesWithPartecipants());
         });
         JButton addLesson = new JButton("Aggiungi una lezione del corso");
         addLesson.addActionListener(l -> {
@@ -199,26 +203,23 @@ public class CoursesPanel extends BasePanel{
             } else {
                 JOptionPane.showMessageDialog(null, "Seleziona un corso");
             }
-            update();
+            update(getMenu().getController().getAllActiveCoursesWithPartecipants());
         });
         JButton getLessons = new JButton("Visualizza tutte\n le lezioni del corso");
         getLessons.addActionListener(l -> {
             setLezioni(Integer.parseInt(getSearchedOptionOutput("Codice Corso")));
         });
-        return List.of(search,terminate,addNew,addLesson,getLessons);
-    }
-
-    private <E> void fillComboBox(JComboBox<E> box, List<E> elements) {
-        box.removeAllItems();
-        for(var elem: elements) {
-            box.addItem(elem);
-        }
+        JButton getAll = new JButton("Tutti i corsi");
+        getAll.addActionListener(l -> {
+            update(getMenu().getController().getAllCoursesWithPartecipants());
+        });
+        return List.of(search,terminate,addNew,addLesson,getLessons,getAll);
     }
 
     private void setLezioni(int codiceCorso) {
         this.removeAll();
         getOptionPanel().removeAll();
-        this.setTitle("Lezioni del corso" + codiceCorso, JLabel.CENTER);
+        this.setTitle("Lezioni del corso " + codiceCorso, JLabel.CENTER);
         List<LezioneCorso> lezioni = getMenu().getController().getAllCourseLessons(codiceCorso);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setFields(List.of(new OptionArea("Data Svolgimento", ""), new OptionArea("Orario Inizio", ""), new OptionArea("Numero Campo", ""), new OptionArea("Sport Praticato", "")));

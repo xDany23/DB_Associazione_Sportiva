@@ -126,6 +126,12 @@ public interface Model {
 
     List<Squadra> allTeamsInTournament(int codiceTorneo);
 
+    List<Pair<Corso,Integer>> getAllActiveCoursesWithPartecipants();
+
+    List<Pair<Corso,Integer>> getAllCoursesWithPartecipants();
+
+    int removeTeamFromTournament(int codiceTorneo, int codiceSquadra);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

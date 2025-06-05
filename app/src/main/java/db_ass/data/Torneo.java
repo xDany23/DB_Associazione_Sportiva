@@ -277,7 +277,7 @@ public final class Torneo {
         public static int modifyWinner(Torneo codiceTorneo, int codiceSquadra, Connection connection) {
             int rowsChanged = 0;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.MODIFY_WINNER, codiceSquadra)
+                var preparedStatement = DAOUtils.prepare(connection, Queries.MODIFY_WINNER, codiceSquadra, codiceTorneo.codiceTorneo);
             ) {
                 rowsChanged = preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -289,7 +289,7 @@ public final class Torneo {
         private static int modifyTournament(int codiceTorneo, String dataSvolgimento, double prezzo, Connection connection) {
             int rowsChanged = 0;
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.MODIFY_TOURNAMENT, dataSvolgimento, prezzo, codiceTorneo)
+                var preparedStatement = DAOUtils.prepare(connection, Queries.MODIFY_TOURNAMENT, dataSvolgimento, prezzo, codiceTorneo);
             ) {
                 rowsChanged = preparedStatement.executeUpdate();
             } catch (SQLException e) {

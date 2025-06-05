@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import db_ass.utility.Pair;
+
 public class Corso {
     
     public final String dataInizio;
@@ -139,10 +141,18 @@ public class Corso {
             return preview;
         }
 
-        public static List<Corso> getAllActiveCourses(Connection connection) {
-            List<Corso> preview = new ArrayList<>();
+        public static List<Pair<Corso,Integer>> getAllActiveCourses(Connection connection) {
+            return getAll(Queries.GET_ALL_ACTIVE_COURSES, connection);
+        }
+
+        public static List<Pair<Corso,Integer>> getAllCourses(Connection connection) {
+            return getAll(Queries.GET_ALL_COURSES, connection);
+        }
+
+        private static List<Pair<Corso,Integer>> getAll(String query, Connection connection) {
+            List<Pair<Corso,Integer>> preview = new ArrayList<>();
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.GET_ALL_ACTIVE_COURSES);
+                var preparedStatement = DAOUtils.prepare(connection, query);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while (resultSet.next()) {
@@ -153,7 +163,7 @@ public class Corso {
                     var codiceCorso = resultSet.getInt("CodiceCorso");
                     var allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
                     var corso = new Corso(dataInizio, dataFine, sport, prezzo, codiceCorso, allenatore);
-                    preview.add(corso);
+                    preview.add(new Pair<>(corso, resultSet.getInt("NumeroIscritti")));
                 }
             } catch (SQLException e) {
                 throw new DAOException(e);

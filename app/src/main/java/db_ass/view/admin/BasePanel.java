@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -130,6 +131,13 @@ public abstract class BasePanel extends JPanel{
 
     public Menu getMenu() {
         return this.menu;
+    }
+
+    public <E> void fillComboBox(JComboBox<E> box, List<E> elements) {
+        box.removeAllItems();
+        for(var elem: elements) {
+            box.addItem(elem);
+        }
     }
 
     public abstract void setUp(List<?> elements, String Title);

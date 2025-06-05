@@ -233,7 +233,7 @@ public final class Queries {
 	public static final String FIND_TOURNAMENT = 
 			"""
 			SELECT torneo.*, count(i.CodiceSquadra) as NumeroPartecipanti
-			FROM torneo, iscrizione i
+			FROM torneo left join iscrizione i on(torneo.CodiceTorneo = i.CodiceTorneo)
 			WHERE torneo.CodiceTorneo = ?
 			GROUP BY torneo.CodiceTorneo;		
 			""";
@@ -293,9 +293,11 @@ public final class Queries {
 
 	public static final String GET_ALL_ACTIVE_COURSES = 
 			"""
-			SELECT *
-			FROM corso
-			WHERE corso.DataFine > now();		
+			SELECT corso.*, count(partecipa.CF)
+			FROM corso, partecipa
+			WHERE corso.DataFine > now()
+			AND corso.CodiceCorso = partecipa.CodiceCorso
+			GROUP BY corso.CodiceCorso;		
 			""";
 
 	public static final String ALL_COURSES_OF_USER = 
@@ -440,14 +442,14 @@ public final class Queries {
 	public static final String GET_ALL_TOURNAMENTS =
 			"""
 			SELECT torneo.*, count(i.CodiceSquadra) as numeroIscritti
-			FROM torneo, iscrizione i
-			GROUP BY CodiceTorneo;		
+			FROM torneo left join iscrizione i on(torneo.CodiceTorneo = i.CodiceTorneo)
+			GROUP BY torneo.CodiceTorneo;		
 			""";
 
 	public static final String GET_ALL_ENTERABLE_TOURNAMENTS =
 			"""
 			SELECT t.*, count(i.CodiceSquadra) as numeroIscritti
-			FROM torneo t, iscrizione i
+			FROM torneo t left join iscrizione i on(t.CodiceTorneo = i.CodiceTorneo)
 			WHERE t.DataSvolgimento > now()
 			AND t.MassimoPartecipanti > (select count(*)
 										from iscrizione i
@@ -479,5 +481,20 @@ public final class Queries {
 			WHERE torneo.CodiceTorneo = ?
 			AND i.CodiceTorneo = torneo.CodiceTorneo
 			AND squadra.CodiceSquadra = i.CodiceSquadra;
+			""";
+
+	public static final String GET_ALL_COURSES = 
+			"""
+			SELECT c.*, count(p.CF) as NumeroIscritti
+			FROM corso c, partecipa p
+			WHERE c.CodiceCorso = p.CodiceCorso
+			GROUP BY c.CodiceCorso;		
+			""";
+
+	public static final String REMOVE_TEAM_FROM_TOURNAMENT =
+			"""
+			DELETE FROM iscrizione
+			WHERE CodiceTorneo = ?
+			AND CodiceSquadra = ?;		
 			""";
 }

@@ -322,4 +322,14 @@ public class DBModel implements Model{
     public int removeTeamFromTournament(int codiceTorneo, int codiceSquadra) {
         return Iscrizione.DAO.removeTeamFromTournament(codiceTorneo, codiceSquadra, connection);
     }
+
+    @Override
+    public Persona findTrainer(String cf) {
+        return Persona.DAO.findTrainer(cf, connection);
+    }
+
+    @Override
+    public List<LezionePrivata> allLessonsOfTrainer(Persona persona) {
+        return LezionePrivata.DAO.allLessonsOfTrainer(persona, connection);
+    }
 }

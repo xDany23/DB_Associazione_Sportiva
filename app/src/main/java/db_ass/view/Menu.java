@@ -30,6 +30,7 @@ public final class Menu {
     private Login login;
     private Registration registration;
     private AdminLogin adminLogin;
+    private LoginTrainer loginTrainer;
 
     public Menu(Runnable onClose) {
         this.controller = Optional.empty();
@@ -37,6 +38,7 @@ public final class Menu {
         this.login = new Login(this, mainFrame, onClose);
         this.registration = new Registration(this, mainFrame, onClose);
         this.adminLogin = new AdminLogin(this, mainFrame, onClose);
+        this.loginTrainer = new LoginTrainer(this, mainFrame, onClose);
     }
 
     public JFrame setUp(Runnable onClose) {
@@ -61,7 +63,7 @@ public final class Menu {
         mainPanel.add(Box.createVerticalStrut(200));
 
         //creo un pannello orizzontale per affiancare i bottoni
-        JPanel buttonPanel = new JPanel(new GridLayout(1,3,20,0)); //crea un pannello con 1 riga, 2 colonne
+        JPanel buttonPanel = new JPanel(new GridLayout(1,4,20,0)); //crea un pannello con 1 riga, 2 colonne
         buttonPanel.setMaximumSize(new Dimension(1000, 50));
         buttonPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
@@ -77,16 +79,22 @@ public final class Menu {
             registrationFrame();
         });
 
+        //bottone Login Allenatore
+        JButton loginTrainerButton = new JButton("Login Trainer");
+
         //bottone Login Administrator
         JButton loginAdministratorButton = new JButton("Login Administrator");
         loginAdministratorButton.addActionListener(e -> {
             adminLoginFrame();
         });
 
+
+
         //aggiungo i bottoni al buttonPanel
         buttonPanel.add(loginButton);
         //buttonPanel.add(Box.createHorizontalStrut(20)); //crea spazio orizzontale tra i due bottoni
         buttonPanel.add(registerButton);
+        buttonPanel.add(loginTrainerButton);
         buttonPanel.add(loginAdministratorButton);
 
         //aggiungo il pannello buttonPanel al pannello principale
@@ -133,6 +141,12 @@ public final class Menu {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
         mainFrame = adminLogin.setUp();
+    }
+
+    public void trainerLoginFrame() {
+        var cp = mainFrame.getContentPane();
+        cp.removeAll();
+        mainFrame = loginTrainer.setUp();
     }
 
     public void setController(Controller controller) {

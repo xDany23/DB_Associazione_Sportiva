@@ -136,6 +136,10 @@ public interface Model {
 
     int removeTeamFromTournament(int codiceTorneo, int codiceSquadra);
 
+    Persona findTrainer(String cf);
+
+    List<LezionePrivata> allLessonsOfTrainer(Persona persona);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

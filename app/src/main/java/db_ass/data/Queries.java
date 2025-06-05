@@ -531,4 +531,16 @@ public final class Queries {
 			AND g.CodiceSquadra = s.CodiceSquadra
 			ORDER BY p.CodicePartita;	
 			""";
+
+	public static final String INSERT_MATCH = 
+			"""
+			INSERT INTO partita(CodiceTorneo, CodicePartita, Arbitro, SquadraVincitrice)
+			VALUES (?,?,?,?);		
+			""";
+
+	public static final String INSERT_GIOCA = 
+			"""
+			INSERT INTO gioca(CodicePartita, CodiceSquadra, Punteggio)
+			VALUES (?,?,?);		
+			""";
 }

@@ -76,6 +76,28 @@ public final class Partita {
             }
             return partita;
         }
+
+        public static int insertNewMatch(int squadra1, int squadra2, int punti1, int punti2, int codiceTorneo, String arbitro, int squadraVincitrice, int codicePartita, Connection connection) {
+            int rowsInserted = 0;
+            try {
+                connection.setAutoCommit(false);
+                try (
+                    var preparedStatement = DAOUtils.prepare(connection, Queries.INSERT_MATCH, codiceTorneo, codicePartita, arbitro, squadraVincitrice);
+                ) {
+                    rowsInserted = preparedStatement.executeUpdate();
+                    rowsInserted += Gioca.DAO.insertNewplersInnewMatch(squadra1, codicePartita, punti1, connection);
+                    rowsInserted += Gioca.DAO.insertNewplersInnewMatch(squadra2, codicePartita, punti2, connection);
+                } catch (SQLException e) {
+                    connection.rollback();
+                    throw new DAOException(e);
+                }
+                connection.commit();
+                connection.setAutoCommit(true);
+            } catch (Exception e) {
+                throw new DAOException(e);
+            }
+            return rowsInserted;
+        }
     }
     
 }

@@ -9,6 +9,7 @@ import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
 import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
+import db_ass.data.Partita;
 import db_ass.data.Persona;
 import db_ass.data.Prenotazione;
 import db_ass.data.RisultatiTorneo;
@@ -262,5 +263,10 @@ public final class Controller {
 
     public List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita) {
         return this.model.findTournamentMatch(codiceTorneo, codicePartita);
+    }
+
+    public int insetNewMatch(int squadra1, int squadra2, int punti1, int punti2, int codiceTorneo, String arbitro,
+        int squadraVincitrice, int codicePartita) {
+        return this.model.insetNewMatch(squadra1, squadra2, punti1, punti2, codiceTorneo, arbitro, squadraVincitrice, codicePartita);
     }
 }

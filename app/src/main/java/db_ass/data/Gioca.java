@@ -72,5 +72,17 @@ public final class Gioca {
             }
             return teams;
         }
+
+        public static int insertNewplersInnewMatch(int squadra, int codice, int punti, Connection connection) throws SQLException {
+            int rowsInserted = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.INSERT_GIOCA, codice, squadra, punti);
+            ) {
+                rowsInserted = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new SQLException(e);
+            }
+            return rowsInserted;
+        }
     }
 }

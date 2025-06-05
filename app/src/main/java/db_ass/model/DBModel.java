@@ -11,6 +11,7 @@ import db_ass.data.Giorno;
 import db_ass.data.Iscrizione;
 import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
+import db_ass.data.Partita;
 import db_ass.data.Persona;
 import db_ass.data.Prenotazione;
 import db_ass.data.RisultatiTorneo;
@@ -326,5 +327,11 @@ public class DBModel implements Model{
     @Override
     public List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita) {
         return Torneo.DAO.findTournamentMatch(codiceTorneo, codicePartita, connection);
+    }
+
+    @Override
+    public int insetNewMatch(int squadra1, int squadra2, int punti1, int punti2, int codiceTorneo, String arbitro,
+            int squadraVincitrice, int codicePartita) {
+        return Partita.DAO.insertNewMatch(squadra1, squadra2, punti1, punti2, codiceTorneo, arbitro, squadraVincitrice, codicePartita, connection);
     }
 }

@@ -320,11 +320,45 @@ public class TournamentPanel extends BasePanel{
                 }
             }
         });
+        JButton newMatch = new JButton("Inserisci nuova partita");
+        newMatch.addActionListener(l -> {
+            JComboBox<Integer> winner = new JComboBox<>();
+            fillComboBox(winner, getMenu().getController().allTeamsInTournament(tournamentCode).stream().map(e -> e.codiceSquadra).toList());
+            JComboBox<Integer> firstTeam = new JComboBox<>();
+            fillComboBox(firstTeam, getMenu().getController().allTeamsInTournament(tournamentCode).stream().map(e -> e.codiceSquadra).toList());
+            JComboBox<Integer> secondTeam = new JComboBox<>();
+            fillComboBox(secondTeam, getMenu().getController().allTeamsInTournament(tournamentCode).stream().map(e -> e.codiceSquadra).toList());
+            JComboBox<String> arbitro = new JComboBox<>();
+            fillComboBox(arbitro, getMenu().getController().getAllReferees().stream().map(e -> e.cf).toList());
+            winner.setName("squadra vincitrice");
+            firstTeam.setName("Squadra 1");
+            secondTeam.setName("Squadra 2");
+            arbitro.setName("Arbitro");
+            AddPanel insert = new AddPanel(List.of(new JTextField("Codice Partita"), new JTextField("Punteggio 1"), new JTextField("Punteggio 2")), List.of(firstTeam,secondTeam,arbitro,winner));
+            int n = JOptionPane.showOptionDialog(this, insert, "Nuova partita", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"Continua","Annulla"}, null);
+            if (n == JOptionPane.OK_OPTION) {
+                try {
+                    List<Integer> texts = insert.getTexts().stream().map(e -> Integer.parseInt(e)).toList();
+                    List<String> selections = insert.getSelection();
+                    getMenu().getController().insetNewMatch(Integer.parseInt(selections.get(0)),
+                                                            Integer.parseInt(selections.get(1)),
+                                                            texts.get(1),
+                                                            texts.get(2),
+                                                            tournamentCode,
+                                                            selections.get(2),
+                                                            Integer.parseInt(selections.get(3)),
+                                                            texts.get(0));
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Inserisci numeri interi positivi in tutti i campi");
+                }
+            }
+            updateMatches(getMenu().getController().visualizeAllTournamentMatches(tournamentCode));
+        });
         JButton backButton = new JButton("Torna ai tornei");
         backButton.addActionListener(l -> {
             this.removeAll();
             this.setUp(getMenu().getController().getAllEnterableTournaments(), "Tutti i tornei");
         });
-        return List.of(search, backButton);
+        return List.of(search, newMatch, backButton);
     }
 }

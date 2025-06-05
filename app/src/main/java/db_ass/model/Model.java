@@ -138,6 +138,8 @@ public interface Model {
 
     List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita);
 
+    int insetNewMatch(int squadra1, int squadra2, int punti1, int punti2, int codiceTorneo, String arbitro, int squadraVincitrice, int codicePartita);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

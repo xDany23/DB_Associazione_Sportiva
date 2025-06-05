@@ -67,8 +67,10 @@ public final class IscrizionePanel {
         JButton buttonRicerca = new JButton("Cerca");
         JButton buttonCercaSpazio = new JButton("Trova spazio");
         JButton creaLezioneButton = new JButton("Inserisci Lezione");
+        JButton leMieLezioniButton = new JButton("Le mie lezioni");
+        JButton vuoto = new JButton();
         datiIscrizione.add(numCampoLabel);
-        datiIscrizione.add(numCampoField);;
+        datiIscrizione.add(numCampoField);
         datiIscrizione.add(orarioInizioLabel);
         datiIscrizione.add(orarioInizioBox);
         datiIscrizione.add(dataLabel);
@@ -79,6 +81,8 @@ public final class IscrizionePanel {
         datiIscrizione.add(buttonRicerca);
         datiIscrizione.add(buttonCercaSpazio);
         datiIscrizione.add(creaLezioneButton);
+        datiIscrizione.add(leMieLezioniButton);
+        datiIscrizione.add(vuoto);
 
         //aggiungo un ActionListener sul bottone Cerca
         buttonRicerca.addActionListener(e -> {
@@ -112,7 +116,7 @@ public final class IscrizionePanel {
                 } else {
                     contentIscrizioni.removeAll();
                     for (int i = 0; i < lezioni.size(); i++) {
-                        contentIscrizioni.add(new JLabel("Campo: " + lezioni.get(i).numeroCampo + ", " +
+                        contentIscrizioni.add(new JLabel("Campo: " + lezioni.get(i).numeroCampo.numeroCampo + ", " +
                                                         "Orario Inizio: " + lezioni.get(i).orarioInizio + ", " +
                                                         "Data Svolgimento: " + lezioni.get(i).dataSvolgimento + ", " +
                                                         "Prezzo: " + lezioni.get(i).prezzo + ", " +
@@ -282,6 +286,30 @@ public final class IscrizionePanel {
                 contentIscrizioni.removeAll();
                 contentIscrizioni.add(new JLabel("Lezione inserita con successo!"));
                 menu.getController().createNewLesson(Integer.parseInt(numCampo), giorno, orario, data, sport, 30.00, persona);
+            }
+            contentIscrizioni.revalidate();
+            contentIscrizioni.repaint();
+        });
+
+        //aggiungo un ActionListener al bottone per visualizzare tutte le lezioni dell'utente
+        leMieLezioniButton.addActionListener(e -> {
+            List<LezionePrivata> output = new ArrayList<>();
+            numCampoField.setText("");
+            dataField.setText("");
+            output = menu.getController().allUserLessons(persona);
+            contentIscrizioni.removeAll();
+            if (output.isEmpty()) {
+                contentIscrizioni.add(new JLabel("Non hai nessuna lezione in programma"));
+            } else {
+                contentIscrizioni.add(new JLabel("LE TUE PROSSIME LEZIONI:"));
+                contentIscrizioni.add(Box.createVerticalStrut(10));
+                for(int i = 0; i < output.size(); i++) {
+                    contentIscrizioni.add(new JLabel("- Data: " + output.get(i).dataSvolgimento + ", " +
+                                                    "Orario: " + output.get(i).orarioInizio + ", " +
+                                                    "Sport: " + output.get(i).sportPraticato + ", " +
+                                                    "Campo: " + output.get(i).numeroCampo.numeroCampo + ", " +
+                                                    "Allenatore: " + output.get(i).allenatore.nome + " " + output.get(i).allenatore.cognome));
+                }
             }
             contentIscrizioni.revalidate();
             contentIscrizioni.repaint();

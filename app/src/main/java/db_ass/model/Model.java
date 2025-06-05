@@ -126,6 +126,10 @@ public interface Model {
 
     List<Squadra> allTeamsInTournament(int codiceTorneo);
 
+    List<Torneo> allUserTournaments(Persona persona);
+
+    List<LezionePrivata> allUserLessons(Persona persona);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

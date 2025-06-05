@@ -8,6 +8,7 @@ import db_ass.data.Campo;
 import db_ass.data.Corso;
 import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
+import db_ass.data.Iscrizione;
 import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
 import db_ass.data.Persona;
@@ -295,5 +296,15 @@ public class DBModel implements Model{
     @Override
     public List<Squadra> allTeamsInTournament(int codiceTorneo) {
         return Torneo.DAO.allTeamsInTournament(codiceTorneo, connection);
+    }
+
+    @Override
+    public List<Torneo> allUserTournaments(Persona persona) {
+        return Iscrizione.DAO.allUserTournaments(persona, connection);
+    }
+
+    @Override
+    public List<LezionePrivata> allUserLessons(Persona persona) {
+        return LezionePrivata.DAO.allUserLessons(persona, connection);
     }
 }

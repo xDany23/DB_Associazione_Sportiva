@@ -219,6 +219,32 @@ public class LezionePrivata {
             return rowsInserted;
         }
 
+        public static List<LezionePrivata> allUserLessons(Persona persona, Connection connection) {
+            List<LezionePrivata> preview = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_USER_LESSONS, persona.cf, persona.cf, persona.cf);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while(resultSet.next()) {
+                    Campo campo = Campo.DAO.findField(resultSet.getInt("l.NumeroCampo"), connection);
+                    Giorno giorno = Giorno.valueOf(resultSet.getString("l.Giorno").toUpperCase());
+                    var orarioInizio = resultSet.getString("l.OrarioInizio");
+                    var dataSvolgimento = resultSet.getString("l.DataSvolgimento");
+                    Sport sportPraticato = Sport.valueOf(resultSet.getString("l.SportPraticato").toUpperCase());
+                    var prezzo = resultSet.getDouble("l.Prezzo");
+                    var allenatore = Persona.DAO.findPerson(resultSet.getString("l.Allenatore"), connection);
+                    var partecipante1 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante1"), connection);
+                    var partecipante2 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante2"), connection);
+                    var partecipante3 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante3"), connection);
+                    preview.add(new LezionePrivata(campo, giorno, orarioInizio, dataSvolgimento, sportPraticato, prezzo, allenatore, partecipante1, partecipante2, partecipante3));
+                }
+                
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
+        }
+
 
     }
     /*public final Campo numeroCampo;

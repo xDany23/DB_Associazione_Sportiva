@@ -239,4 +239,12 @@ public final class Controller {
     public List<Squadra> allTeamsInTournament(int codiceTorneo) {
         return this.model.allTeamsInTournament(codiceTorneo);
     }
+
+    public List<Torneo> allUserTournaments(Persona persona) {
+        return this.model.allUserTournaments(persona);
+    }
+
+    public List<LezionePrivata> allUserLessons(Persona persona) {
+        return this.model.allUserLessons(persona);
+    }
 }

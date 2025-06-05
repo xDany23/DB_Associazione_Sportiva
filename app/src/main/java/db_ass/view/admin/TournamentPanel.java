@@ -3,6 +3,7 @@ package db_ass.view.admin;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import db_ass.data.Partita;
+import db_ass.data.RisultatiTorneo;
 import db_ass.data.Squadra;
 import db_ass.data.TipoSquadra;
 import db_ass.data.Torneo;
@@ -28,6 +31,7 @@ public class TournamentPanel extends BasePanel{
     @SuppressWarnings("unchecked")
     @Override
     public void setUp(List<?> elements, String title) {
+        this.removeAll();
         List<Pair<Torneo,Integer>> tornei = (List<Pair<Torneo,Integer>>)elements;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setFields(List.of(new OptionArea("Codice Torneo", "0")));
@@ -177,7 +181,12 @@ public class TournamentPanel extends BasePanel{
             }
             update(getMenu().getController().getAllEnterableTournaments());
         });
-        return List.of(search, onlyActive, allTeams, modifyPrice, modifyDate, modifyWinner, createNew);
+        // Bottone per visualizzare tutte le partite del torneo
+        JButton matches = new JButton("Visualizza partite");
+        matches.addActionListener(l -> {
+            setMatches(Integer.parseInt(getSearchedOptionOutput("Codice Torneo")));
+        });
+        return List.of(search, onlyActive, allTeams, modifyPrice, modifyDate, modifyWinner, createNew, matches);
     }
     
     private void setTeams(int tournamentCode) {
@@ -251,5 +260,71 @@ public class TournamentPanel extends BasePanel{
             }
         }
         return text;
+    }
+
+    private void setMatches(int tournamentCode) {
+        this.removeAll();
+        List<RisultatiTorneo> temp = getMenu().getController().visualizeAllTournamentMatches(tournamentCode);
+        List<Pair<RisultatiTorneo,RisultatiTorneo>> partite = Stream.iterate( 0, i -> i < temp.size(), i -> i+2).map(i -> new Pair<>(temp.get(i), temp.get(i+1))).toList();
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setFields(List.of(new OptionArea("Codice Squadra", "0")));
+        setTitle("Tutte le squadre partecipanti nel torneo " + tournamentCode, SwingConstants.CENTER);
+        getOptionPanel().removeAll();
+        setButtons(createMatechesButtons(tournamentCode));
+        fillOptionPanel();
+        createTablePanel(List.of("Codice Partita","Squadra Vincitrice", "Arbitro","Codice Squadra 1","Nome 1","Punteggio","", "Punteggio","Nome 2","Codice Squadra 2"),
+                         partite.stream().map(p -> p.first().codicePartita).toList(),
+                         partite.stream().map(p -> p.first().squadraVincitrice).toList(),
+                         partite.stream().map(p -> p.first().arbitro).toList(),
+                         partite.stream().map(p -> p.first().codiceSquadra).toList(),
+                         partite.stream().map(p -> p.first().nomeSquadra).toList(),
+                         partite.stream().map(p -> p.first().punteggio).toList(),
+                         partite.stream().map(p -> "-").toList(),
+                         partite.stream().map(p -> p.second().punteggio).toList(),
+                         partite.stream().map(p -> p.second().nomeSquadra).toList(),
+                         partite.stream().map(p -> p.second().codiceSquadra).toList());
+        this.add(getTitle());
+        this.add(getTablePanel());
+        this.add(getOptionPanel());
+        getOptionPanel().revalidate();
+    }
+
+    private void updateMatches(List<RisultatiTorneo> temp) {
+        List<Pair<RisultatiTorneo,RisultatiTorneo>> partite = Stream.iterate( 0, i -> i < temp.size(), i -> i+2).map(i -> new Pair<>(temp.get(i), temp.get(i+1))).toList();
+        createTablePanel(List.of("Codice Partita","Squadra Vincitrice", "Arbitro","Codice Squadra 1","Nome 1","Punteggio","", "Punteggio","Nome 2","Codice Squadra 2"),
+                         partite.stream().map(p -> p.first().codicePartita).toList(),
+                         partite.stream().map(p -> p.first().squadraVincitrice).toList(),
+                         partite.stream().map(p -> p.first().arbitro).toList(),
+                         partite.stream().map(p -> p.first().codiceSquadra).toList(),
+                         partite.stream().map(p -> p.first().nomeSquadra).toList(),
+                         partite.stream().map(p -> p.first().punteggio).toList(),
+                         partite.stream().map(p -> "-").toList(),
+                         partite.stream().map(p -> p.second().punteggio).toList(),
+                         partite.stream().map(p -> p.second().nomeSquadra).toList(),
+                         partite.stream().map(p -> p.second().codiceSquadra).toList());
+    }
+
+    private List<JButton> createMatechesButtons(int tournamentCode) {
+        JButton search = new JButton("Cerca");
+        search.addActionListener(l -> {
+            if (getSearchField().isBlank()) {
+                updateMatches(getMenu().getController().visualizeAllTournamentMatches(tournamentCode));
+            } else {
+                int code;
+                try {
+                    code =  Integer.parseInt(getSearchField());
+                    List<RisultatiTorneo> partita = getMenu().getController().findTournamentMatch(tournamentCode, code);
+                    updateMatches(partita);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Il codice squadra deve essere un numero intero");
+                }
+            }
+        });
+        JButton backButton = new JButton("Torna ai tornei");
+        backButton.addActionListener(l -> {
+            this.removeAll();
+            this.setUp(getMenu().getController().getAllEnterableTournaments(), "Tutti i tornei");
+        });
+        return List.of(search, backButton);
     }
 }

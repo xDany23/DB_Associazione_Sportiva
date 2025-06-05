@@ -259,4 +259,8 @@ public final class Controller {
     public int removeTeamFromTournament(int codiceTorneo, int codiceSquadra) {
         return this.model.removeTeamFromTournament(codiceTorneo, codiceSquadra);
     }
+
+    public List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita) {
+        return this.model.findTournamentMatch(codiceTorneo, codicePartita);
+    }
 }

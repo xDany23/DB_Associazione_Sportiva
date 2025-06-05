@@ -72,7 +72,7 @@ public final class Iscrizione {
             }
             return preview;
         }
-        
+
         public static int removeTeamFromTournament(int codiceTorneo, int codiceSquadra, Connection connection) {
             int rowsChanged = 0;
             try (

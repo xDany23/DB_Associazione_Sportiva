@@ -54,7 +54,7 @@ public final class IscrizionePanel {
 
         //dati da compilare sotto
         JPanel datiIscrizione = new JPanel();
-        datiIscrizione.setLayout(new GridLayout(6,2,2,0));
+        datiIscrizione.setLayout(new GridLayout(7,2,2,0));
         JLabel numCampoLabel = new JLabel("Numero campo: ");
         JTextField numCampoField = new JTextField(16);
         JLabel orarioInizioLabel = new JLabel("Orario inizio: ");

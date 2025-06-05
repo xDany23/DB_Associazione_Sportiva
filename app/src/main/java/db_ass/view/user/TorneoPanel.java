@@ -60,7 +60,7 @@ public final class TorneoPanel {
         JButton tuttiPartecipantiButton = new JButton("Mostra partecipanti");
         JButton tuttePartiteButton = new JButton("Mostra partite");
         JButton torneiPartecipabili = new JButton("Tornei partecipabili");
-        JButton mieiTornei = new JButton("I miei torneo");
+        JButton mieiTornei = new JButton("I miei tornei");
         JButton vuoto = new JButton();
         datiTorneo.add(codiceTorneoLabel);
         datiTorneo.add(codiceTorneoField);

@@ -22,7 +22,7 @@ public class AddPanel extends JPanel{
     private List<JComboBox<?>> selections;
 
     public AddPanel(List<JTextField> optionAreas) {
-        this(optionAreas,null);
+        this(optionAreas,List.of());
     }
 
     public AddPanel(List<JTextField> optionAreas, List<JComboBox<?>> selections) {
@@ -53,7 +53,7 @@ public class AddPanel extends JPanel{
                 this.add(option);
             }
         }
-        this.selections = selections != null ? selections : List.of();
+        this.selections = selections;
         if(!this.selections.isEmpty()) {
             for (var  sel : selections) {
                 var text = sel.getName();

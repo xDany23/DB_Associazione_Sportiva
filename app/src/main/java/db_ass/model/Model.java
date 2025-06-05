@@ -136,6 +136,8 @@ public interface Model {
 
     int removeTeamFromTournament(int codiceTorneo, int codiceSquadra);
 
+    List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

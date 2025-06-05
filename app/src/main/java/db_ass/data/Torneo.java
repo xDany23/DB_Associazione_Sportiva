@@ -226,7 +226,9 @@ public final class Torneo {
                     var codiceSquadra = resultSet.getInt("g.CodiceSquadra");
                     var nome = resultSet.getString("s.Nome");
                     var punteggio = resultSet.getInt("g.punteggio");
-                    var ris = new RisultatiTorneo(codicePartita, codiceSquadra, punteggio, nome);
+                    var arbitro = resultSet.getString("p.Arbitro");
+                    var squadraVincitrice = resultSet.getInt("p.SquadraVincitrice");
+                    var ris = new RisultatiTorneo(codicePartita, codiceSquadra, punteggio, nome, arbitro, squadraVincitrice);
                     preview.add(ris);
                 }
             } catch (SQLException e) {
@@ -311,6 +313,27 @@ public final class Torneo {
                 throw new DAOException(e);
             }
             return squadre;
+        }
+
+        public static List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita, Connection connection) {
+            List<RisultatiTorneo> preview = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TOURNAMENT_MATCH, codiceTorneo, codicePartita);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    var codiceSquadra = resultSet.getInt("g.CodiceSquadra");
+                    var nome = resultSet.getString("s.Nome");
+                    var punteggio = resultSet.getInt("g.punteggio");
+                    var arbitro = resultSet.getString("p.Arbitro");
+                    var squadraVincitrice = resultSet.getInt("p.SquadraVincitrice");
+                    var ris = new RisultatiTorneo(codicePartita, codiceSquadra, punteggio, nome, arbitro, squadraVincitrice);
+                    preview.add(ris);
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return preview;
         }
     }
     

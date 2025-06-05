@@ -9,13 +9,18 @@ public final class RisultatiTorneo {
     public final int codiceSquadra;
     public final int punteggio;
     public final String nomeSquadra;
+    public final String arbitro;
+    public final int squadraVincitrice;
 
-    public RisultatiTorneo(int codicePartita, int codiceSquadra, int punteggio, String nomeSquadra) {
+    public RisultatiTorneo(int codicePartita, int codiceSquadra, int punteggio, String nomeSquadra, String arbitro, int squadraVincitrice) {
         this.codicePartita = codicePartita;
         this.codiceSquadra = codiceSquadra;
         this.punteggio = punteggio;
         this.nomeSquadra = nomeSquadra;
+        this.arbitro = arbitro;
+        this.squadraVincitrice = squadraVincitrice == 0 ? null : squadraVincitrice;
     }
+    
 
     @Override
     public boolean equals(Object other) {
@@ -49,7 +54,9 @@ public final class RisultatiTorneo {
                 Printer.field("Codice Partita", this.codicePartita),
                 Printer.field("Codice Squara", this.codiceSquadra),
                 Printer.field("Nome Squadra", this.nomeSquadra),
-                Printer.field("Punteggio", this.punteggio)
+                Printer.field("Punteggio", this.punteggio),
+                Printer.field("Arbitro", this.arbitro),
+                Printer.field("Squadra vincitrice", this.squadraVincitrice)
             )
         );
     }

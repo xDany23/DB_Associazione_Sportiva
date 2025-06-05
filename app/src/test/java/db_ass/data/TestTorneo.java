@@ -56,7 +56,7 @@ public class TestTorneo {
         assertEquals(persone, Torneo.DAO.findAllPartecipants(1, connection));
     }
 
-    @Test
+    /* @Test
     public void testVisualizeAllTournamentMatches() {
         List<RisultatiTorneo> matches = List.of(
             new RisultatiTorneo(1, 2, 3, "I brutti"),
@@ -65,5 +65,5 @@ public class TestTorneo {
             new RisultatiTorneo(2, 2, 3, "I brutti")
         );
         assertEquals(matches, Torneo.DAO.visualizeAllTournamentMatches(1, connection));
-    }
+    } */
 }

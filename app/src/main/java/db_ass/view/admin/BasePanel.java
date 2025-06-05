@@ -38,6 +38,7 @@ public abstract class BasePanel extends JPanel{
         this.searchField = new JTextField();
         this.tablePanel = new JScrollPane(); 
         this.table = new JTable();
+        this.title = new JLabel();
         this.menu = menu;
         ((AbstractDocument)searchField.getDocument()).setDocumentFilter(new LimitDocumentFilter(16));
     }
@@ -77,7 +78,8 @@ public abstract class BasePanel extends JPanel{
     }
 
     public void setTitle(String text, int horizontalAllignment) {
-        this.title = new JLabel(text, horizontalAllignment);
+        this.title.setText(text);
+        this.title.setHorizontalAlignment(horizontalAllignment);
     }
 
     public void createTablePanel(List<String> columnNames, List<?>... elements) {

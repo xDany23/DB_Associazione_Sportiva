@@ -240,7 +240,7 @@ public final class Queries {
 
 	public static final String VISUALIZE_ALL_TOURNAMENT_MATCHES = 
 			"""
-			select p.CodicePartita, g.CodiceSquadra, s.Nome, g.punteggio
+			select p.CodicePartita, g.CodiceSquadra, s.Nome, g.punteggio, p.Arbitro, p.SquadraVincitrice
 			from partita p, gioca g, squadra s
 			where p.CodiceTorneo = ?
 			and p.CodicePartita = g.CodicePartita
@@ -485,9 +485,10 @@ public final class Queries {
 
 	public static final String ALL_USER_TOURNAMENTS = 
 			"""
-			SELECT i.torneo
-			FROM iscrizione i, squadra s
+			SELECT t.*
+			FROM iscrizione i, squadra s, torneo t
 			WHERE i.codiceSquadra = s.codiceSquadra
+			AND i.CodiceTorneo = t.CodiceTorneo
 			AND s.Componenti1 = ?
 			OR s.Componenti2 = ?
 			OR s.Componenti3 = ?
@@ -518,5 +519,16 @@ public final class Queries {
 			DELETE FROM iscrizione
 			WHERE CodiceTorneo = ?
 			AND CodiceSquadra = ?;		
+			""";
+
+	public static final String FIND_TOURNAMENT_MATCH = 
+			"""
+			SELECT p.CodicePartita, g.CodiceSquadra, s.Nome, g.punteggio, p.Arbitro, p.SquadraVincitrice
+			FROM partita p, gioca g, squadra s
+			WHERE p.CodiceTorneo = ?
+			AND p.CodicePartita = ?
+			AND p.CodicePartita = g.CodicePartita
+			AND g.CodiceSquadra = s.CodiceSquadra
+			ORDER BY p.CodicePartita;	
 			""";
 }

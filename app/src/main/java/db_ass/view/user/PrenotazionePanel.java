@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,12 +89,15 @@ public final class PrenotazionePanel {
                         : (sportPrenBox.getSelectedIndex() == 1)
                         ? Sport.PADEL
                         : Sport.TENNIS;
-            if (oraInizio.isEmpty()) {
+            if (oraInizio.isEmpty() || data.isEmpty()) {
                 JOptionPane.showMessageDialog(
                     null, 
-                    "Data non inserita", 
+                    "Data o orario non inseriti", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
+            } else if (this.check(data) == false) {
+                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
+                dataPrenField.setText("");
             } else {
                 contentPrenotazione.removeAll();
                 output = menu.getController().findFieldToBook(oraInizio, data, sport);
@@ -142,6 +146,9 @@ public final class PrenotazionePanel {
                     "Non hai inserito tutti i dati per la prenotazione", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
+            } else if (this.check(data) == false) {
+                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
+                dataPrenField.setText("");
             } else if (!menu.getController().findFieldToBook(oraInizio, data, sport).contains(Integer.parseInt(campo))) {
                 JOptionPane.showMessageDialog(
                     null, 
@@ -187,5 +194,14 @@ public final class PrenotazionePanel {
         prenotazione.add(datiPrenotazione, BorderLayout.WEST);
 
         return prenotazione;
+    }
+
+    private boolean check(String data) {
+        try {
+            LocalDate.parse(data);
+        } catch (DateTimeParseException f) {
+            return false;
+        }
+        return true;
     }
 }

@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,9 @@ public final class IscrizionePanel {
                     "Campi mancanti per la ricerca (Orario o Data)", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
+            } else if (this.check(data) == false) {
+                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
+                dataField.setText("");
             } else {
                 lezioni = menu.getController().findjoinableLesson(data, orario, sport);
                 if (lezioni.isEmpty()) {
@@ -161,6 +165,9 @@ public final class IscrizionePanel {
                     "Dati mancanti per la prenotazione", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
+            } else if (this.check(data) == false) {
+                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
+                dataField.setText("");
             } else if (giorno.equals(Giorno.SABATO) || giorno.equals(Giorno.DOMENICA)) {
                 JOptionPane.showMessageDialog(
                     null, 
@@ -213,6 +220,9 @@ public final class IscrizionePanel {
                     "Dati mancanti per la prenotazione", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
+            } else if (this.check(data)) {
+                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
+                dataField.setText("");
             } else if (giorno.equals(Giorno.SABATO) || giorno.equals(Giorno.DOMENICA)) {
                 JOptionPane.showMessageDialog(
                     null, 
@@ -270,6 +280,9 @@ public final class IscrizionePanel {
                     "Dati mancanti per la prenotazione", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
+            } else if (this.check(data) == false) {
+                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
+                dataField.setText("");
             } else if (giorno.equals(Giorno.SABATO) || giorno.equals(Giorno.DOMENICA)) {
                 JOptionPane.showMessageDialog(
                     null, 
@@ -319,5 +332,14 @@ public final class IscrizionePanel {
         iscrizione.add(datiIscrizione, BorderLayout.WEST);
 
         return iscrizione;
+    }
+
+    private boolean check(String data) {
+        try {
+            LocalDate.parse(data);
+        } catch (DateTimeParseException f) {
+            return false;
+        }
+        return true;
     }
 }

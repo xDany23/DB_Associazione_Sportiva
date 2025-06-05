@@ -199,6 +199,10 @@ public final class IscrizionePanel {
                         : (sportBox.getSelectedIndex() == 2)
                         ? Sport.TENNIS
                         : Sport.TENNIS;
+            if (this.check(data) == false) {
+                dataField.setText("");
+                return;
+            }
             LocalDate str = LocalDate.parse(data);
             String giornoProva = str.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
             Giorno giorno = (giornoProva.equals("lunedì"))
@@ -220,9 +224,6 @@ public final class IscrizionePanel {
                     "Dati mancanti per la prenotazione", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (this.check(data)) {
-                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
-                dataField.setText("");
             } else if (giorno.equals(Giorno.SABATO) || giorno.equals(Giorno.DOMENICA)) {
                 JOptionPane.showMessageDialog(
                     null, 
@@ -258,6 +259,10 @@ public final class IscrizionePanel {
                         : (sportBox.getSelectedIndex() == 2)
                         ? Sport.TENNIS
                         : Sport.TENNIS;
+            if (this.check(data) == false) {
+                dataField.setText("");
+                return;
+            }
             LocalDate str = LocalDate.parse(data);
             String giornoProva = str.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
             Giorno giorno = (giornoProva.equals("lunedì"))
@@ -280,9 +285,6 @@ public final class IscrizionePanel {
                     "Dati mancanti per la prenotazione", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (this.check(data) == false) {
-                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
-                dataField.setText("");
             } else if (giorno.equals(Giorno.SABATO) || giorno.equals(Giorno.DOMENICA)) {
                 JOptionPane.showMessageDialog(
                     null, 

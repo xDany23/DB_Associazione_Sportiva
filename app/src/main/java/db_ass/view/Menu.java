@@ -81,6 +81,9 @@ public final class Menu {
 
         //bottone Login Allenatore
         JButton loginTrainerButton = new JButton("Login Trainer");
+        loginTrainerButton.addActionListener(e -> {
+            trainerLoginFrame();
+        });
 
         //bottone Login Administrator
         JButton loginAdministratorButton = new JButton("Login Administrator");

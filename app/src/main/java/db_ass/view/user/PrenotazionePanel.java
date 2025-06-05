@@ -125,6 +125,10 @@ public final class PrenotazionePanel {
                         ? Sport.PADEL
                         : Sport.TENNIS;
             String campo = campoPrenField.getText();
+            if (this.check(data) == false) {
+                dataPrenField.setText("");
+                return;
+            }
             LocalDate str = LocalDate.parse(data);
             String giornoProva = str.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
             Giorno giorno = (giornoProva.equals("lunedì"))
@@ -146,9 +150,6 @@ public final class PrenotazionePanel {
                     "Non hai inserito tutti i dati per la prenotazione", 
                     "Campi mancanti", 
                     JOptionPane.WARNING_MESSAGE);
-            } else if (this.check(data) == false) {
-                JOptionPane.showMessageDialog(null, "Inserire un formato valido per la data(anno-mese-giorno)");
-                dataPrenField.setText("");
             } else if (!menu.getController().findFieldToBook(oraInizio, data, sport).contains(Integer.parseInt(campo))) {
                 JOptionPane.showMessageDialog(
                     null, 

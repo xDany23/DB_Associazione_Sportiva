@@ -50,7 +50,7 @@ public class LoginTrainer {
         informationPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
         //titolo
-        JLabel titleLabel = new JLabel("Login", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Login Allenatore", SwingConstants.CENTER);
         titleLabel.setFont(titleLabel.getFont().deriveFont(36.0f));
         titleLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
@@ -112,7 +112,7 @@ public class LoginTrainer {
             } else {
                 persona = menu.getController().findTrainer(cf);
                 if (persona != null) {
-                    if (persona.password.equals(pass) && persona.utente == true) {
+                    if (persona.password.equals(pass) && persona.allenatore == true) {
                         trainerPage = new TrainerPage(menu, mainFrame, persona, onClose);
                         this.goTrainerPage(persona);
                     } else {

@@ -261,6 +261,14 @@ public final class Controller {
         return this.model.removeTeamFromTournament(codiceTorneo, codiceSquadra);
     }
 
+    public Persona findTrainer(String cf) {
+        return this.model.findTrainer(cf);
+    }
+
+    public List<LezionePrivata> allLessonsOfTrainer(Persona persona) {
+        return this.model.allLessonsOfTrainer(persona);
+    }
+
     public List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita) {
         return this.model.findTournamentMatch(codiceTorneo, codicePartita);
     }

@@ -298,6 +298,34 @@ public final class Persona {
             }
             return rowsInserted;
         }
+
+        public static Persona findTrainer(String cf, Connection connection) {
+            Persona p = null;
+            if (cf == null) {
+                return null;
+            }
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_TRAINER, cf);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                if (resultSet.next()) {
+                    var Cf = resultSet.getString("CF");
+                    var nome = resultSet.getString("Nome");
+                    var cognome = resultSet.getString("Cognome");
+                    var email = resultSet.getString("E_mail");
+                    var password = resultSet.getString("Password");
+                    var utente = resultSet.getBoolean("Utente");
+                    var allenatore = resultSet.getBoolean("Allenatore");
+                    var arbitro = resultSet.getBoolean("Arbitro");
+                    var numTenute = resultSet.getInt("LezioniTenute");
+                    var admin = resultSet.getBoolean("Admin");
+                    p = new Persona(Cf, nome, cognome, email, password, utente, allenatore, arbitro, numTenute, admin);
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return p;
+        }
     }
 
     

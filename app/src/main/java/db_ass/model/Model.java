@@ -136,6 +136,10 @@ public interface Model {
 
     int removeTeamFromTournament(int codiceTorneo, int codiceSquadra);
 
+    Persona findTrainer(String cf);
+
+    List<LezionePrivata> allLessonsOfTrainer(Persona persona);
+
     List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita);
 
     int insetNewMatch(int squadra1, int squadra2, int punti1, int punti2, int codiceTorneo, String arbitro, int squadraVincitrice, int codicePartita);

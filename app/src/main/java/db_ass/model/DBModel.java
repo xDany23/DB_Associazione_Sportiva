@@ -325,6 +325,16 @@ public class DBModel implements Model{
     }
 
     @Override
+    public Persona findTrainer(String cf) {
+        return Persona.DAO.findTrainer(cf, connection);
+    }
+
+    @Override
+    public List<LezionePrivata> allLessonsOfTrainer(Persona persona) {
+        return LezionePrivata.DAO.allLessonsOfTrainer(persona, connection);
+    }
+
+    @Override
     public List<RisultatiTorneo> findTournamentMatch(int codiceTorneo, int codicePartita) {
         return Torneo.DAO.findTournamentMatch(codiceTorneo, codicePartita, connection);
     }

@@ -38,6 +38,14 @@ public final class Queries {
 			FROM persona
 			WHERE CF = ?;
 			""";
+
+	public static final String FIND_TRAINER = 
+			"""
+			SELECT *
+			FROM persona p
+			WHERE CF = ?
+			AND p.Allenatore = TRUE;		
+			""";
     
     public static final String REGISTER_USER = 
             """
@@ -519,6 +527,13 @@ public final class Queries {
 			DELETE FROM iscrizione
 			WHERE CodiceTorneo = ?
 			AND CodiceSquadra = ?;		
+			""";
+
+	public static final String ALL_LESSONS_OF_TRAINER = 
+			"""
+			SELECT *
+			FROM lezione_privata lp
+			WHERE lp.Allenatore = ?;
 			""";
 
 	public static final String FIND_TOURNAMENT_MATCH = 

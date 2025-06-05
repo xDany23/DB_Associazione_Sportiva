@@ -10,15 +10,15 @@ public final class RisultatiTorneo {
     public final int punteggio;
     public final String nomeSquadra;
     public final String arbitro;
-    public final int squadraVincitrice;
+    public Integer squadraVincitrice;
 
-    public RisultatiTorneo(int codicePartita, int codiceSquadra, int punteggio, String nomeSquadra, String arbitro, int squadraVincitrice) {
+    public RisultatiTorneo(int codicePartita, int codiceSquadra, int punteggio, String nomeSquadra, String arbitro, Integer squadraVincitrice) {
         this.codicePartita = codicePartita;
         this.codiceSquadra = codiceSquadra;
         this.punteggio = punteggio;
         this.nomeSquadra = nomeSquadra;
         this.arbitro = arbitro;
-        this.squadraVincitrice = squadraVincitrice == 0 ? null : squadraVincitrice;
+        this.squadraVincitrice = squadraVincitrice == null || squadraVincitrice == 0 ? null : squadraVincitrice;
     }
     
 

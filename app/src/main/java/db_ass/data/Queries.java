@@ -532,8 +532,8 @@ public final class Queries {
 	public static final String ALL_LESSONS_OF_TRAINER = 
 			"""
 			SELECT *
-			FROM lezione_privata lp
-			WHERE lp.Allenatore = ?;
+			FROM lezione_privata l
+			WHERE l.Allenatore = ?;
 			""";
 
 	public static final String FIND_TOURNAMENT_MATCH = 

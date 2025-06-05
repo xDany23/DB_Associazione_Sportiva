@@ -334,20 +334,35 @@ public class TournamentPanel extends BasePanel{
             firstTeam.setName("Squadra 1");
             secondTeam.setName("Squadra 2");
             arbitro.setName("Arbitro");
+            winner.addItem(null);
             AddPanel insert = new AddPanel(List.of(new JTextField("Codice Partita"), new JTextField("Punteggio 1"), new JTextField("Punteggio 2")), List.of(firstTeam,secondTeam,arbitro,winner));
             int n = JOptionPane.showOptionDialog(this, insert, "Nuova partita", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"Continua","Annulla"}, null);
             if (n == JOptionPane.OK_OPTION) {
                 try {
                     List<Integer> texts = insert.getTexts().stream().map(e -> Integer.parseInt(e)).toList();
                     List<String> selections = insert.getSelection();
-                    getMenu().getController().insetNewMatch(Integer.parseInt(selections.get(0)),
-                                                            Integer.parseInt(selections.get(1)),
-                                                            texts.get(1),
-                                                            texts.get(2),
-                                                            tournamentCode,
-                                                            selections.get(2),
-                                                            Integer.parseInt(selections.get(3)),
-                                                            texts.get(0));
+                    String win = selections.size() < 4 ? "" : selections.get(3);
+                    if (selections.get(0).equals(selections.get(1))) {
+                        JOptionPane.showMessageDialog(null, "Inserire due squadre diverse");
+                    } else if (!win.equals(selections.get(0)) && !win.equals(selections.get(1)) && !win.isBlank()) {
+                        JOptionPane.showMessageDialog(null, "Se presente il vincitore deve essere una delle squadre partecipanti");
+                    } else if (getMenu().getController().allTeamsOfUser(getMenu().getController().findPersona(selections.get(2)))
+                                                                                                 .stream()
+                                                                                                 .map(k -> String.valueOf(k.codiceSquadra))
+                                                                                                 .anyMatch(k -> k.equals(selections.get(0)) || k.equals(selections.get(1))) ) {
+                        JOptionPane.showMessageDialog(null, "L'arbitro non deve fare parte delle squadre in gioco");
+                    } else if (texts.get(1) < 0 || texts.get(2) < 0) {
+                        JOptionPane.showMessageDialog(null, "I risultati devono essere numeri positivi");
+                    } else {
+                        getMenu().getController().insetNewMatch(Integer.parseInt(selections.get(0)),
+                                                                Integer.parseInt(selections.get(1)),
+                                                                texts.get(1),
+                                                                texts.get(2),
+                                                                tournamentCode,
+                                                                selections.get(2),
+                                                                win.isBlank() ? 0 : Integer.parseInt(win),
+                                                                texts.get(0));
+                    }
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Inserisci numeri interi positivi in tutti i campi");
                 }

@@ -123,7 +123,7 @@ public final class Torneo {
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 System.out.println("Entro tipo = " + tipo.toString());
-                if (resultSet.next()) {
+                while(resultSet.next()) {
                     var codiceTorneo = resultSet.getInt("CodiceTorneo");
                     var dataSvolgimento = resultSet.getString("DataSvolgimento");
                     var nome = resultSet.getString("Nome");
@@ -190,7 +190,7 @@ public final class Torneo {
         }
 
         public static Torneo findTournament(int codiceTorneo, Connection connection) {
-            return find(codiceTorneo, connection).first();
+            return find(codiceTorneo, connection) == null ? null : find(codiceTorneo, connection).first();
         }
 
         public static Pair<Torneo,Integer> find(int codiceTorneo, Connection connection) {

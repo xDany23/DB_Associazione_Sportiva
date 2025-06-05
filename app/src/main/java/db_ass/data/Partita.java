@@ -82,7 +82,7 @@ public final class Partita {
             try {
                 connection.setAutoCommit(false);
                 try (
-                    var preparedStatement = DAOUtils.prepare(connection, Queries.INSERT_MATCH, codiceTorneo, codicePartita, arbitro, squadraVincitrice);
+                    var preparedStatement = DAOUtils.prepare(connection, Queries.INSERT_MATCH, codiceTorneo, codicePartita, arbitro, squadraVincitrice == 0 ? null : squadraVincitrice);
                 ) {
                     rowsInserted = preparedStatement.executeUpdate();
                     rowsInserted += Gioca.DAO.insertNewplersInnewMatch(squadra1, codicePartita, punti1, connection);

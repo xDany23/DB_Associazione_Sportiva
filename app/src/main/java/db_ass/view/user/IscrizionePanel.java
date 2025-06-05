@@ -143,6 +143,11 @@ public final class IscrizionePanel {
                         : (sportBox.getSelectedIndex() == 2)
                         ? Sport.TENNIS
                         : Sport.TENNIS;
+            if (this.check(data) == false) {
+                JOptionPane.showMessageDialog(null, "Inserire un formaton corretto per la data (anno-mese-giorno)");
+                dataField.setText("");
+                return;
+            }
             LocalDate str = LocalDate.parse(data);
             String giornoProva = str.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN);
             Giorno giorno = (giornoProva.equals("lunedì"))
@@ -200,6 +205,7 @@ public final class IscrizionePanel {
                         ? Sport.TENNIS
                         : Sport.TENNIS;
             if (this.check(data) == false) {
+                JOptionPane.showMessageDialog(null, "Inserire un formaton corretto per la data (anno-mese-giorno)");
                 dataField.setText("");
                 return;
             }
@@ -260,6 +266,7 @@ public final class IscrizionePanel {
                         ? Sport.TENNIS
                         : Sport.TENNIS;
             if (this.check(data) == false) {
+                JOptionPane.showMessageDialog(null, "Inserire un formaton corretto per la data (anno-mese-giorno)");
                 dataField.setText("");
                 return;
             }

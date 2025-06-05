@@ -299,6 +299,16 @@ public class DBModel implements Model{
     }
 
     @Override
+    public List<Torneo> allUserTournaments(Persona persona) {
+        return Iscrizione.DAO.allUserTournaments(persona, connection);
+    }
+
+    @Override
+    public List<LezionePrivata> allUserLessons(Persona persona) {
+        return LezionePrivata.DAO.allUserLessons(persona, connection);
+    }
+
+    @Override
     public List<Pair<Corso, Integer>> getAllActiveCoursesWithPartecipants() {
         return Corso.DAO.getAllActiveCourses(connection);
     }

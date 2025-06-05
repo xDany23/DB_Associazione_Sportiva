@@ -126,6 +126,10 @@ public interface Model {
 
     List<Squadra> allTeamsInTournament(int codiceTorneo);
 
+    List<Torneo> allUserTournaments(Persona persona);
+
+    List<LezionePrivata> allUserLessons(Persona persona);
+
     List<Pair<Corso,Integer>> getAllActiveCoursesWithPartecipants();
 
     List<Pair<Corso,Integer>> getAllCoursesWithPartecipants();

@@ -49,7 +49,7 @@ public final class TorneoPanel {
 
         //dati da compilare sotto
         JPanel datiTorneo = new JPanel();
-        datiTorneo.setLayout(new GridLayout(5, 2, 2, 0));
+        datiTorneo.setLayout(new GridLayout(6, 2, 2, 0));
         JLabel codiceTorneoLabel = new JLabel("Codice Torneo: ");
         JTextField codiceTorneoField = new JTextField(16);
         JLabel codiceSquadraTorneoLabel = new JLabel("Codice Squadra: ");
@@ -60,6 +60,8 @@ public final class TorneoPanel {
         JButton tuttiPartecipantiButton = new JButton("Mostra partecipanti");
         JButton tuttePartiteButton = new JButton("Mostra partite");
         JButton torneiPartecipabili = new JButton("Tornei partecipabili");
+        JButton mieiTornei = new JButton("I miei torneo");
+        JButton vuoto = new JButton();
         datiTorneo.add(codiceTorneoLabel);
         datiTorneo.add(codiceTorneoField);
         datiTorneo.add(codiceSquadraTorneoLabel);
@@ -70,6 +72,8 @@ public final class TorneoPanel {
         datiTorneo.add(tuttiPartecipantiButton);
         datiTorneo.add(tuttePartiteButton);
         datiTorneo.add(torneiPartecipabili);
+        datiTorneo.add(mieiTornei);
+        datiTorneo.add(vuoto);
 
         //aggiungo un ActionListener per il bottone dell'iscrizione al torneo
         registrationButtonTorneo.addActionListener(e -> {
@@ -236,6 +240,30 @@ public final class TorneoPanel {
                                                 "Premio: " + output.get(i).premio + ", " + 
                                                 "Max partecipanti: " + output.get(i).massimoPartecipanti + ", " +
                                                 "Quota d'iscrizione: " + output.get(i).quotaIscrizione));
+                }
+            }
+            contentTornei.revalidate();
+            contentTornei.repaint();
+        });
+
+        //aggiungo un ActionListener per il botton per visualizzare tutti i tornei dell'utente
+        mieiTornei.addActionListener(e -> {
+            List<Torneo> output = new ArrayList<>();
+            codiceSquadraTorneoField.setText("");
+            codiceTorneoField.setText("");
+            output = menu.getController().allUserTournaments(persona);
+            contentTornei.removeAll();
+            if (output.isEmpty()) {
+                contentTornei.add(new JLabel("Non sei iscritto a nessun torneo"));
+            } else {
+                contentTornei.add(new JLabel("I MIEI TORNEI"));
+                contentTornei.add(Box.createVerticalStrut(10));
+                for(int i = 0; i < output.size(); i++) {
+                    contentTornei.add(new JLabel("- Codice torneo: " + output.get(i).codiceTorneo + ", " +
+                                                "Nome: " + output.get(i).nome + ", " + 
+                                                "Data di svolgimento: " + output.get(i).dataSvolgimento + ", " +
+                                                "Sport: " + output.get(i).tipo + ", " +
+                                                "Premio: " + output.get(i).premio));
                 }
             }
             contentTornei.revalidate();

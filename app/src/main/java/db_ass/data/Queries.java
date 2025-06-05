@@ -483,6 +483,28 @@ public final class Queries {
 			AND squadra.CodiceSquadra = i.CodiceSquadra;
 			""";
 
+	public static final String ALL_USER_TOURNAMENTS = 
+			"""
+			SELECT i.torneo
+			FROM iscrizione i, squadra s
+			WHERE i.codiceSquadra = s.codiceSquadra
+			AND s.Componenti1 = ?
+			OR s.Componenti2 = ?
+			OR s.Componenti3 = ?
+			OR s.Componenti4 = ?
+			OR s.Componenti5 = ?;		
+			""";
+
+	public static final String ALL_USER_LESSONS = 
+			"""
+			SELECT *
+			FROM lezione_privata
+			WHERE DataSvolgimento > now() 
+			AND (Partecipante1 = ?
+			OR Partecipante2 = ?
+			OR Partecipante3 = ?);		
+			""";
+
 	public static final String GET_ALL_COURSES = 
 			"""
 			SELECT c.*, count(p.CF) as NumeroIscritti

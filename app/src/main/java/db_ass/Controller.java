@@ -240,6 +240,14 @@ public final class Controller {
         return this.model.allTeamsInTournament(codiceTorneo);
     }
 
+    public List<Torneo> allUserTournaments(Persona persona) {
+        return this.model.allUserTournaments(persona);
+    }
+
+    public List<LezionePrivata> allUserLessons(Persona persona) {
+        return this.model.allUserLessons(persona);
+    }
+
     public List<Pair<Corso, Integer>> getAllActiveCoursesWithPartecipants() {
         return this.model.getAllActiveCoursesWithPartecipants();
     }

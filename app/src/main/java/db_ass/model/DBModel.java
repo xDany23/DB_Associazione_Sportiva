@@ -344,4 +344,29 @@ public class DBModel implements Model{
             int squadraVincitrice, int codicePartita) {
         return Partita.DAO.insertNewMatch(squadra1, squadra2, punti1, punti2, codiceTorneo, arbitro, squadraVincitrice, codicePartita, connection);
     }
+
+    @Override
+    public List<Pair<Corso, Integer>> mostActiveCoursesWithPartecipants() {
+        return Corso.DAO.findMostActiveCoursesWithPartecipants(connection);
+    }
+
+    @Override
+    public List<Campo> getAllFields() {
+        return Campo.DAO.getAllFields(connection);
+    }
+
+    @Override
+    public List<FasciaOraria> getAllTimesOfField(int numeroCampo) {
+        return FasciaOraria.DAO.getAllTimesOfField(numeroCampo, connection);
+    }
+
+    @Override
+    public int modifyTimePrice(double price, int numeroCampo, Giorno giorno, String orarioInizio) {
+        return FasciaOraria.DAO.modifyTimePrice(price, numeroCampo, giorno, orarioInizio, connection);
+    }
+
+    @Override
+    public Campo findField(int numeroCampo) {
+        return Campo.DAO.findField(numeroCampo, connection);
+    }
 }

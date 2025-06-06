@@ -558,4 +558,27 @@ public final class Queries {
 			INSERT INTO gioca(CodicePartita, CodiceSquadra, Punteggio)
 			VALUES (?,?,?);		
 			""";
+
+	public static final String GET_ALL_FIELDS = 
+			"""
+			SELECT *
+			FROM campo;		
+			""";
+
+	public static final String GET_ALL_TIMES_OF_FIELD =
+			"""
+			SELECT *
+			FROM fascia_oraria
+			WHERE NumeroCampo = ?;		
+			""";
+
+	public static final String MODIFY_TIMES_PRICE =
+			"""
+			UPDATE fascia_oraria
+			SET prezzo = ?
+			WHERE NumeroCampo = ?
+			AND Giorno = ?
+			AND OrarioInizio = ?
+			AND Tipo = "Prenotabile"
+			""";
 }

@@ -277,4 +277,28 @@ public final class Controller {
         int squadraVincitrice, int codicePartita) {
         return this.model.insetNewMatch(squadra1, squadra2, punti1, punti2, codiceTorneo, arbitro, squadraVincitrice, codicePartita);
     }
+
+    public List<Pair<Corso,Integer>> findMostActiveCoursesWithPartecipants() {
+        return this.model.mostActiveCoursesWithPartecipants();
+    }
+
+    public List<Campo> getAllFields() {
+        return this.model.getAllFields();
+    }
+
+    public List<FasciaOraria> getAllTimesOfField(int numeroCampo) {
+        return this.model.getAllTimesOfField(numeroCampo);
+    }
+
+    public int modifyTimePrice(double price, int numeroCampo, Giorno giorno, String orarioInizio) {
+        return this.model.modifyTimePrice(price, numeroCampo, giorno, orarioInizio);
+    }
+
+    public Campo findField(int numeroCampo) {
+        return this.model.findField(numeroCampo);
+    }
+
+    public List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo, String date) {
+        return this.model.findAllOccupiedTimesOfField(numeroCampo, date);
+    }
 }

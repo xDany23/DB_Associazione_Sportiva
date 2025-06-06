@@ -144,6 +144,16 @@ public interface Model {
 
     int insetNewMatch(int squadra1, int squadra2, int punti1, int punti2, int codiceTorneo, String arbitro, int squadraVincitrice, int codicePartita);
 
+    List<Pair<Corso,Integer>> mostActiveCoursesWithPartecipants();
+
+    List<Campo> getAllFields();
+
+    List<FasciaOraria> getAllTimesOfField(int numeroCampo);
+
+    int modifyTimePrice(double price, int numeroCampo, Giorno giorno, String orarioInizio);
+
+    Campo findField(int numeroCampo);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

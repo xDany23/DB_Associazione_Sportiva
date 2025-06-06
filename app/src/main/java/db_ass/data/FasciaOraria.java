@@ -2,6 +2,7 @@ package db_ass.data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class FasciaOraria {
@@ -102,6 +103,36 @@ public class FasciaOraria {
                 throw new DAOException(e);
             }
             return f;
+        }
+
+        public static List<FasciaOraria> getAllTimesOfField(int numeroCampo, Connection connection) {
+            List<FasciaOraria> fascie = new LinkedList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.GET_ALL_TIMES_OF_FIELD, numeroCampo);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    fascie.add(findPeriod(numeroCampo,
+                                          Giorno.valueOf(resultSet.getString("Giorno").toUpperCase()), 
+                                          resultSet.getString("OrarioInizio"), 
+                                          connection));
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return fascie;
+        }
+
+        public static int modifyTimePrice(double price, int numeroCampo, Giorno giorno, String orarioInizio, Connection connection) {
+            int rowsChanged = 0;
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.MODIFY_TIMES_PRICE, price, numeroCampo, giorno.toString(), orarioInizio);
+            ) {
+                rowsChanged = preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return rowsChanged;
         }
     }
 }

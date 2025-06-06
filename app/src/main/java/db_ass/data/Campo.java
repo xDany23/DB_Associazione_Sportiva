@@ -51,15 +51,16 @@ public final class Campo {
 
     public static final class DAO {
         public static Campo findField(int num, Connection connection) {
-            Campo campo;
+            Campo campo = null;
             try (
                 var preparedStatement = DAOUtils.prepare(connection, Queries.FIND_FIELD, num);
                 var resultSet = preparedStatement.executeQuery();
             ) {
-                resultSet.next();
-                var numCampo = resultSet.getInt("NumeroCampo");
-                Sport sport = Sport.valueOf(resultSet.getString("Tipo").toUpperCase());
-                campo = new Campo(numCampo, sport);
+                if (resultSet.next()) {
+                    var numCampo = resultSet.getInt("NumeroCampo");
+                    Sport sport = Sport.valueOf(resultSet.getString("Tipo").toUpperCase());
+                    campo = new Campo(numCampo, sport);
+                }
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
@@ -96,6 +97,21 @@ public final class Campo {
             ) {
                 while (resultSet.next()) {
                     fields.add(resultSet.getInt("NumeroCampo"));
+                }
+            } catch (Exception e) {
+                throw new DAOException(e);
+            }
+            return fields;
+        }
+
+        public static List<Campo> getAllFields(Connection connection) {
+            List<Campo> fields = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.GET_ALL_FIELDS);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    fields.add(findField(resultSet.getInt("NumeroCampo"), connection));
                 }
             } catch (Exception e) {
                 throw new DAOException(e);

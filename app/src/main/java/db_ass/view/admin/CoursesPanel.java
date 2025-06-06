@@ -213,7 +213,11 @@ public class CoursesPanel extends BasePanel{
         getAll.addActionListener(l -> {
             update(getMenu().getController().getAllCoursesWithPartecipants());
         });
-        return List.of(search,terminate,addNew,addLesson,getLessons,getAll);
+        JButton mostPopular = new JButton("I più frequentati");
+        mostPopular.addActionListener(l -> {
+            update(getMenu().getController().findMostActiveCoursesWithPartecipants());
+        });
+        return List.of(search,terminate,addNew,addLesson,getLessons,getAll,mostPopular);
     }
 
     private void setLezioni(int codiceCorso) {

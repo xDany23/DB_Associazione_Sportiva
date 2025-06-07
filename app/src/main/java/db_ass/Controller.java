@@ -9,7 +9,6 @@ import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
 import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
-import db_ass.data.Partita;
 import db_ass.data.Persona;
 import db_ass.data.Prenotazione;
 import db_ass.data.RisultatiTorneo;
@@ -19,17 +18,13 @@ import db_ass.data.TipoSquadra;
 import db_ass.data.Torneo;
 import db_ass.model.Model;
 import db_ass.utility.Pair;
-import db_ass.view.Menu;
 
 public final class Controller {
     
     private final Model model;
-    private final Menu view;
 
-    public Controller(Model model, Menu view) {
+    public Controller(Model model) {
         Objects.requireNonNull(model, "Controller created with null model");
-        Objects.requireNonNull(view, "Controller created with null view");
-        this.view = view;
         this.model = model;
     }
 

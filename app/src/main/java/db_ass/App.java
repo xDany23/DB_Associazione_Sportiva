@@ -18,7 +18,7 @@ public final class App {
             } catch (Exception ignored) { }
         });
 
-        var controller = new Controller(model, view);
+        var controller = new Controller(model);
         view.setController(controller);
     }
     

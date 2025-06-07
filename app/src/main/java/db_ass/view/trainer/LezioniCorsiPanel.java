@@ -74,9 +74,9 @@ public final class LezioniCorsiPanel {
                                             "SPORT: " + output.get(i).sportPraticato + ", " +
                                             "CORSO DI APPARTENENZA: " + output.get(i).codiceCorso.codiceCorso));
                 }
-                content.revalidate();
-                content.repaint();
             }
+            content.revalidate();
+            content.repaint();
         });
 
         //aggiungo un ActionListener al bottone per visualizzare le lezioni in una certa data

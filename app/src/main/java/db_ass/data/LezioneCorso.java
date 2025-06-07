@@ -154,7 +154,7 @@ public class LezioneCorso {
         public static List<LezioneCorso> allLessonCourseInCertainDay(Persona persona, String data, Connection connection) {
             List<LezioneCorso> lezioni = new ArrayList<>();
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_LESSON_COURSE_OF_TRAINER, persona.cf, data);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_LESSON_COURSE_IN_CERTAIN_DAY, persona.cf, data);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while (resultSet.next()) {

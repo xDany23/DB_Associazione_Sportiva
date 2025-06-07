@@ -273,7 +273,7 @@ public class LezionePrivata {
         public static List<LezionePrivata> lessonOfTrainerInCertainDay(Persona persona, String data, Connection connection) {
             List<LezionePrivata> output = new ArrayList<>();
             try (
-                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_LESSONS_OF_TRAINER, persona.cf, data);
+                var preparedStatement = DAOUtils.prepare(connection, Queries.LESSON_OF_TRAINER_IN_CERTAIN_DAY, persona.cf, data);
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while(resultSet.next()) {

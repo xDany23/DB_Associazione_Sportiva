@@ -84,9 +84,9 @@ public final class LezioniPrivatePanel {
                                             "SPORT: " + output.get(i).sportPraticato + ", " +
                                             "N. PARTECIPANTI: " + np));
                 }
-                content.revalidate();
-                content.repaint();
             }
+            content.revalidate();
+            content.repaint();
         });
 
         //aggiungo un ActionListener al bottone per visualizzare le lezioni in una certa data

@@ -301,10 +301,9 @@ public final class Queries {
 
 	public static final String GET_ALL_ACTIVE_COURSES = 
 			"""
-			SELECT corso.*, count(partecipa.CF)
-			FROM corso, partecipa
+			SELECT corso.*, count(partecipa.CF) as NumeroIscritti
+			FROM corso left join partecipa on (corso.CodiceCorso = partecipa.CodiceCorso)
 			WHERE corso.DataFine > now()
-			AND corso.CodiceCorso = partecipa.CodiceCorso
 			GROUP BY corso.CodiceCorso;		
 			""";
 
@@ -517,8 +516,7 @@ public final class Queries {
 	public static final String GET_ALL_COURSES = 
 			"""
 			SELECT c.*, count(p.CF) as NumeroIscritti
-			FROM corso c, partecipa p
-			WHERE c.CodiceCorso = p.CodiceCorso
+			FROM corso c left join partecipa p on (c.CodiceCorso = p.CodiceCorso)
 			GROUP BY c.CodiceCorso;		
 			""";
 

@@ -2,6 +2,7 @@ package db_ass.data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -128,6 +129,46 @@ public class LezioneCorso {
                 throw new DAOException(e);
             }
             return rowsInserted;
+        }
+
+        public static List<LezioneCorso> allLessonCourseOfTrainer(Persona persona, Connection connection) {
+            List<LezioneCorso> lezioni = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_LESSON_COURSE_OF_TRAINER, persona.cf);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    lezioni.add(new LezioneCorso(Campo.DAO.findField(resultSet.getInt("NumeroCampo"),connection),
+                                                 Giorno.valueOf(resultSet.getString("Giorno").toUpperCase()),
+                                                 resultSet.getString("OrarioInizio"),
+                                                 resultSet.getString("DataSvolgimento"),
+                                                 Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase()),
+                                                 Corso.DAO.findCourse(resultSet.getInt("CodiceCorso"), connection)));
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return lezioni;
+        }
+
+        public static List<LezioneCorso> allLessonCourseInCertainDay(Persona persona, String data, Connection connection) {
+            List<LezioneCorso> lezioni = new ArrayList<>();
+            try (
+                var preparedStatement = DAOUtils.prepare(connection, Queries.ALL_LESSON_COURSE_OF_TRAINER, persona.cf, data);
+                var resultSet = preparedStatement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    lezioni.add(new LezioneCorso(Campo.DAO.findField(resultSet.getInt("NumeroCampo"),connection),
+                                                 Giorno.valueOf(resultSet.getString("Giorno").toUpperCase()),
+                                                 resultSet.getString("OrarioInizio"),
+                                                 resultSet.getString("DataSvolgimento"),
+                                                 Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase()),
+                                                 Corso.DAO.findCourse(resultSet.getInt("CodiceCorso"), connection)));
+                }
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+            return lezioni;
         }
     }
 }

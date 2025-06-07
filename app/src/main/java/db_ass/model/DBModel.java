@@ -369,4 +369,19 @@ public class DBModel implements Model{
     public Campo findField(int numeroCampo) {
         return Campo.DAO.findField(numeroCampo, connection);
     }
+
+    @Override
+    public List<LezionePrivata> lessonOfTrainerInCertainDay(Persona persona, String data) {
+        return LezionePrivata.DAO.lessonOfTrainerInCertainDay(persona, data, connection);
+    }
+
+    @Override
+    public List<LezioneCorso> allLessonCourseOfTrainer(Persona persona) {
+        return LezioneCorso.DAO.allLessonCourseOfTrainer(persona, connection);
+    }
+
+    @Override
+    public List<LezioneCorso> allLessonCourseInCertainDay(Persona persona, String data) {
+        return LezioneCorso.DAO.allLessonCourseInCertainDay(persona, data, connection);
+    }
 }

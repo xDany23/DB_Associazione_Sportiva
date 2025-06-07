@@ -296,4 +296,16 @@ public final class Controller {
     public List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo, String date) {
         return this.model.findAllOccupiedTimesOfField(numeroCampo, date);
     }
+
+    public List<LezionePrivata> lessonOfTrainerInCertainDay(Persona persona, String data) {
+        return this.model.lessonOfTrainerInCertainDay(persona, data);
+    }
+
+    public List<LezioneCorso> allLessonCourseOfTrainer(Persona persona) {
+        return this.model.allLessonCourseOfTrainer(persona);
+    }
+
+    public List<LezioneCorso> allLessonCourseInCertainDay(Persona persona, String data) {
+        return this.model.allLessonCourseInCertainDay(persona, data);
+    }
 }

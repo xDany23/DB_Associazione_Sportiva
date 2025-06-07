@@ -154,6 +154,12 @@ public interface Model {
 
     Campo findField(int numeroCampo);
 
+    List<LezionePrivata> lessonOfTrainerInCertainDay(Persona persona, String data);
+
+    List<LezioneCorso> allLessonCourseOfTrainer(Persona persona);
+
+    List<LezioneCorso> allLessonCourseInCertainDay(Persona persona, String data);
+
     static Model fromConnection(Connection connection) {
         return new DBModel(connection);
     }

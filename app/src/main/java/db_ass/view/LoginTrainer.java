@@ -181,6 +181,6 @@ public class LoginTrainer {
     public void goTrainerPage(Persona persona) {
         var cp = mainFrame.getContentPane();
         cp.removeAll();
-        trainerPage.setup();
+        trainerPage.setUp();
     }
 }

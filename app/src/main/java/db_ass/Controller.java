@@ -9,7 +9,6 @@ import db_ass.data.FasciaOraria;
 import db_ass.data.Giorno;
 import db_ass.data.LezioneCorso;
 import db_ass.data.LezionePrivata;
-import db_ass.data.Partita;
 import db_ass.data.Persona;
 import db_ass.data.Prenotazione;
 import db_ass.data.RisultatiTorneo;
@@ -300,5 +299,17 @@ public final class Controller {
 
     public List<FasciaOraria> findAllOccupiedTimesOfField(int numeroCampo, String date) {
         return this.model.findAllOccupiedTimesOfField(numeroCampo, date);
+    }
+
+    public List<LezionePrivata> lessonOfTrainerInCertainDay(Persona persona, String data) {
+        return this.model.lessonOfTrainerInCertainDay(persona, data);
+    }
+
+    public List<LezioneCorso> allLessonCourseOfTrainer(Persona persona) {
+        return this.model.allLessonCourseOfTrainer(persona);
+    }
+
+    public List<LezioneCorso> allLessonCourseInCertainDay(Persona persona, String data) {
+        return this.model.allLessonCourseInCertainDay(persona, data);
     }
 }

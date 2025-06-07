@@ -533,7 +533,16 @@ public final class Queries {
 			"""
 			SELECT *
 			FROM lezione_privata l
-			WHERE l.Allenatore = ?;
+			WHERE l.Allenatore = ?
+			AND l.DataSvolgimento > now();
+			""";
+
+	public static final String LESSON_OF_TRAINER_IN_CERTAIN_DAY = 
+			"""
+			SELECT * 
+			FROM lezione_privata l
+			WHERE l.Allenatore = ?
+			AND l.DataSvolgimento = ?;
 			""";
 
 	public static final String FIND_TOURNAMENT_MATCH = 
@@ -580,5 +589,23 @@ public final class Queries {
 			AND Giorno = ?
 			AND OrarioInizio = ?
 			AND Tipo = "Prenotabile"
+			""";
+
+	public static final String ALL_LESSON_COURSE_OF_TRAINER = 
+			"""
+			SELECT lc.*
+			FROM corso c, lezione_corso lc
+			WHERE c.CodiceCorso = lc.CodiceCorso
+			AND c.Allenatore = ?
+			AND lc.DataSvolgimento > now();		
+			""";
+
+	public static final String ALL_LESSON_COURSE_IN_CERTAIN_DAY = 
+			"""
+			SELECT lc.*
+			FROM corso c, lezione_corso lc
+			WHERE c.CodiceCorso = lc.CodiceCorso
+			AND c.Allenatore = ?
+			AND lc.DataSvolgimento = ?;			
 			""";
 }

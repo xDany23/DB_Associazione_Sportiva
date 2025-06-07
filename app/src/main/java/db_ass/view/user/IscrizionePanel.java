@@ -144,7 +144,7 @@ public final class IscrizionePanel {
                         ? Sport.TENNIS
                         : Sport.TENNIS;
             if (this.check(data) == false) {
-                JOptionPane.showMessageDialog(null, "Inserire un formaton corretto per la data (anno-mese-giorno)");
+                JOptionPane.showMessageDialog(null, "Inserire un formato corretto per la data (anno-mese-giorno)");
                 dataField.setText("");
                 return;
             }
@@ -205,7 +205,7 @@ public final class IscrizionePanel {
                         ? Sport.TENNIS
                         : Sport.TENNIS;
             if (this.check(data) == false) {
-                JOptionPane.showMessageDialog(null, "Inserire un formaton corretto per la data (anno-mese-giorno)");
+                JOptionPane.showMessageDialog(null, "Inserire un formato corretto per la data (anno-mese-giorno)");
                 dataField.setText("");
                 return;
             }
@@ -266,7 +266,7 @@ public final class IscrizionePanel {
                         ? Sport.TENNIS
                         : Sport.TENNIS;
             if (this.check(data) == false) {
-                JOptionPane.showMessageDialog(null, "Inserire un formaton corretto per la data (anno-mese-giorno)");
+                JOptionPane.showMessageDialog(null, "Inserire un formato corretto per la data (anno-mese-giorno)");
                 dataField.setText("");
                 return;
             }

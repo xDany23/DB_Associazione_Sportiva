@@ -378,12 +378,16 @@ values(1,"Calcetto"),(2,"Tennis"),(3,"Padel"),(4,"Padel"),(5,"Calcetto"),(6,"Cal
 -- Inserimento nella tabella persona --
 
 insert into persona(Nome,Cognome,E_mail,Password,CF,Utente,Allenatore,Arbitro,LezioniTenute)
-values ("Alessandro","Ravaioli","qualcosa@gmail.com","pipipupu","AAAAAAAAAAAAAAAA",TRUE,false,FALSE,0),
-	   ("Daniele","Tramonti","qualcosa@gmail.com","pipipupu","DDDDDDDDDDDDDDDD",true,false,false,0),
-       ("Edoardo","Frignoli","qualcosa@gmail.com","pipipupu","EEEEEEEEEEEEEEEE",true,false,false,0),
-       ("Romeo","ofwianf","qualcosa@gmail.com","pipipupu","RRRRRRRRRRRRRRRR",false,true,true,1);
+values ("Alessandro","Ravaioli","qualcosa@gmail.com","pipipupu","ASLLSD23R12S345D",TRUE,false,FALSE,0), ("Daniele","Tramonti","qualcosa@gmail.com","pipipupu","TRADNL09E99D234R",true,false,false,0), ("Edoardo","Frignoli","qualcosa@gmail.com","pipipupu","FGNEAD22B21X512F",true,false,false,0),
+       ("Romeo","ofwianf","qualcosa@gmail.com","pipipupu","OWARMO25K12R899S",false,true,true,1);
 insert into persona(Nome,Cognome,E_mail,Password,CF,Utente,Allenatore,Arbitro,LezioniTenute,Admin)
-values ("Gianfranco","Marchini","qualcosaltro@gmail.com","cambioPassword","GGGGGGGGGGGGGGGG",false,false,false,0,true);
+values ("Gianfranco","Marchini","qualcosaltro@gmail.com","cambioPassword","MRCGNF31L02P109G",false,false,false,0,true), ('Giovanni', 'Rossi', 'giovanni.rossi@email.com', 'password123', 'RSSGNN12C34A525Q', TRUE, FALSE, FALSE, 0, FALSE),
+	   ('Maria', 'Bianchi', 'maria.bianchi@email.com', 'pass1234', 'BNCMRA98F76Z521H', FALSE, TRUE, FALSE, 5, FALSE), ('Luca', 'Verdi', 'luca.verdi@email.com', 'lucapassword', 'VRDLUC11T22J322B', TRUE, FALSE, TRUE, 0, FALSE),
+       ('Francesco', 'Galli', 'francesco.galli@email.com', 'francesco123', 'GLLFNC23P45O672V', FALSE, TRUE, FALSE, 15, FALSE), ('Elena', 'Neri', 'elena.neri@email.com', 'elena1234', 'NRIELN67N89C025D', FALSE, TRUE, FALSE, 20, FALSE),
+       ('Alessandro', 'Rossi', 'alessandro.rossi@email.com', 'alessandro123', 'RSSALS11N22G380W', TRUE, FALSE, TRUE, 0, FALSE), ('Marta', 'Verdi', 'marta.verdi@email.com', 'marta123', 'VRDMRT33T44L553B', TRUE, FALSE, TRUE, 0, FALSE),
+       ('Simone', 'De Luca', 'simone.deluca@email.com', 'simone1234', 'DLCSMN11D23S442A', TRUE, FALSE, FALSE, 0, FALSE), ('Giulia', 'Ferrari', 'giulia.ferrari@email.com', 'giulia123', 'FRRGIL33C45Z625T', TRUE, FALSE, FALSE, 0, FALSE),
+       ('Luca', 'Baldini', 'luca.baldini@email.com', 'luca123', 'BLDLUC44R56D738K', TRUE, FALSE, FALSE, 0, FALSE), ('Sara', 'Lombardi', 'sara.lombardi@email.com', 'sara123', 'LMBSRN55M67X851S', TRUE, FALSE, FALSE, 0, FALSE),
+       ('Marco', 'Giordano', 'marco.giordano@email.com', 'admin123', 'GRDMRC11H23W427E', TRUE, FALSE, FALSE, 0, TRUE), ('Carla', 'Ricci', 'carla.ricci@email.com', 'adminpassword', 'RCCCRL22I34A521T', TRUE, FALSE, FALSE, 0, TRUE);
 
 -- Inserimento nella tabella fascia_oraria --
 
@@ -481,27 +485,29 @@ values  (1,"Lunedi","07:30:00","09:00:00","Prenotabile",75.0),(1,"Lunedi","09:00
 -- Inserimento nella tabella prenotazione --
 
 insert into prenotazione(NumeroCampo,Giorno,OrarioInizio,DataPrenotazioneEffettuata,DataPartita,Prenotante)
-values (1,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-	   (2,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       (3,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       (4,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       (5,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       (6,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       #(7,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       (8,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       (9,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       (10,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA"),
-       (11,"Lunedi","09:00:00","2025-01-25","2025-02-03","AAAAAAAAAAAAAAAA");
+values (1,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+	   (2,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       (3,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       (4,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       (5,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       (6,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       #(7,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       (8,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       (9,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       (10,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
+       (11,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D");
        
 -- Inserimento nella tabella lezione_privata --
 insert into lezione_privata(NumeroCampo,Giorno,OrarioInizio,DataSvolgimento,SportPraticato,Prezzo,Allenatore,Partecipante1,Partecipante2,Partecipante3)
-values (1,"Lunedi","16:30:00","2025-02-03","Calcetto",30.95,"RRRRRRRRRRRRRRRR","AAAAAAAAAAAAAAAA",null,"EEEEEEEEEEEEEEEE");
+values (1,"Lunedi","16:30:00","2025-02-03","Calcetto",30.95,"OWARMO25K12R899S","ASLLSD23R12S345D",null,"FGNEAD22B21X512F");
 
 -- Inserimento nella tabella corso --
 insert	into corso(DataInizio,DataFine,SportPraticato,Prezzo,CodiceCorso,Allenatore)
-values ("2024-05-06","2025-06-05","Calcetto",200.25,1,"RRRRRRRRRRRRRRRR"),
-	   ("2024-05-06","2025-06-05","Calcetto",321.2,2,"RRRRRRRRRRRRRRRR"),
-       ("2024-05-06","2024-06-05","Calcetto",321.2,3,"RRRRRRRRRRRRRRRR");
+values  ("2024-05-06","2025-06-05","Calcetto",200.25,1,"OWARMO25K12R899S"),
+	    ("2024-05-06","2025-06-05","Calcetto",321.2,2,"OWARMO25K12R899S"),
+        ("2024-05-06","2024-06-05","Calcetto",321.2,3,"OWARMO25K12R899S"),
+		('2025-06-15', '2025-07-15', 'Calcetto', 100.50, 'RSSGNN12C34A525Q'),
+		('2025-06-20', '2025-07-20', 'Padel', 120.75, 'BNCMRA98F76Z521H');
 
 -- Inserimento nella tabella lezione_corso --
 insert into lezione_corso(NumeroCampo,Giorno,OrarioInizio,DataSvolgimento,SportPraticato,CodiceCorso)
@@ -509,13 +515,15 @@ values (5,"Lunedi","12:00:00","2025-02-03","Calcetto",1);
 
 -- Inserimento nella tabella torneo --
 insert into torneo(DataSvolgimento,Nome,Premio,MassimoPartecipanti,QuotaIscrizione,CodiceTorneo,Tipo,SquadraVincitrice)
-values ("2025-10-05","Giganti","un elefante",2,1.0,1,"Tennis_singolo",null);
+values  ("2025-10-05","Giganti","un elefante",2,1.0,1,"Tennis_singolo",null),
+		('2025-08-10', 'Toreno estivo 2025', 'Trofeo d\'Oro', 16, 50.00, 'Calcetto'),
+		('2025-09-05', 'Campionato di padel 2025', 'Premio Speciale', 8, 70.00, 'Padel');
 
 -- Inserimento nella tabella squadra --
 insert into squadra(Nome,CodiceSquadra,Tipo,Componenti1,Componenti2,Componenti3,Componenti4,Componenti5) 
-values ("I belli",1,"Tennis_singolo","AAAAAAAAAAAAAAAA",null,null,null,null),
-	   ("I brutti",2,"Tennis_singolo", "DDDDDDDDDDDDDDDD",null,null,null,null),
-       ("I mezzi",3,"Tennis_singolo", "EEEEEEEEEEEEEEEE",null,null,null,null);
+values ("I belli",1,"Tennis_singolo","ASLLSD23R12S345D",null,null,null,null),
+	   ("I brutti",2,"Tennis_singolo", "TRADNL09E99D234R",null,null,null,null),
+       ("I mezzi",3,"Tennis_singolo", "FGNEAD22B21X512F",null,null,null,null);
        
 -- Inserimento nella tabella iscrizione --
 insert into iscrizione(CodiceTorneo,CodiceSquadra)
@@ -523,12 +531,12 @@ values (1,1);
 
 -- Inserimento nella tabella partecipa --
 insert into partecipa(CF,CodiceCorso)
-values ("AAAAAAAAAAAAAAAA",1),("DDDDDDDDDDDDDDDD",1),
-	   ("AAAAAAAAAAAAAAAA",2);
+values ("ASLLSD23R12S345D",1),("TRADNL09E99D234R",1),
+	   ("ASLLSD23R12S345D",2);
        
 -- Inserimento nella tabella partita --
 insert into partita(CodicePartita,CodiceTorneo,Arbitro,SquadraVincitrice)
-values (1,1,"RRRRRRRRRRRRRRRR",2),(2,1,"RRRRRRRRRRRRRRRR",null);
+values (1,1,"OWARMO25K12R899S",2),(2,1,"OWARMO25K12R899S",null);
 
 -- Inserimento nella tabella gioca --
 insert into gioca(CodiceSquadra,CodicePartita,punteggio)

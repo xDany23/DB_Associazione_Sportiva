@@ -556,7 +556,7 @@ values  ("2024-10-05","Giganti","buono amazon",8,25.0,1,"Tennis_singolo",3),
 		('2025-08-10', 'Torneo estivo 2025', 'Trofeo d\'Oro', 16, 50.00,2, 'Calcetto',null),
 		('2025-09-05', 'Campionato di padel 2025', 'Premio Speciale', 8, 70.00, 3,'Padel',null),
         ("2025-07-06","Campionato di tennis doppio 2025","Premio Speciale",3,50.0,4,"Tennis_doppio",null),
-        ("2025-10-05","Giganti","buono amazon",8,25.0,5,"Tennis_singolo",null);
+        ("2025-10-05","Giganti dell''anno dopo","buono amazon",8,25.0,5,"Tennis_singolo",null);
        
        
 -- Inserimento nella tabella iscrizione --

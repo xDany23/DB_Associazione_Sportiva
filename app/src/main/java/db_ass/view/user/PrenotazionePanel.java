@@ -126,7 +126,7 @@ public final class PrenotazionePanel {
                         : Sport.TENNIS;
             String campo = campoPrenField.getText();
             if (this.check(data) == false) {
-                JOptionPane.showMessageDialog(null, "Inserire un formaton corretto per la data (anno-mese-giorno)");
+                JOptionPane.showMessageDialog(null, "Inserire un formato corretto per la data (anno-mese-giorno)");
                 dataPrenField.setText("");
                 return;
             }

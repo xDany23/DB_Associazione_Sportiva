@@ -391,8 +391,7 @@ public final class Queries {
 			FROM persona
 			WHERE Utente = false
 			AND Allenatore = false
-			AND Arbitro = false
-			AND Admin = false;		
+			AND Arbitro = false;		
 			""";
 
 	public static final String END_ONGOING_COURSE = 
@@ -500,7 +499,8 @@ public final class Queries {
 			OR s.Componenti2 = ?
 			OR s.Componenti3 = ?
 			OR s.Componenti4 = ?
-			OR s.Componenti5 = ?;		
+			OR s.Componenti5 = ?
+			GROUP BY t.CodiceTorneo;		
 			""";
 
 	public static final String ALL_USER_LESSONS = 

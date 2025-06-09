@@ -230,7 +230,7 @@ public class CoursesPanel extends BasePanel{
         JButton backButton = new JButton("Indietro");
         backButton.addActionListener(l -> {
             this.removeAll();
-            this.setUp(getMenu().getController().getAllActiveCourses(), "Tutti i corsi attivi");
+            this.setUp(getMenu().getController().getAllActiveCoursesWithPartecipants(), "Tutti i corsi attivi");
         });
         JButton deleteButton = new JButton("Elimina Lezione");
         deleteButton.addActionListener(l -> {

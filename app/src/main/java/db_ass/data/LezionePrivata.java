@@ -226,16 +226,16 @@ public class LezionePrivata {
                 var resultSet = preparedStatement.executeQuery();
             ) {
                 while(resultSet.next()) {
-                    Campo campo = Campo.DAO.findField(resultSet.getInt("l.NumeroCampo"), connection);
-                    Giorno giorno = Giorno.valueOf(resultSet.getString("l.Giorno").toUpperCase());
-                    var orarioInizio = resultSet.getString("l.OrarioInizio");
-                    var dataSvolgimento = resultSet.getString("l.DataSvolgimento");
-                    Sport sportPraticato = Sport.valueOf(resultSet.getString("l.SportPraticato").toUpperCase());
-                    var prezzo = resultSet.getDouble("l.Prezzo");
-                    var allenatore = Persona.DAO.findPerson(resultSet.getString("l.Allenatore"), connection);
-                    var partecipante1 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante1"), connection);
-                    var partecipante2 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante2"), connection);
-                    var partecipante3 = Persona.DAO.findPerson(resultSet.getString("l.Partecipante3"), connection);
+                    Campo campo = Campo.DAO.findField(resultSet.getInt("NumeroCampo"), connection);
+                    Giorno giorno = Giorno.valueOf(resultSet.getString("Giorno").toUpperCase());
+                    var orarioInizio = resultSet.getString("OrarioInizio");
+                    var dataSvolgimento = resultSet.getString("DataSvolgimento");
+                    Sport sportPraticato = Sport.valueOf(resultSet.getString("SportPraticato").toUpperCase());
+                    var prezzo = resultSet.getDouble("Prezzo");
+                    var allenatore = Persona.DAO.findPerson(resultSet.getString("Allenatore"), connection);
+                    var partecipante1 = Persona.DAO.findPerson(resultSet.getString("Partecipante1"), connection);
+                    var partecipante2 = Persona.DAO.findPerson(resultSet.getString("Partecipante2"), connection);
+                    var partecipante3 = Persona.DAO.findPerson(resultSet.getString("Partecipante3"), connection);
                     preview.add(new LezionePrivata(campo, giorno, orarioInizio, dataSvolgimento, sportPraticato, prezzo, allenatore, partecipante1, partecipante2, partecipante3));
                 }
                 

@@ -1,4 +1,8 @@
 # DB_Associazione_Sportiva
+
+Dopo aver fatto partire il database, eseguire il file .jar col comando su terminale: java -jar app-all.jar
+
+
 Credenziali Utente:
 CF: ASLLSD23R12S345D  password:ale1234
 

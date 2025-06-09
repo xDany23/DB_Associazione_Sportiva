@@ -1,6 +1,6 @@
 # DB_Associazione_Sportiva
 
-Dopo aver fatto partire il database, eseguire il file .jar col comando su terminale: java -jar app-all.jar
+Dopo aver fatto partire il database PROGETTO:ddl, eseguire il file .jar col comando su terminale: java -jar app-all.jar
 
 
 Credenziali Utente:

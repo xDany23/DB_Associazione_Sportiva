@@ -378,12 +378,12 @@ values(1,"Calcetto"),(2,"Tennis"),(3,"Padel"),(4,"Padel"),(5,"Calcetto"),(6,"Cal
 -- Inserimento nella tabella persona --
 
 insert into persona(Nome,Cognome,E_mail,Password,CF,Utente,Allenatore,Arbitro,LezioniTenute)
-values ("Alessandro","Ravaioli","qualcosa@gmail.com","pipipupu","ASLLSD23R12S345D",TRUE,false,FALSE,0), ("Daniele","Tramonti","qualcosa@gmail.com","pipipupu","TRADNL09E99D234R",true,false,false,0), ("Edoardo","Frignoli","qualcosa@gmail.com","pipipupu","FGNEAD22B21X512F",true,false,false,0),
-       ("Romeo","ofwianf","qualcosa@gmail.com","pipipupu","OWARMO25K12R899S",false,true,true,1);
+values ("Alessandro","Ravaioli","ale.rava@email.com","ale1234","ASLLSD23R12S345D",TRUE,false,FALSE,0), ("Daniele","Tramonti","daniele.tramonti@email.com","danielepassword","TRADNL09E99D234R",true,false,false,0),
+	   ("Edoardo","Frignoli","edoardo.frignoli@email.com","ueueue","FGNEAD22B21X512F",true,false,false,0), ("Romeo","ofwianf","romeo.ofwianf@email.com","password543","OWARMO25K12R899S",false,true,true,4);
 insert into persona(Nome,Cognome,E_mail,Password,CF,Utente,Allenatore,Arbitro,LezioniTenute,Admin)
-values ("Gianfranco","Marchini","qualcosaltro@gmail.com","cambioPassword","MRCGNF31L02P109G",false,false,false,0,true), ('Giovanni', 'Rossi', 'giovanni.rossi@email.com', 'password123', 'RSSGNN12C34A525Q', TRUE, FALSE, FALSE, 0, FALSE),
-	   ('Maria', 'Bianchi', 'maria.bianchi@email.com', 'pass1234', 'BNCMRA98F76Z521H', FALSE, TRUE, FALSE, 5, FALSE), ('Luca', 'Verdi', 'luca.verdi@email.com', 'lucapassword', 'VRDLUC11T22J322B', TRUE, FALSE, TRUE, 0, FALSE),
-       ('Francesco', 'Galli', 'francesco.galli@email.com', 'francesco123', 'GLLFNC23P45O672V', FALSE, TRUE, FALSE, 15, FALSE), ('Elena', 'Neri', 'elena.neri@email.com', 'elena1234', 'NRIELN67N89C025D', FALSE, TRUE, FALSE, 20, FALSE),
+values ("Gianfranco","Marchini","gianfranco.marchini@email.com","cambioPassword","MRCGNF31L02P109G",false,false,false,0,true), ('Giovanni', 'Rossi', 'giovanni.rossi@email.com', 'password123', 'RSSGNN12C34A525Q', TRUE, FALSE, FALSE, 0, FALSE),
+	   ('Maria', 'Bianchi', 'maria.bianchi@email.com', 'pass1234', 'BNCMRA98F76Z521H', FALSE, TRUE, FALSE, 3, FALSE), ('Luca', 'Verdi', 'luca.verdi@email.com', 'lucapassword', 'VRDLUC11T22J322B', TRUE, FALSE, TRUE, 0, FALSE),
+       ('Francesco', 'Galli', 'francesco.galli@email.com', 'francesco123', 'GLLFNC23P45O672V', FALSE, TRUE, FALSE, 2, FALSE), ('Elena', 'Neri', 'elena.neri@email.com', 'elena1234', 'NRIELN67N89C025D', FALSE, TRUE, FALSE, 1, FALSE),
        ('Alessandro', 'Rossi', 'alessandro.rossi@email.com', 'alessandro123', 'RSSALS11N22G380W', TRUE, FALSE, TRUE, 0, FALSE), ('Marta', 'Verdi', 'marta.verdi@email.com', 'marta123', 'VRDMRT33T44L553B', TRUE, FALSE, TRUE, 0, FALSE),
        ('Simone', 'De Luca', 'simone.deluca@email.com', 'simone1234', 'DLCSMN11D23S442A', TRUE, FALSE, FALSE, 0, FALSE), ('Giulia', 'Ferrari', 'giulia.ferrari@email.com', 'giulia123', 'FRRGIL33C45Z625T', TRUE, FALSE, FALSE, 0, FALSE),
        ('Luca', 'Baldini', 'luca.baldini@email.com', 'luca123', 'BLDLUC44R56D738K', TRUE, FALSE, FALSE, 0, FALSE), ('Sara', 'Lombardi', 'sara.lombardi@email.com', 'sara123', 'LMBSRN55M67X851S', TRUE, FALSE, FALSE, 0, FALSE),
@@ -485,60 +485,98 @@ values  (1,"Lunedi","07:30:00","09:00:00","Prenotabile",75.0),(1,"Lunedi","09:00
 -- Inserimento nella tabella prenotazione --
 
 insert into prenotazione(NumeroCampo,Giorno,OrarioInizio,DataPrenotazioneEffettuata,DataPartita,Prenotante)
-values (1,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-	   (2,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       (3,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       (4,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       (5,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       (6,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       #(7,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       (8,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       (9,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       (10,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D"),
-       (11,"Lunedi","09:00:00","2025-01-25","2025-02-03","ASLLSD23R12S345D");
+values  (1,"Lunedi","09:00:00","2025-06-16","2025-06-23","ASLLSD23R12S345D"),(1,"Mercoledi","10:30:00","2025-06-18","2025-06-25","TRADNL09E99D234R"),(1,"Venerdi","19:30:00","2025-06-15","2025-06-27","GRDMRC11H23W427E"),
+		(2,"Martedi","13:30:00","2025-06-16","2025-06-23","RSSGNN12C34A525Q"),(2,"Giovedi","7:30:00","2025-06-16","2025-06-23","FGNEAD22B21X512F"),(2,"Domenica","15:00:00","2025-06-22","2025-06-23","VRDLUC11T22J322B"),
+		(3,"Sabato","16:30:00","2025-06-16","2025-06-21","RSSALS11N22G380W"),(3,"Sabato","18:00:00","2025-06-16","2025-06-21","VRDMRT33T44L553B"),(3,"Martedi","10:30:00","2025-06-16","2025-06-24","DLCSMN11D23S442A"),
+		(4,"Giovedi","09:00:00","2025-06-16","2025-06-26","FRRGIL33C45Z625T"),(4,"Venerdi","07:30:00","2025-06-16","2025-06-27","BLDLUC44R56D738K"),(4,"Lunedi","12:00:00","2025-06-16","2025-06-23","GRDMRC11H23W427E"),
+		(5,"Mercoledi","10:30:00","2025-06-16","2025-06-25","RCCCRL22I34A521T"),(5,"Domenica","16:30:00:00","2025-06-16","2025-06-22","ASLLSD23R12S345D"),(5,"Mercoledi","19:30:00","2025-06-16","2025-06-25","TRADNL09E99D234R"),
+		(6,"Venerdi","07:30:00","2025-06-16","2025-06-27","FGNEAD22B21X512F"),(6,"Martedi","13:30:00","2025-06-16","2025-06-24","RSSGNN12C34A525Q"),(6,"Sabato","18:00:00","2025-06-16","2025-06-21","VRDLUC11T22J322B"),
+		(7,"Domenica","10:30:00","2025-06-16","2025-06-22","RSSALS11N22G380W"),(7,"Giovedi","09:00:00","2025-06-16","2025-06-26","VRDMRT33T44L553B"),(7,"Martedi","07:30:00","2025-06-16","2025-06-24","DLCSMN11D23S442A"),
+		(8,"Martedi","12:00:00","2025-06-16","2025-06-24","FRRGIL33C45Z625T"),(8,"Sabato","16:30:00","2025-06-16","2025-06-21","BLDLUC44R56D738K"),(8,"Venerdi","10:30:00","2025-06-16","2025-06-27","GRDMRC11H23W427E"),
+		(9,"Giovedi","19:30:00","2025-06-16","2025-06-26","RCCCRL22I34A521T"),(9,"Lunedi","12:00:00","2025-06-16","2025-06-23","ASLLSD23R12S345D"),(9,"Lunedi","10:30:00","2025-06-16","2025-06-23","TRADNL09E99D234R"),
+		(10,"Sabato","15:00:00","2025-06-16","2025-06-21","FGNEAD22B21X512F"),(10,"Mercoledi","09:00:00","2025-06-16","2025-06-25","RSSGNN12C34A525Q"),(10,"Giovedi","13:30:00","2025-06-16","2025-06-26","VRDLUC11T22J322B"),
+		(11,"Lunedi","19:30:00","2025-06-16","2025-06-23","RSSALS11N22G380W"),(11,"Venerdi","07:30:00","2025-06-16","2025-06-27","VRDMRT33T44L553B"),(11,"Domenica","18:00:00","2025-06-16","2025-06-22","DLCSMN11D23S442A");
        
 -- Inserimento nella tabella lezione_privata --
 insert into lezione_privata(NumeroCampo,Giorno,OrarioInizio,DataSvolgimento,SportPraticato,Prezzo,Allenatore,Partecipante1,Partecipante2,Partecipante3)
-values (1,"Lunedi","16:30:00","2025-02-03","Calcetto",30.95,"OWARMO25K12R899S","ASLLSD23R12S345D",null,"FGNEAD22B21X512F");
+values  (1,"Lunedi","16:30:00","2025-06-23","Calcetto",30.95,"OWARMO25K12R899S","ASLLSD23R12S345D",null,"FGNEAD22B21X512F"),
+		(8,"Mercoledi","18:00:00","2025-06-25","Tennis",30.95,"BNCMRA98F76Z521H","RSSGNN12C34A525Q",null,null),
+        (3,"Venerdi","15:00:00","2025-06-27","Padel",30.95,"GLLFNC23P45O672V","VRDMRT33T44L553B","DLCSMN11D23S442A",null),
+        (4,"Venerdi","15:00:00","2025-06-27","Padel",30.95,"NRIELN67N89C025D","BLDLUC44R56D738K","RCCCRL22I34A521T","ASLLSD23R12S345D"),
+        (6,"Giovedi","18:00:00","2025-06-26","Calcetto",30.95,"OWARMO25K12R899S","TRADNL09E99D234R","FGNEAD22B21X512F","GRDMRC11H23W427E"),
+        (5,"Giovedi","16:30:00","2025-06-26","Calcetto",30.95,"OWARMO25K12R899S","RSSALS11N22G380W",null,null),
+        (6,"Martedi","18:00:00","2025-06-24","Calcetto",30.95,"OWARMO25K12R899S","ASLLSD23R12S345D","TRADNL09E99D234R",null),
+        (11,"Lunedi","16:30:00","2025-06-23","Tennis",30.95,"BNCMRA98F76Z521H","BLDLUC44R56D738K","RCCCRL22I34A521T",null),
+        (2,"Martedi","16:30:00","2025-06-24","Tennis",30.95,"BNCMRA98F76Z521H","RSSALS11N22G380W","TRADNL09E99D234R","VRDMRT33T44L553B"),
+        (9,"Giovedi","16:30:00","2025-06-26","Padel",30.95,"GLLFNC23P45O672V","ASLLSD23R12S345D",null,null);
 
 -- Inserimento nella tabella corso --
 insert	into corso(DataInizio,DataFine,SportPraticato,Prezzo,CodiceCorso,Allenatore)
-values  ("2024-05-06","2025-06-05","Calcetto",200.25,1,"OWARMO25K12R899S"),
-	    ("2024-05-06","2025-06-05","Calcetto",321.2,2,"OWARMO25K12R899S"),
-        ("2024-05-06","2024-06-05","Calcetto",321.2,3,"OWARMO25K12R899S"),
-		('2025-06-15', '2025-07-15', 'Calcetto', 100.50, 'RSSGNN12C34A525Q'),
-		('2025-06-20', '2025-07-20', 'Padel', 120.75, 'BNCMRA98F76Z521H');
+values  ("2024-10-06","2025-06-01","Calcetto",100.50,1,"OWARMO25K12R899S"),
+        ("2025-05-29","2025-06-29","Calcetto",110.0,2,"OWARMO25K12R899S"),
+		('2025-06-13', '2025-07-13', 'Tennis', 100.50,3, 'NRIELN67N89C025D '),
+		('2025-06-17', '2025-07-17', 'Padel', 120.75,4, 'GLLFNC23P45O672V '),
+        ("2024-09-15","2025-05-30","Tennis",123.50,5,"BNCMRA98F76Z521H");
 
 -- Inserimento nella tabella lezione_corso --
 insert into lezione_corso(NumeroCampo,Giorno,OrarioInizio,DataSvolgimento,SportPraticato,CodiceCorso)
-values (5,"Lunedi","12:00:00","2025-02-03","Calcetto",1);
+values  (5,"Lunedi","15:00:00","2024-10-07","Calcetto",1),(5,"Lunedi","18:00:00","2024-10-14","Calcetto",1),(5,"Lunedi","16:30:00","2024-10-21","Calcetto",1),(5,"Lunedi","15:00:00","2024-10-28","Calcetto",1),
+		(5,"Lunedi","15:00:00","2024-11-4","Calcetto",1),(5,"Lunedi","18:00:00","2024-11-11","Calcetto",1),(5,"Lunedi","16:30:00","2024-11-18","Calcetto",1),(5,"Lunedi","15:00:00","2024-11-25","Calcetto",1),
+        (5,"Lunedi","15:00:00","2024-12-02","Calcetto",1),(5,"Lunedi","18:00:00","2024-12-09","Calcetto",1),(5,"Lunedi","16:30:00","2024-12-16","Calcetto",1),
+        (5,"Lunedi","15:00:00","2025-01-13","Calcetto",1),(5,"Lunedi","18:00:00","2025-01-20","Calcetto",1),(5,"Lunedi","16:30:00","2025-01-27","Calcetto",1),
+        (5,"Lunedi","15:00:00","2025-02-03","Calcetto",1),(5,"Lunedi","18:00:00","2025-02-10","Calcetto",1),(5,"Lunedi","16:30:00","2025-02-17","Calcetto",1),(5,"Lunedi","15:00:00","2025-02-24","Calcetto",1),
+        (5,"Lunedi","15:00:00","2025-03-03","Calcetto",1),(5,"Lunedi","18:00:00","2025-03-10","Calcetto",1),(5,"Lunedi","16:30:00","2025-03-17","Calcetto",1),(5,"Lunedi","15:00:00","2025-03-24","Calcetto",1),
+        (5,"Lunedi","15:00:00","2025-03-31","Calcetto",1),(5,"Lunedi","18:00:00","2025-04-07","Calcetto",1),(5,"Lunedi","16:30:00","2025-04-14","Calcetto",1),(5,"Lunedi","15:00:00","2025-04-21","Calcetto",1),
+        (5,"Lunedi","15:00:00","2025-04-28","Calcetto",1),(5,"Lunedi","18:00:00","2025-05-05","Calcetto",1),(5,"Lunedi","16:30:00","2025-05-12","Calcetto",1),(5,"Lunedi","15:00:00","2025-05-19","Calcetto",1),(5,"Lunedi","15:00:00","2025-05-26","Calcetto",1),
+        (2,"Mercoledi","15:00:00","2024-10-07","Tennis",5),(2,"Mercoledi","18:00:00","2024-10-14","Tennis",5),(2,"Mercoledi","16:30:00","2024-10-21","Tennis",5),(2,"Mercoledi","15:00:00","2024-10-28","Tennis",5),
+		(2,"Mercoledi","15:00:00","2024-11-04","Tennis",5),(2,"Mercoledi","18:00:00","2024-11-11","Tennis",5),(2,"Mercoledi","16:30:00","2024-11-18","Tennis",5),(2,"Mercoledi","15:00:00","2024-11-25","Tennis",5),
+        (2,"Mercoledi","15:00:00","2024-12-02","Tennis",5),(2,"Mercoledi","18:00:00","2024-12-09","Tennis",5),(2,"Mercoledi","16:30:00","2024-12-16","Tennis",5),
+        (2,"Mercoledi","15:00:00","2025-01-13","Tennis",5),(2,"Mercoledi","18:00:00","2025-01-20","Tennis",5),(2,"Mercoledi","16:30:00","2025-01-27","Tennis",5),
+        (2,"Mercoledi","15:00:00","2025-02-03","Tennis",5),(2,"Mercoledi","18:00:00","2025-02-10","Tennis",5),(2,"Mercoledi","16:30:00","2025-02-17","Tennis",5),(2,"Mercoledi","15:00:00","2025-02-24","Tennis",5),
+        (2,"Mercoledi","15:00:00","2025-03-03","Tennis",5),(2,"Mercoledi","18:00:00","2025-03-10","Tennis",5),(2,"Mercoledi","16:30:00","2025-03-17","Tennis",5),(2,"Mercoledi","15:00:00","2025-03-24","Tennis",5),
+        (2,"Mercoledi","15:00:00","2025-03-31","Tennis",5),(2,"Mercoledi","18:00:00","2025-04-07","Tennis",5),(2,"Mercoledi","16:30:00","2025-04-14","Tennis",5),(2,"Mercoledi","15:00:00","2025-04-21","Tennis",5),
+        (2,"Mercoledi","15:00:00","2025-04-28","Tennis",5),(2,"Mercoledi","18:00:00","2025-05-05","Tennis",5),(2,"Mercoledi","16:30:00","2025-05-12","Tennis",5),(2,"Mercoledi","15:00:00","2025-05-19","Tennis",5),(2,"Mercoledi","15:00:00","2025-05-26","Tennis",5),
+        (1,"Giovedi","18:00:00","2025-05-29","Calcetto",2),(1,"Giovedi","18:00:00","2025-06-05","Calcetto",2),(1,"Giovedi","18:00:00","2025-06-12","Calcetto",2),(1,"Giovedi","18:00:00","2025-06-19","Calcetto",2),(1,"Giovedi","18:00:00","2025-06-26","Calcetto",2),
+        (11,"Venerdi","16:30:00","2025-06-13","Tennis",3),(11,"Venerdi","16:30:00","2025-06-20","Tennis",3),(11,"Venerdi","16:30:00","2025-06-27","Tennis",3),(11,"Venerdi","16:30:00","2025-07-04","Tennis",3),(11,"Venerdi","16:30:00","2025-07-11","Tennis",3),
+        (4,"Martedi","18:00:00","2025-06-17","Padel",4),(4,"Martedi","18:00:00","2025-06-24","Padel",4),(4,"Martedi","18:00:00","2025-07-01","Padel",4),(4,"Martedi","18:00:00","2025-07-08","Padel",4);
 
 -- Inserimento nella tabella torneo --
 insert into torneo(DataSvolgimento,Nome,Premio,MassimoPartecipanti,QuotaIscrizione,CodiceTorneo,Tipo,SquadraVincitrice)
-values  ("2025-10-05","Giganti","un elefante",2,1.0,1,"Tennis_singolo",null),
-		('2025-08-10', 'Toreno estivo 2025', 'Trofeo d\'Oro', 16, 50.00, 'Calcetto'),
-		('2025-09-05', 'Campionato di padel 2025', 'Premio Speciale', 8, 70.00, 'Padel');
+values  ("2024-10-05","Giganti","buono amazon",8,25.0,1,"Tennis_singolo",null),
+		('2025-08-10', 'Torneo estivo 2025', 'Trofeo d\'Oro', 16, 50.00,2, 'Calcetto',null),
+		('2025-09-05', 'Campionato di padel 2025', 'Premio Speciale', 8, 70.00, 3,'Padel',null),
+        ("2025-07-06","Campionato di tennis doppio 2025","Premio Speciale",3,50.0,4,"Tennis_doppio",null),
+        ("2025-10-05","Giganti","buono amazon",8,25.0,5,"Tennis_singolo",null);
 
 -- Inserimento nella tabella squadra --
 insert into squadra(Nome,CodiceSquadra,Tipo,Componenti1,Componenti2,Componenti3,Componenti4,Componenti5) 
-values ("I belli",1,"Tennis_singolo","ASLLSD23R12S345D",null,null,null,null),
-	   ("I brutti",2,"Tennis_singolo", "TRADNL09E99D234R",null,null,null,null),
-       ("I mezzi",3,"Tennis_singolo", "FGNEAD22B21X512F",null,null,null,null);
+values  ("I belli",1,"Tennis_singolo","ASLLSD23R12S345D",null,null,null,null), ("I brutti",2,"Tennis_singolo", "TRADNL09E99D234R",null,null,null,null), ("I mezzi",3,"Tennis_singolo", "FGNEAD22B21X512F",null,null,null,null),
+		("CalcettoStars",4, "Calcetto", "RSSGNN12C34A525Q", "VRDLUC11T22J322B", "FRRGIL33C45Z625T", "BLDLUC44R56D738K", "LMBSRN55M67X851S"), ("I Fenomeni",5, "Calcetto", "VRDMRT33T44L553B", "DLCSMN11D23S442A", "RSSALS11N22G380W", "GRDMRC11H23W427E", "RCCCRL22I34A521T"),
+        ("PadelTeamA",6, "Padel", "ASLLSD23R12S345D", "TRADNL09E99D234R", null, null, null),("PadelTeamB",8, "Padel", "FGNEAD22B21X512F", "RSSGNN12C34A525Q", null, null, null),("PadelTeamC",10, "Padel", "VRDLUC11T22J322B", "RSSALS11N22G380W", null, null, null),("PadelTeamD",12, "Padel", "VRDMRT33T44L553B", "DLCSMN11D23S442A", null, null, null),
+        ("DoppioAce",7, "Tennis_doppio", "BLDLUC44R56D738K", "LMBSRN55M67X851S", null, null, null),("SuperTennis",9, "Tennis_doppio", "GRDMRC11H23W427E", "RCCCRL22I34A521T", null, null, null),("TriploAce",11, "Tennis_doppio", "FRRGIL33C45Z625T", "TRADNL09E99D234R", null, null, null),("MegaTennis",13, "Tennis_doppio", "VRDLUC11T22J322B", "ASLLSD23R12S345D", null, null, null);
+;
        
 -- Inserimento nella tabella iscrizione --
 insert into iscrizione(CodiceTorneo,CodiceSquadra)
-values (1,1);
+values  (1,1),(1,2),(1,3),
+		(2,4),(2,5),
+        (3,8),(3,10),(3,12),
+        (4,7),(4,9),(4,11),(4,13),
+        (5,1),(5,2),(5,3);
 
 -- Inserimento nella tabella partecipa --
 insert into partecipa(CF,CodiceCorso)
-values ("ASLLSD23R12S345D",1),("TRADNL09E99D234R",1),
-	   ("ASLLSD23R12S345D",2);
+values  ("ASLLSD23R12S345D",1),("TRADNL09E99D234R",1),("FGNEAD22B21X512F",1),("RSSGNN12C34A525Q",1),("VRDLUC11T22J322B",1),("RSSALS11N22G380W",1),("VRDMRT33T44L553B",1),
+	    ("ASLLSD23R12S345D",2),("TRADNL09E99D234R",2),("FGNEAD22B21X512F",2),("RSSGNN12C34A525Q",2),("VRDLUC11T22J322B",2),("RSSALS11N22G380W",2),("VRDMRT33T44L553B",2),("DLCSMN11D23S442A",2),("FRRGIL33C45Z625T",2),
+		("BLDLUC44R56D738K",3),("GRDMRC11H23W427E",3),("RCCCRL22I34A521T",3),("LMBSRN55M67X851S",3),("TRADNL09E99D234R",3),("FGNEAD22B21X512F",3),
+        ("RSSGNN12C34A525Q",4),("VRDLUC11T22J322B",4),("RSSALS11N22G380W",4),("VRDMRT33T44L553B",4),("DLCSMN11D23S442A",4),("FRRGIL33C45Z625T",4),("BLDLUC44R56D738K",4),
+        ("ASLLSD23R12S345D",5),("GRDMRC11H23W427E",5),("RCCCRL22I34A521T",5),("LMBSRN55M67X851S",5),("FGNEAD22B21X512F",5);
        
 -- Inserimento nella tabella partita --
 insert into partita(CodicePartita,CodiceTorneo,Arbitro,SquadraVincitrice)
-values (1,1,"OWARMO25K12R899S",2),(2,1,"OWARMO25K12R899S",null);
+values (1,1,"OWARMO25K12R899S",2),(2,1,"OWARMO25K12R899S",2),(3,1,"RSSALS11N22G380W",3),(4,1,"VRDLUC11T22J322B",3);
 
 -- Inserimento nella tabella gioca --
 insert into gioca(CodiceSquadra,CodicePartita,punteggio)
-values (1,1,2),(2,1,3),
-	   (1,2,3),(2,2,3);
+values 	(1,1,2),(2,1,3), (2,2,3),(3,2,2), (1,3,1),(3,3,3), (3,4,3),(2,4,2),
+		();

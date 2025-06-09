@@ -1,5 +1,7 @@
 plugins {
+    java
     application
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -23,5 +25,5 @@ tasks.compileJava {
 }
 
 application {
-    mainClass = "db_lab.App"
+    mainClass = "db_ass.App"
 }

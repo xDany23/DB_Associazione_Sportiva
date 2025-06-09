@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import db_ass.data.Partita;
 import db_ass.data.RisultatiTorneo;
 import db_ass.data.Squadra;
 import db_ass.data.TipoSquadra;

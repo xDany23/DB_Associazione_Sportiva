@@ -540,13 +540,7 @@ values  (5,"Lunedi","15:00:00","2024-10-07","Calcetto",1),(5,"Lunedi","18:00:00"
         (11,"Venerdi","16:30:00","2025-06-13","Tennis",3),(11,"Venerdi","16:30:00","2025-06-20","Tennis",3),(11,"Venerdi","16:30:00","2025-06-27","Tennis",3),(11,"Venerdi","16:30:00","2025-07-04","Tennis",3),(11,"Venerdi","16:30:00","2025-07-11","Tennis",3),
         (4,"Martedi","18:00:00","2025-06-17","Padel",4),(4,"Martedi","18:00:00","2025-06-24","Padel",4),(4,"Martedi","18:00:00","2025-07-01","Padel",4),(4,"Martedi","18:00:00","2025-07-08","Padel",4);
 
--- Inserimento nella tabella torneo --
-insert into torneo(DataSvolgimento,Nome,Premio,MassimoPartecipanti,QuotaIscrizione,CodiceTorneo,Tipo,SquadraVincitrice)
-values  ("2024-10-05","Giganti","buono amazon",8,25.0,1,"Tennis_singolo",null),
-		('2025-08-10', 'Torneo estivo 2025', 'Trofeo d\'Oro', 16, 50.00,2, 'Calcetto',null),
-		('2025-09-05', 'Campionato di padel 2025', 'Premio Speciale', 8, 70.00, 3,'Padel',null),
-        ("2025-07-06","Campionato di tennis doppio 2025","Premio Speciale",3,50.0,4,"Tennis_doppio",null),
-        ("2025-10-05","Giganti","buono amazon",8,25.0,5,"Tennis_singolo",null);
+
 
 -- Inserimento nella tabella squadra --
 insert into squadra(Nome,CodiceSquadra,Tipo,Componenti1,Componenti2,Componenti3,Componenti4,Componenti5) 
@@ -554,7 +548,16 @@ values  ("I belli",1,"Tennis_singolo","ASLLSD23R12S345D",null,null,null,null), (
 		("CalcettoStars",4, "Calcetto", "RSSGNN12C34A525Q", "VRDLUC11T22J322B", "FRRGIL33C45Z625T", "BLDLUC44R56D738K", "LMBSRN55M67X851S"), ("I Fenomeni",5, "Calcetto", "VRDMRT33T44L553B", "DLCSMN11D23S442A", "RSSALS11N22G380W", "GRDMRC11H23W427E", "RCCCRL22I34A521T"),
         ("PadelTeamA",6, "Padel", "ASLLSD23R12S345D", "TRADNL09E99D234R", null, null, null),("PadelTeamB",8, "Padel", "FGNEAD22B21X512F", "RSSGNN12C34A525Q", null, null, null),("PadelTeamC",10, "Padel", "VRDLUC11T22J322B", "RSSALS11N22G380W", null, null, null),("PadelTeamD",12, "Padel", "VRDMRT33T44L553B", "DLCSMN11D23S442A", null, null, null),
         ("DoppioAce",7, "Tennis_doppio", "BLDLUC44R56D738K", "LMBSRN55M67X851S", null, null, null),("SuperTennis",9, "Tennis_doppio", "GRDMRC11H23W427E", "RCCCRL22I34A521T", null, null, null),("TriploAce",11, "Tennis_doppio", "FRRGIL33C45Z625T", "TRADNL09E99D234R", null, null, null),("MegaTennis",13, "Tennis_doppio", "VRDLUC11T22J322B", "ASLLSD23R12S345D", null, null, null);
-;
+        
+        
+-- Inserimento nella tabella torneo --
+insert into torneo(DataSvolgimento,Nome,Premio,MassimoPartecipanti,QuotaIscrizione,CodiceTorneo,Tipo,SquadraVincitrice)
+values  ("2024-10-05","Giganti","buono amazon",8,25.0,1,"Tennis_singolo",3),
+		('2025-08-10', 'Torneo estivo 2025', 'Trofeo d\'Oro', 16, 50.00,2, 'Calcetto',null),
+		('2025-09-05', 'Campionato di padel 2025', 'Premio Speciale', 8, 70.00, 3,'Padel',null),
+        ("2025-07-06","Campionato di tennis doppio 2025","Premio Speciale",3,50.0,4,"Tennis_doppio",null),
+        ("2025-10-05","Giganti","buono amazon",8,25.0,5,"Tennis_singolo",null);
+       
        
 -- Inserimento nella tabella iscrizione --
 insert into iscrizione(CodiceTorneo,CodiceSquadra)
@@ -578,5 +581,4 @@ values (1,1,"OWARMO25K12R899S",2),(2,1,"OWARMO25K12R899S",2),(3,1,"RSSALS11N22G3
 
 -- Inserimento nella tabella gioca --
 insert into gioca(CodiceSquadra,CodicePartita,punteggio)
-values 	(1,1,2),(2,1,3), (2,2,3),(3,2,2), (1,3,1),(3,3,3), (3,4,3),(2,4,2),
-		();
+values 	(1,1,2),(2,1,3), (2,2,3),(3,2,2), (1,3,1),(3,3,3), (3,4,3),(2,4,2);
